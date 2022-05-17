@@ -59,6 +59,22 @@ input_fields = [
         },
     ),
     (
+        "t2_input",
+        str,
+        {
+            "help_string": "input T2 image",
+            "argstr": "-T2 {t2_input}",
+        },
+    ),
+    (
+        "flair_input",
+        str,
+        {
+            "help_string": "input FLAIR image",
+            "argstr": "-FLAIR {flair_input}",
+        },
+    ),
+    (
         "directive",
         str,
         {
