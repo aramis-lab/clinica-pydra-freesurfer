@@ -75,6 +75,14 @@ input_fields = [
         },
     ),
     (
+        "custom_mask_input",
+        str,
+        {
+            "help_string": "input custom brain mask",
+            "argstr": "-xmask {custom_mask_input}",
+        },
+    ),
+    (
         "directive",
         str,
         {
