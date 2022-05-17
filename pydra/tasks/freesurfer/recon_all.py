@@ -51,11 +51,11 @@ input_fields = [
         },
     ),
     (
-        "input_file",
+        "t1_input",
         str,
         {
-            "help_string": "input NIfTI or DICOM file",
-            "argstr": "-i {input_file}",
+            "help_string": "input T1 image",
+            "argstr": "-i {t1_input}",
         },
     ),
     (
@@ -86,7 +86,7 @@ class ReconAll(ShellCommandTask):
 
     Examples
     --------
-    >>> task = ReconAll(directive="all", subject="tpNid", input_file="path_to_tpN_dcm")
+    >>> task = ReconAll(directive="all", subject="tpNid", t1_input="path_to_tpN_dcm")
     >>> task.cmdline
     'recon-all -s tpNid -i path_to_tpN_dcm -all'
     >>> task = ReconAll(directive="all", base_subject="templateid", timepoints=["tp1id", "tp2id"])
