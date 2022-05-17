@@ -1,5 +1,7 @@
 from typing import List, Tuple
-from pydra.engine.specs import ShellSpec, SpecInfo, ShellOutSpec
+
+from pydra.engine.specs import ShellOutSpec, ShellSpec, SpecInfo
+
 from pydra import ShellCommandTask
 
 __all__ = ("ReconAll",)
@@ -38,7 +40,7 @@ input_fields = [
             "help_string": "longitudinal template identifier",
             "argstr": None,
             "requires": ["longitudinal_timepoint_id"],
-        }
+        },
     ),
     (
         "timepoints",
@@ -68,9 +70,7 @@ input_fields = [
     ),
 ]
 
-recon_all_input_spec = SpecInfo(
-    name="Input", fields=input_fields, bases=(ShellSpec,)
-)
+recon_all_input_spec = SpecInfo(name="Input", fields=input_fields, bases=(ShellSpec,))
 
 output_fields = []
 
