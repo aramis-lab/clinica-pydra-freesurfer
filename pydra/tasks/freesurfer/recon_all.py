@@ -9,11 +9,11 @@ __all__ = ("ReconAll",)
 
 input_fields = [
     (
-        "subject",
+        "subject_id",
         str,
         {
             "help_string": "subject identifier",
-            "argstr": "-s {subject}",
+            "argstr": "-s {subject_id}",
         },
     ),
     (
@@ -138,7 +138,7 @@ class ReconAll(ShellCommandTask):
 
     Examples
     --------
-    >>> task = ReconAll(directive="all", subject="tpNid", t1_volume="path_to_tpN_dcm")
+    >>> task = ReconAll(directive="all", subject_id="tpNid", t1_volume="path_to_tpN_dcm")
     >>> task.cmdline
     'recon-all -s tpNid -i path_to_tpN_dcm -all'
     >>> task = ReconAll(
