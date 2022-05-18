@@ -42,3 +42,7 @@ install-docs:
 .PHONY: docs
 docs: install-docs clean-docs
 	@$(POETRY) run make -C docs html
+
+.PHONY: test
+test: install
+	@$(POETRY) run python -m pytest

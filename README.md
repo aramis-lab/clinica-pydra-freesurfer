@@ -14,19 +14,25 @@ processing workflows.
 
 Setup for development requires [Poetry](https://python-poetry.org/).
 
-To install the project and its dependencies:
+Install the project and its dependencies with:
 
 ```console
 make install
 ```
 
-To build the project's documentation:
+Run the tests with:
+
+```console
+make test
+```
+
+Build the project's documentation with:
 
 ```console
 make docs
 ```
 
-To format the code before review:
+Format the code before review with:
 
 ```console
 make format
