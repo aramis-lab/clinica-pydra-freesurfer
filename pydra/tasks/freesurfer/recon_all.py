@@ -90,7 +90,7 @@ input_fields = [
         {
             "help_string": "base time-point identifier",
             "argstr": "-tp {base_timepoint_id}",
-            "xor": ["timepoints"],
+            "xor": ["base_timepoint_ids"],
         }
     ),
     (
@@ -99,6 +99,7 @@ input_fields = [
         {
             "help_string": "base time-point identifiers",
             "argstr": "-tp...",
+            "xor": ["base_timepoint_id"],
         },
     ),
     (
