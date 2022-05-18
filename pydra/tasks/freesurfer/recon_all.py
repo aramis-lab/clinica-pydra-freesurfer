@@ -51,6 +51,14 @@ input_fields = [
         },
     ),
     (
+        "subject_dir",
+        str,
+        {
+            "help_string": "subject directory",
+            "argstr": "-sd {subject_dir}",
+        },
+    ),
+    (
         "t1_input",
         str,
         {
