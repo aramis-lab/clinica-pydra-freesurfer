@@ -59,26 +59,26 @@ input_fields = [
         },
     ),
     (
-        "t1_input",
+        "t1_volume",
         str,
         {
-            "help_string": "input T1 image",
+            "help_string": "input T1 volume",
             "argstr": "-i {t1_input}",
         },
     ),
     (
-        "t2_input",
+        "t2_volume",
         str,
         {
-            "help_string": "input T2 image",
+            "help_string": "input T2 volume",
             "argstr": "-t2 {t2_input}",
         },
     ),
     (
-        "flair_input",
+        "flair_volume",
         str,
         {
-            "help_string": "input FLAIR image",
+            "help_string": "input FLAIR volume",
             "argstr": "-flair {flair_input}",
         },
     ),
@@ -118,7 +118,7 @@ class ReconAll(ShellCommandTask):
 
     Examples
     --------
-    >>> task = ReconAll(directive="all", subject="tpNid", t1_input="path_to_tpN_dcm")
+    >>> task = ReconAll(directive="all", subject="tpNid", t1_volume="path_to_tpN_dcm")
     >>> task.cmdline
     'recon-all -s tpNid -i path_to_tpN_dcm -all'
     >>> task = ReconAll(directive="all", base_subject="templateid", timepoints=["tp1id", "tp2id"])
