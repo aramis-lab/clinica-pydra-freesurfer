@@ -2,7 +2,7 @@ from pydra.engine.specs import ShellOutSpec, ShellSpec, SpecInfo
 
 from pydra import ShellCommandTask
 
-__all__ = ("GTMSeg",)
+__all__ = ["GTMSeg"]
 
 gtmseg_input_fields = [
     (

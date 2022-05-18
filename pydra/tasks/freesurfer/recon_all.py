@@ -4,7 +4,7 @@ from pydra.engine.specs import ShellOutSpec, ShellSpec, SpecInfo
 
 from pydra import ShellCommandTask
 
-__all__ = ("ReconAll",)
+__all__ = ["ReconAll"]
 
 
 input_fields = [
