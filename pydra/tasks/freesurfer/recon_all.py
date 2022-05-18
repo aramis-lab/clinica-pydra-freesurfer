@@ -64,6 +64,16 @@ input_fields = [
         {
             "help_string": "input T1 volume",
             "argstr": "-i {t1_input}",
+            "xor": ["t1_volumes"],
+        },
+    ),
+    (
+        "t1_volumes",
+        List[str],
+        {
+            "help_string": "input T1 volumes",
+            "argstr": "-i...",
+            "xor": ["t1_volume"],
         },
     ),
     (
