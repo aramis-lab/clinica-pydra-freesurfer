@@ -91,7 +91,7 @@ input_fields = [
             "help_string": "base time-point identifier",
             "argstr": "-tp {base_timepoint_id}",
             "xor": ["base_timepoint_ids"],
-        }
+        },
     ),
     (
         "base_timepoint_ids",
