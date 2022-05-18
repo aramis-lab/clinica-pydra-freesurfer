@@ -10,6 +10,28 @@ distributed execution.
 This project exposes some of FreeSurfer's utilities as Pydra tasks to facilitate their incorporation into more advanced
 processing workflows.
 
+## Development
+
+Setup for development requires [Poetry](https://python-poetry.org/).
+
+To install the project and its dependencies:
+
+```console
+make install
+```
+
+To build the project's documentation:
+
+```console
+make docs
+```
+
+To format the code before review:
+
+```console
+make format
+```
+
 ## Licensing
 
 This project is released under the terms of the Apache License 2.0.
