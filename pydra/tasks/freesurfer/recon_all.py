@@ -111,6 +111,15 @@ input_fields = [
         },
     ),
     (
+        "hemisphere",
+        str,
+        {
+            "help_string": "restrict processing to this hemisphere",
+            "argstr": "-hemi {hemisphere}",
+            "allowed_values": ["lh", "rh"],
+        },
+    ),
+    (
         "directive",
         str,
         {
