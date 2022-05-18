@@ -141,7 +141,7 @@ recon_all_output_spec = SpecInfo(
 
 
 class ReconAll(ShellCommandTask):
-    """Task for FreeSurfer's recon-all pipeline.
+    """Task for FreeSurfer's recon-all.
 
     Fully automatic structural imaging stream for processing cross-sectional and longitudinal data.
 

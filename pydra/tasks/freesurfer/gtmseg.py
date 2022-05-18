@@ -96,7 +96,7 @@ gtmseg_output_spec = SpecInfo(
 
 
 class GTMSeg(ShellCommandTask):
-    """Task for FreeSurfer's gtmseg.
+    """Task for PETSurfer's gtmseg.
 
     Examples
     --------
