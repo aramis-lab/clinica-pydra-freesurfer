@@ -71,7 +71,7 @@ input_fields = [
         str,
         {
             "help_string": "input T2 image",
-            "argstr": "-T2 {t2_input}",
+            "argstr": "-t2 {t2_input}",
         },
     ),
     (
@@ -79,7 +79,7 @@ input_fields = [
         str,
         {
             "help_string": "input FLAIR image",
-            "argstr": "-FLAIR {flair_input}",
+            "argstr": "-flair {flair_input}",
         },
     ),
     (
