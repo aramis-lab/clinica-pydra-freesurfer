@@ -10,5 +10,9 @@ distributed execution.
 This project exposes some of FreeSurfer's utilities as Pydra tasks to facilitate their incorporation into more advanced
 processing workflows.
 
+## Licensing
+
+This project is released under the terms of the Apache License 2.0.
+
 [Pydra]: https://nipype.github.io/pydra/
 [Freesurfer]: https://surfer.nmr.mgh.harvard.edu/
