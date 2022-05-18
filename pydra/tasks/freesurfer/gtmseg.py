@@ -18,7 +18,7 @@ gtmseg_input_fields = [
         "output_volume",
         str,
         {
-            "help_string": "output volume relative to subject/mri directory",
+            "help_string": "output volume relative to subject's mri directory",
             "argstr": "--o {output_volume}",
         },
     ),
