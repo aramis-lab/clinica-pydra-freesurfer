@@ -25,24 +25,6 @@ input_fields = [
         },
     ),
     (
-        "longitudinal_timepoint_id",
-        str,
-        {
-            "help_string": "longitudinal timepoint identifier",
-            "argstr": "-long {longitudinal_timepoint_id} {longitudinal_template_id}",
-            "requires": ["longitudinal_template_id"],
-        },
-    ),
-    (
-        "longitudinal_template_id",
-        str,
-        {
-            "help_string": "longitudinal template identifier",
-            "argstr": None,
-            "requires": ["longitudinal_timepoint_id"],
-        },
-    ),
-    (
         "timepoints",
         List[str],
         {
@@ -90,6 +72,24 @@ input_fields = [
         {
             "help_string": "input FLAIR volume",
             "argstr": "-flair {flair_input}",
+        },
+    ),
+    (
+        "longitudinal_timepoint_id",
+        str,
+        {
+            "help_string": "longitudinal timepoint identifier",
+            "argstr": "-long {longitudinal_timepoint_id} {longitudinal_template_id}",
+            "requires": ["longitudinal_template_id"],
+        },
+    ),
+    (
+        "longitudinal_template_id",
+        str,
+        {
+            "help_string": "longitudinal template identifier",
+            "argstr": None,
+            "requires": ["longitudinal_timepoint_id"],
         },
     ),
     (
