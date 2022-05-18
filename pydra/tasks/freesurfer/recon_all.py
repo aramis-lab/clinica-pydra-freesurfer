@@ -77,18 +77,27 @@ input_fields = [
         },
     ),
     (
-        "base_subject",
+        "base_subject_id",
         str,
         {
             "help_string": "base subject template",
-            "argstr": "-base {base_subject}",
+            "argstr": "-base {base_subject_id}",
         },
     ),
     (
-        "timepoints",
+        "base_timepoint_id",
+        str,
+        {
+            "help_string": "base time-point identifier",
+            "argstr": "-tp {base_timepoint_id}",
+            "xor": ["timepoints"],
+        }
+    ),
+    (
+        "base_timepoint_ids",
         List[str],
         {
-            "help_string": "timepoints",
+            "help_string": "base time-point identifiers",
             "argstr": "-tp...",
         },
     ),
@@ -131,7 +140,11 @@ class ReconAll(ShellCommandTask):
     >>> task = ReconAll(directive="all", subject="tpNid", t1_volume="path_to_tpN_dcm")
     >>> task.cmdline
     'recon-all -s tpNid -i path_to_tpN_dcm -all'
-    >>> task = ReconAll(directive="all", base_subject="templateid", timepoints=["tp1id", "tp2id"])
+    >>> task = ReconAll(
+    ...     directive="all",
+    ...     base_subject_id="templateid",
+    ...     base_timepoint_ids=["tp1id", "tp2id"],
+    ... )
     >>> task.cmdline
     'recon-all -base templateid -tp tp1id -tp tp2id -all'
     >>> task = ReconAll(
