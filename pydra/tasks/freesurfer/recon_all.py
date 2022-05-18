@@ -17,22 +17,6 @@ input_fields = [
         },
     ),
     (
-        "base_subject",
-        str,
-        {
-            "help_string": "base subject template",
-            "argstr": "-base {base_subject}",
-        },
-    ),
-    (
-        "timepoints",
-        List[str],
-        {
-            "help_string": "timepoints",
-            "argstr": "-tp...",
-        },
-    ),
-    (
         "subject_dir",
         str,
         {
@@ -90,6 +74,22 @@ input_fields = [
             "help_string": "longitudinal template identifier",
             "argstr": None,
             "requires": ["longitudinal_timepoint_id"],
+        },
+    ),
+    (
+        "base_subject",
+        str,
+        {
+            "help_string": "base subject template",
+            "argstr": "-base {base_subject}",
+        },
+    ),
+    (
+        "timepoints",
+        List[str],
+        {
+            "help_string": "timepoints",
+            "argstr": "-tp...",
         },
     ),
     (
