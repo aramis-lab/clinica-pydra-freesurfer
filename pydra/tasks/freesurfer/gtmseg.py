@@ -78,7 +78,7 @@ gtmseg_input_fields = [
         "output_upsampling_factor",
         float,
         {
-            "help_string": "output upsampling factor (if different than upsampling factor)",
+            "help_string": "output upsampling factor (if different from upsampling factor)",
             "argstr": "--output-usf {output_upsampling_factor}",
         },
     ),
