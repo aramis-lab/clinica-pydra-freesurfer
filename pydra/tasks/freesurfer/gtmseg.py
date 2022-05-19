@@ -23,12 +23,22 @@ gtmseg_input_fields = [
         },
     ),
     (
+        "xcerseg",
+        bool,
+        {
+            "help_string": "generate headseg with xcerebralseg",
+            "argstr": "--xcerseg {xcerseg}",
+            "xor": ["headseg"],
+        },
+    ),
+    (
         "headseg",
         str,
         {
             "help_string": "custom headseg",
             "argstr": "--head {headseg}",
-        }
+            "xor": ["xcerseg"],
+        },
     ),
     (
         "colortable",
