@@ -86,7 +86,7 @@ gtmseg_input_fields = [
         "keep_hypointensities",
         bool,
         {
-            "help_string": "do not relabel hypointensities as WM",
+            "help_string": "do not relabel hypointensities as white matter",
             "argstr": "--keep-hypo",
         },
     ),
@@ -94,15 +94,15 @@ gtmseg_input_fields = [
         "keep_corpus_callosum",
         bool,
         {
-            "help_string": "do not relabel corpus callosum as WM",
+            "help_string": "do not relabel corpus callosum as white matter",
             "argstr": "--keep-cc",
         },
     ),
     (
-        "subsegment_wm",
+        "subsegment_white_matter",
         bool,
         {
-            "help_string": "subsegment WM into lobes",
+            "help_string": "subsegment white matter into lobes",
             "argstr": "--subsegwm",
         },
     ),
@@ -134,7 +134,7 @@ class GTMSeg(ShellCommandTask):
     >>> task = GTMSeg(
     ...     subject="subject",
     ...     keep_hypointensities=True,
-    ...     subsegment_wm=True,
+    ...     subsegment_white_matter=True,
     ...     output_volume="gtmseg.wmseg.hypo.mgz",
     ...     upsampling_factor=1,
     ... )
