@@ -27,7 +27,7 @@ gtmseg_input_fields = [
         bool,
         {
             "help_string": "generate headseg with xcerebralseg",
-            "argstr": "--xcerseg {xcerseg}",
+            "argstr": "--xcerseg",
             "xor": ["headseg"],
         },
     ),
@@ -38,6 +38,24 @@ gtmseg_input_fields = [
             "help_string": "custom headseg",
             "argstr": "--head {headseg}",
             "xor": ["xcerseg"],
+        },
+    ),
+    (
+        "no_pons",
+        bool,
+        {
+            "help_string": "no pons segmentation with xcerebralseg",
+            "argstr": "--no-pons",
+            "requires": ["xcerseg"],
+        },
+    ),
+    (
+        "no_vermis",
+        bool,
+        {
+            "help_string": "no vermis segmentation with xcerebralseg",
+            "argstr": "--no-vermis",
+            "requires": ["xcerseg"],
         },
     ),
     (
