@@ -9,6 +9,9 @@ install:
 install-docs:
 	@$(POETRY) install --extras docs
 
+.PHONY: install-test
+install-test: install
+
 .PHONY: format
 format: format-black format-isort
 
@@ -40,9 +43,9 @@ clean-docs: docs/_build
 	@$(MAKE) -C docs clean
 
 .PHONY: docs
-docs: clean-docs
+docs: install-docs clean-docs
 	@$(POETRY) run make -C docs html
 
 .PHONY: test
-test:
+test: install-test
 	@$(POETRY) run python -m pytest
