@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List
 
 from pydra.engine.specs import ShellOutSpec, ShellSpec, SpecInfo
 
