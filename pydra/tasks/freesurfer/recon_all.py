@@ -47,7 +47,7 @@ input_fields = [
         str,
         {
             "help_string": "input T2 volume",
-            "argstr": "-t2 {t2_input}",
+            "argstr": "-t2 {t2_volume}",
         },
     ),
     (
