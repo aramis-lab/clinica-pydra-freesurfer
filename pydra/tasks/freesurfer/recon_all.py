@@ -55,7 +55,7 @@ input_fields = [
         str,
         {
             "help_string": "input FLAIR volume",
-            "argstr": "-flair {flair_input}",
+            "argstr": "-flair {flair_volume}",
         },
     ),
     (
