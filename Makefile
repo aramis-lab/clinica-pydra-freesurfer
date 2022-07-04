@@ -1,5 +1,10 @@
 POETRY ?= poetry
 PACKAGES = pydra
+CONDA ?= conda
+
+.PHONY: env
+env:
+	@$(CONDA) create -y -p ./.venv poetry
 
 .PHONY: install
 install:
