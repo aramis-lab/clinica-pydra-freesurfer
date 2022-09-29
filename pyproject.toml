@@ -2,21 +2,25 @@
 name = "pydra-freesurfer"
 version = "0.0.1"
 description = "Pydra tasks for FreeSurfer"
-authors = ["Ghislain Vaillant <ghislain.vaillant@icm-institute.org>"]
+authors = ["The Aramis Lab"]
 license = "Apache-2.0"
+readme = "README.md"
+packages = [{include = "pydra"}]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-Sphinx = {version = "^5.0.0", optional = true}
 pydra = "^0.18"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 black = "^22.3.0"
 isort = "^5.10.1"
 pytest = "^7.1.2"
 
-[tool.poetry.extras]
-docs = ["Sphinx"]
+[tool.poetry.group.docs]
+optional = true
+
+[tool.poetry.group.docs.dependencies]
+Sphinx = "^5.0.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
