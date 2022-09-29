@@ -1,21 +1,26 @@
 POETRY ?= poetry
 PACKAGES = pydra
-CONDA ?= conda
 
-.PHONY: env
-env:
-	@$(CONDA) create -y -p ./.venv poetry
+.PHONY: check
+check: check-black check-isort
 
-.PHONY: install
-install:
-	@$(POETRY) install
+.PHONY: check-black
+check-black:
+	$(info Checking code with black)
+	@$(POETRY) run black --check --diff $(PACKAGES)
 
-.PHONY: install-docs
-install-docs:
-	@$(POETRY) install --extras docs
+.PHONY: check-isort
+check-isort:
+	$(info Checking code with isort)
+	@$(POETRY) run isort --check --diff $(PACKAGES)
 
-.PHONY: install-test
-install-test: install
+.PHONY: clean-docs
+clean-docs:
+	@$(POETRY) run make -C docs clean
+
+.PHONY: docs
+docs: clean-docs
+	@$(POETRY) run make -C docs html
 
 .PHONY: format
 format: format-black format-isort
@@ -30,27 +35,14 @@ format-isort:
 	$(info Formatting code with isort)
 	@$(POETRY) run isort --quiet $(PACKAGES)
 
-.PHONY: lint
-lint: lint-black lint-isort
+.PHONY: install
+install:
+	@$(POETRY) install
 
-.PHONY: lint-black
-lint-black:
-	$(info Linting code with black)
-	@$(POETRY) run black --check --diff $(PACKAGES)
-
-.PHONY: lint-isort
-lint-isort:
-	$(info Linting code with isort)
-	@$(POETRY) run isort --check --diff $(PACKAGES)
-
-.PHONY: clean-docs
-clean-docs: docs/_build
-	@$(MAKE) -C docs clean
-
-.PHONY: docs
-docs: install-docs clean-docs
-	@$(POETRY) run make -C docs html
+.PHONY: install-docs
+install-docs:
+	@$(POETRY) install --extras docs
 
 .PHONY: test
-test: install-test
+test:
 	@$(POETRY) run python -m pytest
