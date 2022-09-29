@@ -24,12 +24,8 @@ jobs:
         with:
           python-version: ${{ env.DEFAULT_PYTHON_VERSION }}
           cache: poetry
-      - name: Install dependencies
-        run: make install
-      - name: Check with black
-        run: make check-black
-      - name: Check with isort
-        run: make check-isort
+      - name: Run checks
+        run: make check
 
   docs:
     runs-on: ubuntu-latest
@@ -40,8 +36,6 @@ jobs:
         with:
           python-version: ${{ env.DEFAULT_PYTHON_VERSION }}
           cache: poetry
-      - name: Install dependencies
-        run: make install-docs
       - name: Build documentation
         run: make docs
 
@@ -59,7 +53,5 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           cache: poetry
-      - name: Install dependencies
-        run: make install
       - name: Run tests
         run: make test
