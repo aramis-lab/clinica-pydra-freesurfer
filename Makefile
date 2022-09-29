@@ -41,7 +41,7 @@ install:
 
 .PHONY: install-docs
 install-docs:
-	@$(POETRY) install --extras docs
+	@$(POETRY) install --only docs
 
 .PHONY: test
 test:
