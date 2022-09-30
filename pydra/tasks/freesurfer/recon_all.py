@@ -1,4 +1,4 @@
-from typing import List
+import typing as ty
 
 from pydra.engine.specs import ShellOutSpec, ShellSpec, SpecInfo
 
@@ -63,7 +63,7 @@ class ReconAll(ShellCommandTask):
             ),
             (
                 "t1_volumes",
-                List[str],
+                ty.Iterable[str],
                 {
                     "help_string": "input T1 volumes",
                     "argstr": "-i...",
@@ -123,7 +123,7 @@ class ReconAll(ShellCommandTask):
             ),
             (
                 "base_timepoint_ids",
-                List[str],
+                ty.Iterable[str],
                 {
                     "help_string": "base time-point identifiers",
                     "argstr": "-tp...",
