@@ -292,7 +292,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "pydra"
-version = "0.18"
+version = "0.19"
 description = "Pydra dataflow engine"
 category = "main"
 optional = false
@@ -300,18 +300,18 @@ python-versions = ">=3.7"
 
 [package.dependencies]
 attrs = ">=19.1.0"
-cloudpickle = ">=1.2.2"
+cloudpickle = ">=2.0.0"
 etelemetry = ">=0.2.2"
 filelock = ">=3.0.0"
 
 [package.extras]
-all = ["attrs (>=19.1.0)", "black (==21.4b2)", "boutiques", "cloudpickle", "codecov", "filelock", "numpy", "packaging", "pre-commit", "psutil", "pyld", "pympler", "pytest (>=4.4.0,<6.0.0)", "pytest-cov", "pytest-env", "pytest-rerunfailures", "pytest-timeout", "pytest-xdist (<2.0)", "python-dateutil", "sphinx (>=2.1.2)", "sphinx-rtd-theme", "sphinxcontrib-apidoc (>=0.3.0,<0.4.0)", "sphinxcontrib-napoleon", "sphinxcontrib-versioning", "tornado"]
-dask = ["boutiques", "codecov", "dask", "distributed", "numpy", "psutil", "pyld", "pympler", "pytest (>=4.4.0,<6.0.0)", "pytest-cov", "pytest-env", "pytest-rerunfailures", "pytest-timeout", "pytest-xdist (<2.0)", "python-dateutil", "tornado"]
-dev = ["black (==21.4b2)", "boutiques", "codecov", "numpy", "pre-commit", "psutil", "pyld", "pympler", "pytest (>=4.4.0,<6.0.0)", "pytest-cov", "pytest-env", "pytest-rerunfailures", "pytest-timeout", "pytest-xdist (<2.0)", "python-dateutil", "tornado"]
+all = ["attrs (>=19.1.0)", "black (==21.4b2)", "boutiques", "cloudpickle", "codecov", "filelock", "numpy", "packaging", "pre-commit", "psutil", "pyld", "pympler", "pytest (>=6.2.5)", "pytest-cov", "pytest-env", "pytest-rerunfailures", "pytest-timeout", "pytest-xdist (<2.0)", "python-dateutil", "sphinx (>=2.1.2)", "sphinx-rtd-theme", "sphinxcontrib-apidoc (>=0.3.0,<0.4.0)", "sphinxcontrib-napoleon", "sphinxcontrib-versioning", "tornado"]
+dask = ["boutiques", "codecov", "dask", "distributed", "numpy", "psutil", "pyld", "pympler", "pytest (>=6.2.5)", "pytest-cov", "pytest-env", "pytest-rerunfailures", "pytest-timeout", "pytest-xdist (<2.0)", "python-dateutil", "tornado"]
+dev = ["black (==21.4b2)", "boutiques", "codecov", "numpy", "pre-commit", "psutil", "pyld", "pympler", "pytest (>=6.2.5)", "pytest-cov", "pytest-env", "pytest-rerunfailures", "pytest-timeout", "pytest-xdist (<2.0)", "python-dateutil", "tornado"]
 doc = ["attrs (>=19.1.0)", "cloudpickle", "filelock", "packaging", "sphinx (>=2.1.2)", "sphinx-rtd-theme", "sphinxcontrib-apidoc (>=0.3.0,<0.4.0)", "sphinxcontrib-napoleon", "sphinxcontrib-versioning"]
 docs = ["attrs (>=19.1.0)", "cloudpickle", "filelock", "packaging", "sphinx (>=2.1.2)", "sphinx-rtd-theme", "sphinxcontrib-apidoc (>=0.3.0,<0.4.0)", "sphinxcontrib-napoleon", "sphinxcontrib-versioning"]
-test = ["boutiques", "codecov", "numpy", "psutil", "pyld", "pympler", "pytest (>=4.4.0,<6.0.0)", "pytest-cov", "pytest-env", "pytest-rerunfailures", "pytest-timeout", "pytest-xdist (<2.0)", "python-dateutil", "tornado"]
-tests = ["boutiques", "codecov", "numpy", "psutil", "pyld", "pympler", "pytest (>=4.4.0,<6.0.0)", "pytest-cov", "pytest-env", "pytest-rerunfailures", "pytest-timeout", "pytest-xdist (<2.0)", "python-dateutil", "tornado"]
+test = ["boutiques", "codecov", "numpy", "psutil", "pyld", "pympler", "pytest (>=6.2.5)", "pytest-cov", "pytest-env", "pytest-rerunfailures", "pytest-timeout", "pytest-xdist (<2.0)", "python-dateutil", "tornado"]
+tests = ["boutiques", "codecov", "numpy", "psutil", "pyld", "pympler", "pytest (>=6.2.5)", "pytest-cov", "pytest-env", "pytest-rerunfailures", "pytest-timeout", "pytest-xdist (<2.0)", "python-dateutil", "tornado"]
 
 [[package]]
 name = "Pygments"
@@ -545,7 +545,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "3215cf5bb7a2bb0cf72bee9b285c980e98038c579613b0d574f129dc5876c238"
+content-hash = "3a8c523d0525501e9466dbfaebf25ac9be8be08f3932478e66937e1f3e0dc350"
 
 [metadata.files]
 alabaster = [
@@ -711,7 +711,7 @@ py = [
     {file = "py-1.11.0.tar.gz", hash = "sha256:51c75c4126074b472f746a24399ad32f6053d1b34b68d2fa41e558e6f4a98719"},
 ]
 pydra = [
-    {file = "pydra-0.18-py3-none-any.whl", hash = "sha256:79d914a5d79b1830ac90f029ea3f60e084596b510e906fc47d24ab4fdf04d0cb"},
+    {file = "pydra-0.19-py3-none-any.whl", hash = "sha256:f0660e863de313b69cc0961d8c0cc37c917c724d53f4ad16c465c2c524155a98"},
 ]
 Pygments = [
     {file = "Pygments-2.13.0-py3-none-any.whl", hash = "sha256:f643f331ab57ba3c9d89212ee4a2dabc6e94f117cf4eefde99a0574720d14c42"},
