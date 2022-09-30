@@ -1,9 +1,8 @@
 POETRY ?= poetry
 PACKAGES = pydra
 INSTALL_STAMP = .install.stamp
-INSTALL_DOCS_STAMP = .install-docs.stamp
 
-all:
+all: clean install check test
 
 .PHONY: check
 check: check-black check-isort
@@ -19,17 +18,19 @@ check-isort: $(INSTALL_STAMP)
 	@$(POETRY) run isort --check --diff $(PACKAGES)
 
 .PHONY: clean
-clean:
-	$(RM) -r dist
+clean: clean-dist
 	$(RM) $(INSTALL_STAMP)
+
+.PHONY: clean-dist
+clean-dist:
+	$(RM) -r dist
 
 .PHONY: clean-docs
 clean-docs:
 	@$(POETRY) run make -C docs clean
-	$(RM) $(INSTALL_DOCS_STAMP)
 
 .PHONY: docs
-docs: $(INSTALL_DOCS_STAMP)
+docs: $(INSTALL_STAMP) clean-docs
 	@$(POETRY) run make -C docs html
 
 .PHONY: format
@@ -50,12 +51,6 @@ install: $(INSTALL_STAMP)
 $(INSTALL_STAMP): poetry.lock pyproject.toml
 	@$(POETRY) install
 	@touch $(INSTALL_STAMP)
-
-.PHONY: install-docs
-install-docs: $(INSTALL_DOCS_STAMP)
-$(INSTALL_DOCS_STAMP): poetry.lock pyproject.toml
-	@$(POETRY) install --only docs
-	@touch $(INSTALL_DOCS_STAMP)
 
 .PHONY: test
 test: $(INSTALL_STAMP)
