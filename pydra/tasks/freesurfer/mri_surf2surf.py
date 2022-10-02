@@ -100,6 +100,14 @@ $SUBJECTS_DIR/subj2/label/lh.subj1.aparc.annot --hemi lh'
         name="MRISurf2SurfInput",
         fields=[
             (
+                "subjects_dir",
+                str,
+                {
+                    "help_string": "user defined SUBJECTS_DIR",
+                    "argstr": "--sd {subjects_dir}",
+                },
+            ),
+            (
                 "srcsubject",
                 str,
                 {

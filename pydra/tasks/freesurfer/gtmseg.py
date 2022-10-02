@@ -36,6 +36,14 @@ class GTMSeg(ShellCommandTask):
         name="GTMSegInput",
         fields=[
             (
+                "subjects_dir",
+                str,
+                {
+                    "help_string": "user defined SUBJECTS_DIR",
+                    "argstr": "--sd {subjects_dir}",
+                },
+            ),
+            (
                 "subject",
                 str,
                 {
