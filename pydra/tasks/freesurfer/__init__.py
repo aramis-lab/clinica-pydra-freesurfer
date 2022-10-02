@@ -9,10 +9,12 @@ from .gtmseg import GTMSeg
 from .mri_surf2surf import MRISurf2Surf
 from .mri_vol2vol import MRIVol2Vol
 from .recon_all import ReconAll
+from .tkregister2 import TkRegister2
 
 __all__ = [
     GTMSeg,
     MRISurf2Surf,
     MRIVol2Vol,
     ReconAll,
+    TkRegister2,
 ]
