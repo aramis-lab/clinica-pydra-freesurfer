@@ -10,6 +10,7 @@ from .mri_convert import MRIConvert
 from .mri_surf2surf import MRISurf2Surf
 from .mri_vol2vol import MRIVol2Vol
 from .mris_expand import MRISExpand
+from .mris_preproc import MRISPreproc
 from .recon_all import ReconAll
 from .tkregister2 import TkRegister2
 
@@ -19,6 +20,7 @@ __all__ = [
     MRISurf2Surf,
     MRIVol2Vol,
     MRISExpand,
+    MRISPreproc,
     ReconAll,
     TkRegister2,
 ]
