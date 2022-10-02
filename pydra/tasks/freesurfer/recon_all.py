@@ -37,19 +37,19 @@ class ReconAll(ShellCommandTask):
         name="ReconAllInput",
         fields=[
             (
+                "subjects_dir",
+                str,
+                {
+                    "help_string": "user defined SUBJECTS_DIR",
+                    "argstr": "-sd {subject_dir}",
+                },
+            ),
+            (
                 "subject_id",
                 str,
                 {
                     "help_string": "subject identifier",
                     "argstr": "-s {subject_id}",
-                },
-            ),
-            (
-                "subject_dir",
-                str,
-                {
-                    "help_string": "subject directory",
-                    "argstr": "-sd {subject_dir}",
                 },
             ),
             (
