@@ -26,6 +26,18 @@ class MRIVol2Vol(ShellCommandTask):
     ... )
     >>> task.cmdline
     'mri_vol2vol --mov func.nii.gz --o func-in-anat.mgh --reg register.dat --fstarg'
+
+    2. Resample anatomical data into functional space:
+
+    >>> task = MRIVol2Vol(
+    ...     regfile="register.dat",
+    ...     movvol="func.nii.gz",
+    ...     fstarg=True,
+    ...     outvol="anat-in-func.mgh",
+    ...     invert=True,
+    ... )
+    >>> task.cmdline
+    'mri_vol2vol --mov func.nii.gz --o anat-in-func.mgh --reg register.dat --fstarg --inv'
     """
 
     input_spec = SpecInfo(
@@ -63,6 +75,14 @@ class MRIVol2Vol(ShellCommandTask):
                     "help_string": "use vol from subject in --reg as target",
                     "argstr": "--fstarg",
                     "requires": ["regfile"],
+                },
+            ),
+            (
+                "invert",
+                bool,
+                {
+                    "help_string": "invert the transform",
+                    "argstr": "--inv",
                 },
             ),
         ],
