@@ -51,6 +51,18 @@ class MRIVol2Vol(ShellCommandTask):
     ... )
     >>> task.cmdline
     'mri_vol2vol --mov func.nii.gz --o func.new.vox2ras.nii.gz --reg register.dat --fstarg --no-resample'
+
+    4. Map a binary mask in functional space to anatomical space:
+
+    >>> task = MRIVol2Vol(
+    ...     regfile="register.dat",
+    ...     movvol="mask.nii.gz",
+    ...     fstarg=True,
+    ...     outvol="mask-in-anat.mgh",
+    ...     interp="nearest",
+    ... )
+    >>> task.cmdline
+    'mri_vol2vol --mov mask.nii.gz --o mask-in-anat.mgh --reg register.dat --fstarg --interp nearest'
     """
 
     input_spec = SpecInfo(
@@ -120,6 +132,17 @@ class MRIVol2Vol(ShellCommandTask):
                 {
                     "help_string": "do not resample, just change vox2ras matrix",
                     "argstr": "--no-resample",
+                },
+            ),
+            (
+                "interp",
+                str,
+                {
+                    "help_string": (
+                        "Interpolate the output based on the given method. Legal values are: "
+                        "cubic, trilin and nearest."
+                    ),
+                    "argstr": "--interp {interp}",
                 },
             ),
         ],
