@@ -38,6 +38,18 @@ class MRIVol2Vol(ShellCommandTask):
     ... )
     >>> task.cmdline
     'mri_vol2vol --mov func.nii.gz --o anat-in-func.mgh --reg register.dat --fstarg --inv'
+
+    3. Map functional to anatomical without resampling:
+
+    >>> task = MRIVol2Vol(
+    ...     regfile="register.dat",
+    ...     movvol="func.nii.gz",
+    ...     fstarg=True,
+    ...     outvol="func.new.vox2ras.nii.gz",
+    ...     no_resample=True,
+    ... )
+    >>> task.cmdline
+    'mri_vol2vol --mov func.nii.gz --o func.new.vox2ras.nii.gz --reg register.dat --fstarg --no-resample'
     """
 
     input_spec = SpecInfo(
@@ -83,6 +95,14 @@ class MRIVol2Vol(ShellCommandTask):
                 {
                     "help_string": "invert the transform",
                     "argstr": "--inv",
+                },
+            ),
+            (
+                "no_resample",
+                bool,
+                {
+                    "help_string": "do not resample, just change vox2ras matrix",
+                    "argstr": "--no-resample",
                 },
             ),
         ],
