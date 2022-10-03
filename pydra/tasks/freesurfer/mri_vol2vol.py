@@ -173,6 +173,7 @@ class MRIVol2Vol(ShellCommandTask):
                         "cubic, trilin and nearest."
                     ),
                     "argstr": "--interp {interp}",
+                    "allowed_values": {"cubic", "nearest", "trilin"},
                 },
             ),
         ],
