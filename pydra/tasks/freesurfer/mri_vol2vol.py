@@ -63,6 +63,18 @@ class MRIVol2Vol(ShellCommandTask):
     ... )
     >>> task.cmdline
     'mri_vol2vol --mov mask.nii.gz --o mask-in-anat.mgh --reg register.dat --fstarg --interp nearest'
+
+    5. Map functional data to talairach (MNI305) space with 2mm isotropic resolution:
+
+    >>> task = MRIVol2Vol(
+    ...     movvol="func.nii.gz",
+    ...     outvol="func-in-tal.2mm.mgh",
+    ...     regfile="register.dat",
+    ...     talairach=True,
+    ...     talairach_resolution=2,
+    ... )
+    >>> task.cmdline
+    'mri_vol2vol --mov func.nii.gz --o func-in-tal.2mm.mgh --reg register.dat --tal --talres 2'
     """
 
     input_spec = SpecInfo(
@@ -107,6 +119,23 @@ class MRIVol2Vol(ShellCommandTask):
                 {
                     "help_string": "MNI-style registration matrix",
                     "argstr": "--xfm {xfmfile}",
+                },
+            ),
+            (
+                "talairach",
+                bool,
+                {
+                    "help_string": "resample moving volume to talairach",
+                    "argstr": "--tal",
+                },
+            ),
+            (
+                "talairach_resolution",
+                int,
+                {
+                    "help_string": "resoluton of the talairach template",
+                    "argstr": "--talres {talairach_resolution}",
+                    "requires": ["talairach"],
                 },
             ),
             (
