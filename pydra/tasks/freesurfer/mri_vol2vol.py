@@ -1,3 +1,5 @@
+import typing as ty
+
 from pydra.engine.specs import ShellOutSpec, ShellSpec, SpecInfo
 
 from pydra import ShellCommandTask
@@ -13,11 +15,57 @@ class MRIVol2Vol(ShellCommandTask):
 
     Examples
     --------
+
+    1. Resample functional data into anatomical space:
+
+    >>> task = MRIVol2Vol(
+    ...     regfile="register.dat",
+    ...     movvol="func.nii.gz",
+    ...     fstarg=True,
+    ...     outvol="func-in-anat.mgh",
+    ... )
+    >>> task.cmdline
+    'mri_vol2vol --mov func.nii.gz --o func-in-anat.mgh --reg register.dat --fstarg'
     """
 
     input_spec = SpecInfo(
         name="MRIVol2VolInput",
-        fields=[],
+        fields=[
+            (
+                "movvol",
+                str,
+                {
+                    "help_string": "input volume (or output template with --inv)",
+                    "argstr": "--mov {movvol}",
+                },
+            ),
+            (
+                "outvol",
+                str,
+                {
+                    "help_string": "output volume",
+                    "argstr": "--o {outvol}",
+                    "output_file_template": "{outvol}",
+                },
+            ),
+            (
+                "regfile",
+                str,
+                {
+                    "help_string": "tkRAS-to-tkRAS matrix",
+                    "argstr": "--reg {regfile}",
+                },
+            ),
+            (
+                "fstarg",
+                bool,
+                {
+                    "help_string": "use vol from subject in --reg as target",
+                    "argstr": "--fstarg",
+                    "requires": ["regfile"],
+                },
+            ),
+        ],
         bases=(ShellSpec,),
     )
 
@@ -27,4 +75,4 @@ class MRIVol2Vol(ShellCommandTask):
         bases=(ShellOutSpec,),
     )
 
-    cmdline = "mri_vol2vol"
+    executable = "mri_vol2vol"
