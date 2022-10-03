@@ -14,7 +14,7 @@ class TkRegister2(ShellCommandTask):
     Example
     -------
 
-    1. create a registration matrix between the conformed space (orig.mgz) and the native anatomical (rawavg.mgz):
+    1. Create a registration matrix between the conformed space (orig.mgz) and the native anatomical (rawavg.mgz):
 
     >>> task = TkRegister2(
     ...     moving_volume="rawavg.mgz",
@@ -24,6 +24,19 @@ class TkRegister2(ShellCommandTask):
     ... )
     >>> task.cmdline
     'tkregister2 --noedit --mov rawavg.mgz --targ orig.mgz --reg register.native.dat --regheader'
+
+    2. Create a registration matrix for a smaller field-of-view of the talairach atlas:
+
+    >>> task = TkRegister2(
+    ...     target_volume="mni305.cor.mgz",
+    ...     moving_volume="mni305.cor.subfov1.mgz",
+    ...     init_registration_from_headers=True,
+    ...     registration_file="mni305.cor.subfov1.reg",
+    ...     subject_id="fsaverage",
+    ... )
+    >>> task.cmdline
+    'tkregister2 --noedit --mov mni305.cor.subfov1.mgz --targ mni305.cor.mgz --reg mni305.cor.subfov1.reg --regheader \
+--s fsaverage'
     """
 
     input_spec = SpecInfo(
@@ -71,6 +84,22 @@ class TkRegister2(ShellCommandTask):
                 {
                     "help_string": "compute the initial registration from the input volumes headers",
                     "argstr": "--regheader",
+                },
+            ),
+            (
+                "subject_id",
+                str,
+                {
+                    "help_string": "user defined subject identifier",
+                    "argstr": "--s {subject_id}",
+                },
+            ),
+            (
+                "subjects_dir",
+                str,
+                {
+                    "help_string": "user defined subjects directory",
+                    "argstr": "--sd {subjects_dir}",
                 },
             ),
         ],
