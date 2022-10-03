@@ -81,6 +81,14 @@ class MRIVol2Vol(ShellCommandTask):
         name="MRIVol2VolInput",
         fields=[
             (
+                "subjects_dir",
+                str,
+                {
+                    "help_string": "user defined SUBJECTS_DIR",
+                    "argstr": "--sd {subjects_dir}",
+                },
+            ),
+            (
                 "movvol",
                 str,
                 {
