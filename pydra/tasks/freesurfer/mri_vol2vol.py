@@ -75,6 +75,18 @@ class MRIVol2Vol(ShellCommandTask):
     ... )
     >>> task.cmdline
     'mri_vol2vol --mov func.nii.gz --o func-in-tal.2mm.mgh --reg register.dat --tal --talres 2'
+
+    6. Apply an MNI transform by resampling the anatomical data into talairach space:
+
+    >>> task = MRIVol2Vol(
+    ...     movvol="orig.mgz",
+    ...     targvol="$FREESURFER_HOME/average/mni305.cor.mgz",
+    ...     outvol="orig-in-mni305.mgz",
+    ...     xfmfile="transforms/talairach.xfm",
+    ... )
+    >>> task.cmdline
+    'mri_vol2vol --mov orig.mgz --targ $FREESURFER_HOME/average/mni305.cor.mgz --o orig-in-mni305.mgz \
+--xfm transforms/talairach.xfm'
     """
 
     input_spec = SpecInfo(
@@ -94,6 +106,14 @@ class MRIVol2Vol(ShellCommandTask):
                 {
                     "help_string": "input volume (or output template with --inv)",
                     "argstr": "--mov {movvol}",
+                },
+            ),
+            (
+                "targvol",
+                str,
+                {
+                    "help_string": "output template (or input volume with --inv)",
+                    "argstr": "--targ {targvol}",
                 },
             ),
             (
