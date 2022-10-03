@@ -1,5 +1,4 @@
 import os
-import typing as ty
 
 from pydra.engine.specs import ShellOutSpec, ShellSpec, SpecInfo
 
