@@ -65,6 +65,7 @@ class MRISExpand(ShellCommandTask):
                     "mandatory": True,
                     "argstr": "{output_surface}",
                     "position": -1,
+                    "output_file_template": "{input_surface}.expanded",
                 },
             ),
             (
