@@ -17,10 +17,12 @@ class MRISPreproc(ShellCommandTask):
     Examples
     --------
 
+    >>> source_subject_ids = [f"abc{s:02d}-anat" for s in range(1, 5)]
+
     1. Resample abcXX-anat/surf/lh.thickness onto fsaverage:
 
     >>> task = MRISPreproc(
-    ...     source_subject_ids=[f"abc{s:02d}-anat" for s in range(1, 5)],
+    ...     source_subject_ids=source_subject_ids,
     ...     target_subject_id="fsaverage",
     ...     hemifield="lh",
     ...     measure="thickness",
@@ -41,6 +43,21 @@ class MRISPreproc(ShellCommandTask):
     ... )
     >>> task.cmdline
     'mris_preproc --out abc-lh-thickness.mgh --target fsaverage --hemi lh --meas thickness --fsgd abc.fsgd'
+
+    3. Same as #1 with additional smoothing by 5mm:
+
+    >>> task = MRISPreproc(
+    ...     source_subject_ids=source_subject_ids,
+    ...     target_subject_id="fsaverage",
+    ...     hemifield="lh",
+    ...     measure="thickness",
+    ...     output_file="abc-lh-thickness.sm5.mgh",
+    ...     target_fwhm=5,
+    ... )
+    >>> task.cmdline
+    'mris_preproc --out abc-lh-thickness.sm5.mgh --target fsaverage --hemi lh --meas thickness \
+--s abc01-anat --s abc02-anat --s abc03-anat --s abc04-anat --fwhm 5'
+
     """
 
     input_spec = SpecInfo(
@@ -100,6 +117,22 @@ class MRISPreproc(ShellCommandTask):
                     "argstr": "--fsgd {fsgd_file}",
                     "requires": {"measure"},
                     "xor": {"source_sibject_ids"},
+                },
+            ),
+            (
+                "target_fwhm",
+                float,
+                {
+                    "help_string": "smooth target surface data by fwhm mm",
+                    "argstr": "--fwhm {target_fwhm}",
+                },
+            ),
+            (
+                "source_fwhm",
+                float,
+                {
+                    "help_string": "smooth source surface data by fwhm mm",
+                    "argstr": "--fwhm-src {source_fwhm}",
                 },
             ),
         ],
