@@ -72,6 +72,20 @@ class MRISPreproc(ShellCommandTask):
     'mris_preproc --out abc-lh-thickness.mgh --target fsaverage --hemi lh --fsgd abc.fsgd \
 --isp abc01-anat/surf/lh.thickness --isp abc02-anat/surf/lh.thickness --isp abc03-anat/surf/lh.thickness \
 --isp abc04-anat/surf/lh.thickness --srcfmt curv'
+
+    5. Same as #2 but computes paired differences.
+
+    >>> task = MRISPreproc(
+    ...     fsgd_file="abc.fsgd",
+    ...     target_subject_id="fsaverage",
+    ...     hemifield="lh",
+    ...     measure="thickness",
+    ...     output_file="abc-lh-thickness-pdiff.mgh",
+    ...     paired_differences=True,
+    ... )
+    >>> task.cmdline
+    'mris_preproc --out abc-lh-thickness-pdiff.mgh --target fsaverage --hemi lh --meas thickness --fsgd abc.fsgd \
+--paired-diff'
     """
 
     input_spec = SpecInfo(
@@ -164,6 +178,14 @@ class MRISPreproc(ShellCommandTask):
                 {
                     "help_string": "smooth source surface data by fwhm mm",
                     "argstr": "--fwhm-src {source_fwhm}",
+                },
+            ),
+            (
+                "paired_differences",
+                bool,
+                {
+                    "help_string": "compute paired differences",
+                    "argstr": "--paired-diff",
                 },
             ),
         ],
