@@ -9,6 +9,7 @@ from .gtmseg import GTMSeg
 from .mri_convert import MRIConvert
 from .mri_surf2surf import MRISurf2Surf
 from .mri_vol2vol import MRIVol2Vol
+from .mris_expand import MRISExpand
 from .recon_all import ReconAll
 from .tkregister2 import TkRegister2
 
@@ -17,6 +18,7 @@ __all__ = [
     MRIConvert,
     MRISurf2Surf,
     MRIVol2Vol,
+    MRISExpand,
     ReconAll,
     TkRegister2,
 ]
