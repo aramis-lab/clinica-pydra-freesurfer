@@ -1,3 +1,5 @@
+import typing as ty
+
 from pydra.engine.specs import ShellOutSpec, ShellSpec, SpecInfo
 
 from pydra import ShellCommandTask
@@ -14,11 +16,70 @@ class MRISPreproc(ShellCommandTask):
 
     Examples
     --------
+
+    1. Resample abcXX-anat/surf/lh.thickness onto fsaverage:
+
+    >>> task = MRISPreproc(
+    ...     source_subject_ids=[f"abc{s:02d}-anat" for s in range(1, 5)],
+    ...     target_subject_id="fsaverage",
+    ...     hemifield="lh",
+    ...     measure="thickness",
+    ...     output_file="abc-lh-thickness.mgh",
+    ... )
+    >>> task.cmdline
+    'mris_preproc --out abc-lh-thickness.mgh --target fsaverage --hemi lh --meas thickness \
+--s abc01-anat --s abc02-anat --s abc03-anat --s abc04-anat'
     """
 
     input_spec = SpecInfo(
         name="MRISPreprocInput",
-        fields=[],
+        fields=[
+            (
+                "output_file",
+                str,
+                {
+                    "help_string": "path where to save output",
+                    "argstr": "--out {output_file}",
+                    "output_file_template": "concat_{hemifield}_{target_subject_id}.mgz",
+                },
+            ),
+            (
+                "target_subject_id",
+                str,
+                {
+                    "help_string": "subject to use as the common space",
+                    "mandatory": True,
+                    "argstr": "--target {target_subject_id}",
+                },
+            ),
+            (
+                "hemifield",
+                str,
+                {
+                    "help_string": "hemifield",
+                    "mandatory": True,
+                    "argstr": "--hemi",
+                    "allowed_values": {"lh", "rh"},
+                },
+            ),
+            (
+                "measure",
+                str,
+                {
+                    "help_string": "use source subject's measure as input",
+                    "argstr": "--meas {measure}",
+                },
+            ),
+            (
+                "source_subject_ids",
+                ty.Iterable[str],
+                {
+                    "help_string": "source subjects used as input",
+                    "argstr": "--s...",
+                    "requires": {"measure"},
+                },
+            ),
+        ],
         bases=(ShellSpec,),
     )
 
