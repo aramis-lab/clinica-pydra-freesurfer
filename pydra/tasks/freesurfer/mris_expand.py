@@ -16,11 +16,10 @@ class MRISExpand(ShellCommandTask):
     >>> task = MRISExpand(
     ...     input_surface="lh.white",
     ...     distance=0.5,
-    ...     output_surface="lh.graymid",
     ...     thickness=True
     ... )
-    >>> task.cmdline
-    'mris_expand -thickness lh.white 0.5 lh.graymid'
+    >>> task.cmdline    # doctest: +ELLIPSIS
+    'mris_expand -thickness lh.white 0.5 ...lh_expanded.white'
 
     2. Expand by distance from label:
 
@@ -62,10 +61,9 @@ class MRISExpand(ShellCommandTask):
                 str,
                 {
                     "help_string": "output surface file",
-                    "mandatory": True,
                     "argstr": "{output_surface}",
                     "position": -1,
-                    "output_file_template": "{input_surface}.expanded",
+                    "output_file_template": "{input_surface}_expanded",
                 },
             ),
             (
