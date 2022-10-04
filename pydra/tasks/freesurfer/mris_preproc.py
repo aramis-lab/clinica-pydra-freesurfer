@@ -188,6 +188,14 @@ class MRISPreproc(ShellCommandTask):
                     "argstr": "--paired-diff",
                 },
             ),
+            (
+                "subjects_dir",
+                str,
+                {
+                    "help_string": "user defined subjects directory",
+                    "argstr": "--SUBJECTS_DIR {subjects_dir}",
+                },
+            ),
         ],
         bases=(ShellSpec,),
     )
