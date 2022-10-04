@@ -8,6 +8,8 @@ __all__ = ["MRISExpand"]
 class MRISExpand(ShellCommandTask):
     """Task for mris_expand.
 
+    Expand a surface outwards by a specified amount while maintaining smoothness and self-intersection constraints.
+
     Examples
     --------
 
