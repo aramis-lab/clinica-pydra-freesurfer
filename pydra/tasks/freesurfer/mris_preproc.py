@@ -29,6 +29,18 @@ class MRISPreproc(ShellCommandTask):
     >>> task.cmdline
     'mris_preproc --out abc-lh-thickness.mgh --target fsaverage --hemi lh --meas thickness \
 --s abc01-anat --s abc02-anat --s abc03-anat --s abc04-anat'
+
+    2. Same as above but using a fsgd file (which would have the abcXXs as Inputs):
+
+    >>> task = MRISPreproc(
+    ...     fsgd_file="abc.fsgd",
+    ...     target_subject_id="fsaverage",
+    ...     hemifield="lh",
+    ...     measure="thickness",
+    ...     output_file="abc-lh-thickness.mgh",
+    ... )
+    >>> task.cmdline
+    'mris_preproc --out abc-lh-thickness.mgh --target fsaverage --hemi lh --meas thickness --fsgd abc.fsgd'
     """
 
     input_spec = SpecInfo(
@@ -77,6 +89,17 @@ class MRISPreproc(ShellCommandTask):
                     "help_string": "source subjects used as input",
                     "argstr": "--s...",
                     "requires": {"measure"},
+                    "xor": {"fsgd_file"},
+                },
+            ),
+            (
+                "fsgd_file",
+                str,
+                {
+                    "help_string": "fsgd file containing the list of input subjects",
+                    "argstr": "--fsgd {fsgd_file}",
+                    "requires": {"measure"},
+                    "xor": {"source_sibject_ids"},
                 },
             ),
         ],
