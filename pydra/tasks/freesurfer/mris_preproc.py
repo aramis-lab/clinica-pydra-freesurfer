@@ -58,6 +58,20 @@ class MRISPreproc(ShellCommandTask):
     'mris_preproc --out abc-lh-thickness.sm5.mgh --target fsaverage --hemi lh --meas thickness \
 --s abc01-anat --s abc02-anat --s abc03-anat --s abc04-anat --fwhm 5'
 
+    4. Same as #1 but using full paths.
+
+    >>> task = MRISPreproc(
+    ...     target_subject_id="fsaverage",
+    ...     hemifield="lh",
+    ...     output_file="abc-lh-thickness.mgh",
+    ...     fsgd_file="abc.fsgd",
+    ...     source_format="curv",
+    ...     input_surface_paths=[f"abc{s:02d}-anat/surf/lh.thickness" for s in range(1, 5)],
+    ... )
+    >>> task.cmdline
+    'mris_preproc --out abc-lh-thickness.mgh --target fsaverage --hemi lh --fsgd abc.fsgd \
+--isp abc01-anat/surf/lh.thickness --isp abc02-anat/surf/lh.thickness --isp abc03-anat/surf/lh.thickness \
+--isp abc04-anat/surf/lh.thickness --srcfmt curv'
     """
 
     input_spec = SpecInfo(
@@ -115,8 +129,25 @@ class MRISPreproc(ShellCommandTask):
                 {
                     "help_string": "fsgd file containing the list of input subjects",
                     "argstr": "--fsgd {fsgd_file}",
-                    "requires": {"measure"},
                     "xor": {"source_sibject_ids"},
+                },
+            ),
+            (
+                "input_surface_paths",
+                ty.Iterable[str],
+                {
+                    "help_string": "full paths to input surface measure files",
+                    "argstr": "--isp...",
+                    "requires": {"fsgd_file"},
+                },
+            ),
+            (
+                "source_format",
+                str,
+                {
+                    "help_string": "source format of input surface measure files",
+                    "argstr": "--srcfmt {source_format}",
+                    "requires": {"input_surface_paths"},
                 },
             ),
             (
