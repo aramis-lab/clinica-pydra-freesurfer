@@ -10,6 +10,28 @@ class MRISExpand(ShellCommandTask):
 
     Examples
     --------
+
+    1. Expand by cortical thickness:
+
+    >>> task = MRISExpand(
+    ...     input_surface="lh.white",
+    ...     distance=0.5,
+    ...     output_surface="lh.graymid",
+    ...     thickness=True
+    ... )
+    >>> task.cmdline
+    'mris_expand -thickness lh.white 0.5 lh.graymid'
+
+    2. Expand by distance from label:
+
+    >>> task = MRISExpand(
+    ...     input_surface="lh.white",
+    ...     distance=0.5,
+    ...     output_surface="lh.graymid",
+    ...     label="labelfile",
+    ... )
+    >>> task.cmdline
+    'mris_expand -label labelfile lh.white 0.5 lh.graymid'
     """
 
     input_spec = SpecInfo(
@@ -43,6 +65,22 @@ class MRISExpand(ShellCommandTask):
                     "mandatory": True,
                     "argstr": "{output_surface}",
                     "position": -1,
+                },
+            ),
+            (
+                "thickness",
+                bool,
+                {
+                    "help_string": "expand by fraction of cortical thickness",
+                    "argstr": "-thickness",
+                },
+            ),
+            (
+                "label",
+                str,
+                {
+                    "help_string": "label file",
+                    "argstr": "-label {label}",
                 },
             ),
         ],
