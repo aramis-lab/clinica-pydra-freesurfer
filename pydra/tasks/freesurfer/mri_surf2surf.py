@@ -20,10 +20,10 @@ class MRISurf2Surf(ShellCommandTask):
 
     >>> task = MRISurf2Surf(
     ...     hemifield="lh",
-    ...     srcsubject="bert",
+    ...     source_subject_id="bert",
     ...     sval="thickness",
     ...     sfmt="curv",
-    ...     trgsubject="ico",
+    ...     target_subject_id="ico",
     ...     trgicoorder=7,
     ...     tval="bert-thickness-lh.img",
     ...     tfmt="analyze4d",
@@ -36,9 +36,9 @@ class MRISurf2Surf(ShellCommandTask):
 --tval bert-thickness-lh.img --tfmt analyze4d --hemi lh'
     >>> task = MRISurf2Surf(
     ...     hemifield="rh",
-    ...     srcsubject="ico",
+    ...     source_subject_id="ico",
     ...     sval="icodata-rh.mgh",
-    ...     trgsubject="bert",
+    ...     target_subject_id="bert",
     ...     tval="./bert-ico-rh.mgh",
     ... )
     >>> task.cmdline
@@ -47,9 +47,9 @@ class MRISurf2Surf(ShellCommandTask):
     3. Convert the surface coordinates of the lh.white of a subject to a (talairach) average:
 
     >>> task = MRISurf2Surf(
-    ...     srcsubject="yoursubject",
+    ...     source_subject_id="yoursubject",
     ...     sval_tal_xyz="white",
-    ...     trgsubject="youraveragesubject",
+    ...     target_subject_id="youraveragesubject",
     ...     tval="lh.white.yoursubject",
     ...     tval_xyz="$SUBJECTS_DIR/fsaverage/mri/orig.mgz",
     ... )
@@ -65,7 +65,7 @@ class MRISurf2Surf(ShellCommandTask):
     ...     sval_xyz="white",
     ...     tval_xyz="template.nii.gz",
     ...     tval="./lh.white.func",
-    ...     srcsubject="yoursubject",
+    ...     source_subject_id="yoursubject",
     ... )
     >>> task.cmdline
     'mri_surf2surf --srcsubject yoursubject --sval-xyz white --reg register.lta --tval ./lh.white.func --tval-xyz template.nii.gz \
@@ -74,7 +74,7 @@ class MRISurf2Surf(ShellCommandTask):
     5. Extract surface normals of the white surface and save in a volume-encoded file:
 
     >>> task = MRISurf2Surf(
-    ...     srcsubject="yoursubject",
+    ...     source_subject_id="yoursubject",
     ...     hemifield="lh",
     ...     sval_nxyz="white",
     ...     tval="lh.white.norm.mgh",
@@ -85,8 +85,8 @@ class MRISurf2Surf(ShellCommandTask):
     6. Convert the annotation for one subject to the surface of another:
 
     >>> task = MRISurf2Surf(
-    ...     srcsubject="subj1",
-    ...     trgsubject="subj2",
+    ...     source_subject_id="subj1",
+    ...     target_subject_id="subj2",
     ...     hemifield="lh",
     ...     sval_annot="$SUBJECTS_DIR/subj1/label/lh.aparc.annot",
     ...     tval="$SUBJECTS_DIR/subj2/label/lh.subj1.aparc.annot",
@@ -108,12 +108,12 @@ $SUBJECTS_DIR/subj2/label/lh.subj1.aparc.annot --hemi lh'
                 },
             ),
             (
-                "srcsubject",
+                "source_subject_id",
                 str,
                 {
-                    "help_string": "name of source subject",
-                    "argstr": "--srcsubject {srcsubject}",
+                    "help_string": "source subject identifier",
                     "mandatory": True,
+                    "argstr": "--srcsubject {source_subject_id}",
                 },
             ),
             (
@@ -207,11 +207,11 @@ $SUBJECTS_DIR/subj2/label/lh.subj1.aparc.annot --hemi lh'
                 },
             ),
             (
-                "trgsubject",
+                "target_subject_id",
                 str,
                 {
-                    "help_string": "name of target subject",
-                    "argstr": "--trgsubject {trgsubject}",
+                    "help_string": "target subject identifier",
+                    "argstr": "--trgsubject {target_subject_id}",
                 },
             ),
             (
