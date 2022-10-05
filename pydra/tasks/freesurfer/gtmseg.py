@@ -10,11 +10,11 @@ class GTMSeg(ShellCommandTask):
 
     Examples
     --------
-    >>> task = GTMSeg(subject="subject")
+    >>> task = GTMSeg(subject_id="subject")
     >>> task.cmdline
     'gtmseg --s subject'
     >>> task = GTMSeg(
-    ...     subject="subject",
+    ...     subject_id="subject",
     ...     keep_hypointensities=True,
     ...     subsegment_white_matter=True,
     ...     output_volume="gtmseg.wmseg.hypo.mgz",
@@ -23,7 +23,7 @@ class GTMSeg(ShellCommandTask):
     >>> task.cmdline
     'gtmseg --s subject --o gtmseg.wmseg.hypo.mgz --usf 1 --keep-hypo --subsegwm'
     >>> task = GTMSeg(
-    ...     subject="subject",
+    ...     subject_id="subject",
     ...     output_volume="gtmseg+myseg.mgz",
     ...     headseg="apas+head+myseg.mgz",
     ...     colortable="myseg.colortable.txt",
@@ -44,12 +44,12 @@ class GTMSeg(ShellCommandTask):
                 },
             ),
             (
-                "subject",
+                "subject_id",
                 str,
                 {
                     "help_string": "subject to analyze",
-                    "argstr": "--s {subject}",
                     "mandatory": True,
+                    "argstr": "--s {subject_id}",
                 },
             ),
             (
