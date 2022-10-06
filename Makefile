@@ -8,54 +8,54 @@ all: clean install check test
 check: check-black check-isort
 
 .PHONY: check-black
-check-black: $(INSTALL_STAMP)
+check-black: install
 	$(info Checking code with black)
 	@$(POETRY) run black --check --diff $(PACKAGES)
 
 .PHONY: check-isort
-check-isort: $(INSTALL_STAMP)
+check-isort: install
 	$(info Checking code with isort)
 	@$(POETRY) run isort --check --diff $(PACKAGES)
 
 .PHONY: clean
-clean: clean-dist clean-docs
-	$(RM) $(INSTALL_STAMP)
-
-.PHONY: clean-dist
-clean-dist:
-	$(RM) -r dist
+clean:
+	@$(RM) $(INSTALL_STAMP)
 
 .PHONY: clean-docs
 clean-docs:
-	$(RM) -r docs/_build
+	@$(RM) -r docs/_build
+
+.PHONY: clean-test
+clean-test:
+	@$(RM) -r .pytest_cache
 
 .PHONY: docs
-docs: $(INSTALL_STAMP) clean-docs
+docs: clean-docs install
 	@$(POETRY) run make -C docs html
 
 .PHONY: format
 format: format-black format-isort
 
 .PHONY: format-black
-format-black: $(INSTALL_STAMP)
+format-black: install
 	$(info Formatting code with black)
 	@$(POETRY) run black --quiet $(PACKAGES)
 
 .PHONY: format-isort
-format-isort: $(INSTALL_STAMP)
+format-isort: install
 	$(info Formatting code with isort)
 	@$(POETRY) run isort --quiet $(PACKAGES)
 
 .PHONY: install
 install: $(INSTALL_STAMP)
-$(INSTALL_STAMP): poetry.lock pyproject.toml
+$(INSTALL_STAMP):
 	@$(POETRY) install
 	@touch $(INSTALL_STAMP)
 
 .PHONY: test
-test: $(INSTALL_STAMP)
-	@$(POETRY) run python -m pytest
+test: clean-test install
+	@$(POETRY) run pytest
 
 .PHONY: update
-update: pyproject.toml
+update:
 	@$(POETRY) update
