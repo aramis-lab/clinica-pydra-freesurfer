@@ -13,30 +13,30 @@ facilitate their incorporation into more advanced processing workflows.
 
 ## Development
 
-Setup for development requires [Poetry].
+This project is managed using [Poetry].
 
-Install the project and its dependencies with:
+To install, check and test the code:
 
 ```console
-make install
+make
 ```
 
-Run the tests with:
+To run the test suite when hacking:
 
 ```console
 make test
 ```
 
-Build the project's documentation with:
-
-```console
-make docs
-```
-
-Format the code before review with:
+To format the code before review:
 
 ```console
 make format
+```
+
+To build the project's documentation:
+
+```console
+make docs
 ```
 
 ## Licensing
