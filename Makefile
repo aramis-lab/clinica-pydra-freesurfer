@@ -55,8 +55,8 @@ format-isort: install
 	@$(POETRY) run isort --quiet $(PACKAGES)
 
 .PHONY: install
-install: check-lock $(INSTALL_STAMP)
-$(INSTALL_STAMP):
+install: $(INSTALL_STAMP)
+$(INSTALL_STAMP): check-lock
 	@$(POETRY) install
 	@touch $(INSTALL_STAMP)
 
