@@ -17,6 +17,10 @@ check-isort: install
 	$(info Checking code with isort)
 	@$(POETRY) run isort --check --diff $(PACKAGES)
 
+.PHONY: check-lock
+check-lock:
+	@$(POETRY) lock --check
+
 .PHONY: clean
 clean:
 	@$(RM) $(INSTALL_STAMP)
@@ -47,10 +51,14 @@ format-isort: install
 	@$(POETRY) run isort --quiet $(PACKAGES)
 
 .PHONY: install
-install: $(INSTALL_STAMP)
+install: check-lock $(INSTALL_STAMP)
 $(INSTALL_STAMP):
 	@$(POETRY) install
 	@touch $(INSTALL_STAMP)
+
+.PHONY: lock
+lock:
+	@$(POETRY) lock --no-update
 
 .PHONY: test
 test: clean-test install
