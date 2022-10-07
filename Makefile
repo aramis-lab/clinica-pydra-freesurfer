@@ -56,6 +56,10 @@ $(INSTALL_STAMP):
 	@$(POETRY) install
 	@touch $(INSTALL_STAMP)
 
+.PHONY: lock
+lock:
+	@$(POETRY) lock --no-update
+
 .PHONY: test
 test: clean-test install
 	@$(POETRY) run pytest
