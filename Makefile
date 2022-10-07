@@ -22,15 +22,19 @@ check-lock:
 	@$(POETRY) lock --check
 
 .PHONY: clean
-clean:
+clean: clean-docs clean-test
 	@$(RM) $(INSTALL_STAMP)
 
 .PHONY: clean-docs
 clean-docs:
 	@$(RM) -r docs/_build
 
+.PHONY: clean-py
+clean-py:
+	@find . -name __pycache__ -exec $(RM) -r {} +
+
 .PHONY: clean-test
-clean-test:
+clean-test: clean-py
 	@$(RM) -r .pytest_cache
 
 .PHONY: docs
