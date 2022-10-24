@@ -1,7 +1,7 @@
 POETRY ?= poetry
 PACKAGES = pydra
 
-all: clean install check test
+all: install check test
 
 .PHONY: check
 check: check-black check-isort
@@ -21,8 +21,7 @@ check-lock:
 	@$(POETRY) lock --check
 
 .PHONY: clean
-clean: clean-docs clean-test
-	@$(RM) $(INSTALL_STAMP)
+clean: clean-docs clean-py clean-test
 
 .PHONY: clean-docs
 clean-docs:
@@ -33,7 +32,7 @@ clean-py:
 	@find . -name __pycache__ -exec $(RM) -r {} +
 
 .PHONY: clean-test
-clean-test: clean-py
+clean-test:
 	@$(RM) -r .pytest_cache
 
 .PHONY: docs
