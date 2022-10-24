@@ -16,7 +16,7 @@ black = "^22.3.0"
 isort = "^5.10.1"
 
 [tool.poetry.group.docs.dependencies]
-Sphinx = "^5.0.0"
+sphinx = "^5.0.0"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.1.2"
