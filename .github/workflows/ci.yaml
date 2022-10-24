@@ -24,6 +24,8 @@ jobs:
         with:
           python-version: ${{ env.DEFAULT_PYTHON_VERSION }}
           cache: poetry
+      - name: Install dependencies
+        run: make install
       - name: Run checks
         run: make check
 
@@ -36,6 +38,8 @@ jobs:
         with:
           python-version: ${{ env.DEFAULT_PYTHON_VERSION }}
           cache: poetry
+      - name: Install dependencies
+        run: make install
       - name: Build documentation
         run: make docs
 
@@ -53,5 +57,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           cache: poetry
+      - name: Install dependencies
+        run: make install
       - name: Run tests
         run: make test
