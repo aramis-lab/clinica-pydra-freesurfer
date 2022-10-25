@@ -9,7 +9,7 @@ packages = [{include = "pydra"}]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-pydra = "^0.19"
+pydra = "^0.20"
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.3.0"
