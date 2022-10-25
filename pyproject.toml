@@ -17,6 +17,7 @@ isort = "^5.10.1"
 
 [tool.poetry.group.docs.dependencies]
 sphinx = "^5.0.0"
+numpydoc = "^1.5.0"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.1.2"
