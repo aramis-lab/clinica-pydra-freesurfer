@@ -1,20 +1,27 @@
 name: ci
 
 on:
-  pull_request:
-    branches:
-      - main
+  # Tigger this workflow on push events to the main branch.
   push:
     branches:
       - main
+  # Trigger this workflow on pull request events to the main branch.
+  pull_request:
+    branches:
+      - main
+  # Run this workflow manually from the Actions tab.
+  workflow_dispatch:
 
+# Set permissions of the GITHUB_TOKEN to checkout the source repository.
 permissions:
   contents: read
 
+# Set the default Python version for jobs.
 env:
   DEFAULT_PYTHON_VERSION: '3.10'
 
 jobs:
+  # Run code checks.
   check:
     runs-on: ubuntu-latest
     steps:
@@ -26,23 +33,12 @@ jobs:
           cache: poetry
       - name: Install dependencies
         run: make install
-      - name: Run checks
-        run: make check
+      - name: Check with black
+        run: make check-black
+      - name: Check with isort
+        run: make check-isort
 
-  docs:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: snok/install-poetry@v1
-      - uses: actions/setup-python@v4
-        with:
-          python-version: ${{ env.DEFAULT_PYTHON_VERSION }}
-          cache: poetry
-      - name: Install dependencies
-        run: make install
-      - name: Build documentation
-        run: make docs
-
+  # Run the test suite.
   test:
     strategy:
       fail-fast: false

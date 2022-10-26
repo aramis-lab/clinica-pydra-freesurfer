@@ -1,0 +1,67 @@
+name: docs
+
+on:
+  # Tigger this workflow on push events to the main branch.
+  push:
+    branches:
+      - main
+  # Trigger this workflow on pull request events to the main branch.
+  pull_request:
+    branches:
+      - main
+  # Run this workflow manually from the Actions tab.
+  workflow_dispatch:
+
+# Set permissions of the GITHUB_TOKEN to enable deployment to GitHub Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Set default Python version for jobs.
+env:
+    DEFAULT_PYTHON_VERSION: '3.10'
+
+jobs:
+  # Build the documentation.
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: snok/install-poetry@v1
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.DEFAULT_PYTHON_VERSION }}
+          cache: poetry
+      - name: Install dependencies
+        run: make install
+      - name: Build documentation
+        run: make docs
+      - name: Upload documentation
+        uses: actions/upload-artifact@v3
+        with:
+          name: docs
+          path: ./docs/_build/html
+
+  # Deploy the documentation if on main branch.
+  deploy:
+    needs: build
+    if: contains('refs/heads/main', github.ref)
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download documentation
+        uses: actions/download-artifact@v3
+        with:
+          name: docs
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v2
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
