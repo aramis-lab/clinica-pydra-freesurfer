@@ -1,7 +1,7 @@
 POETRY ?= poetry
 PACKAGES = pydra
 
-all: install check test
+all: clean install check test
 
 .PHONY: check
 check: check-black check-isort
@@ -21,11 +21,15 @@ check-lock:
 	@$(POETRY) lock --check
 
 .PHONY: clean
-clean: clean-docs clean-py clean-test
+clean: clean-dist clean-docs clean-py clean-test
+
+.PHONY: clean-dist
+clean-dist:
+	@$(RM) -r dist/
 
 .PHONY: clean-docs
 clean-docs:
-	@$(RM) -r docs/_build
+	@$(RM) -r docs/_build/
 
 .PHONY: clean-py
 clean-py:
@@ -33,10 +37,14 @@ clean-py:
 
 .PHONY: clean-test
 clean-test:
-	@$(RM) -r .pytest_cache
+	@$(RM) -r .pytest_cache/
+
+.PHONY: dist
+dist:
+	@$(POETRY) build
 
 .PHONY: docs
-docs: clean-docs
+docs:
 	@$(POETRY) run make -C docs html
 
 .PHONY: format
@@ -61,7 +69,7 @@ lock:
 	@$(POETRY) lock --no-update
 
 .PHONY: test
-test: clean-test
+test:
 	@$(POETRY) run pytest
 
 .PHONY: update
