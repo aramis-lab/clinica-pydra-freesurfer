@@ -39,9 +39,13 @@ clean-py:
 clean-test:
 	@$(RM) -r .pytest_cache/
 
-.PHONY: dist
-dist:
-	@$(POETRY) build
+.PHONY: config-pypi
+config-pypi:
+ifdef PYPI_TOKEN
+	@$(POETRY) config pypi-token.pypi "${PYPI_TOKEN}"
+else
+	$(error "Missing API token for PyPI repository")
+endif
 
 .PHONY: docs
 docs:
@@ -67,6 +71,13 @@ install: check-lock
 .PHONY: lock
 lock:
 	@$(POETRY) lock --no-update
+
+.PHONY: publish
+publish: publish-pypi
+
+.PHONY: publish-pypi
+publish-pypi: config-pypi
+	@$(POETRY) publish --build
 
 .PHONY: test
 test:
