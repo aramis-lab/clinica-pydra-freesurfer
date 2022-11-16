@@ -11,8 +11,8 @@ class TkRegister2(ShellCommandTask):
     tkregister2 is a tool to assist in the manual tuning of the linear registration between two volumes, mainly for the
     purpose of interacting with the FreeSurfer anatomical stream.
 
-    Example
-    -------
+    Examples
+    --------
 
     1. Create a registration matrix between the conformed space (orig.mgz) and the native anatomical (rawavg.mgz):
 

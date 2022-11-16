@@ -11,7 +11,7 @@ pydra-freesurfer provides Pydra tasks for running and composing FreeSurfer comma
    :maxdepth: 2
    :caption: Contents:
 
-    api
+   api
 
 Indices and tables
 ==================
