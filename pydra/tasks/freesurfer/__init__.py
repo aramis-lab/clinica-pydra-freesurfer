@@ -15,12 +15,12 @@ from .recon_all import ReconAll
 from .tkregister2 import TkRegister2
 
 __all__ = [
-    GTMSeg,
-    MRIConvert,
-    MRISurf2Surf,
-    MRIVol2Vol,
-    MRISExpand,
-    MRISPreproc,
-    ReconAll,
-    TkRegister2,
+    "GTMSeg",
+    "MRIConvert",
+    "MRISurf2Surf",
+    "MRIVol2Vol",
+    "MRISExpand",
+    "MRISPreproc",
+    "ReconAll",
+    "TkRegister2",
 ]
