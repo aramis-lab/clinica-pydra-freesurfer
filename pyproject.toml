@@ -5,6 +5,9 @@ description = "Pydra tasks for FreeSurfer"
 authors = ["The Aramis Lab"]
 license = "Apache-2.0"
 readme = "README.md"
+repository = "https://github.com/aramis-lab/pydra-freesurfer"
+documentation = "https://aramis-lab.github.io/pydra-freesurfer/"
+keywords = ["pydra", "freesurfer", "neuroimaging"]
 packages = [{include = "pydra"}]
 
 [tool.poetry.dependencies]
