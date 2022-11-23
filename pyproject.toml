@@ -44,3 +44,9 @@ target-version = ["py37"]
 [tool.isort]
 py_version = 37
 profile = "black"
+
+[tool.codespell]
+summary = ''
+skip = ".git"
+quiet-level = 3
+
