@@ -4,12 +4,17 @@ PACKAGES = pydra
 all: clean install check test
 
 .PHONY: check
-check: check-black check-isort
+check: check-black check-isort check-codespell
 
 .PHONY: check-black
 check-black:
 	$(info Checking code with black)
 	@$(POETRY) run black --check --diff $(PACKAGES)
+
+.PHONY: check-codespell
+check-codespell:
+	$(info Checking code with codespell)
+	@$(POETRY) run codespell
 
 .PHONY: check-isort
 check-isort:
