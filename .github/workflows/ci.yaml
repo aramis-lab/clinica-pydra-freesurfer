@@ -1,7 +1,7 @@
 name: ci
 
 on:
-  # Tigger this workflow on push events to the main branch.
+  # Trigger this workflow on push events to the main branch.
   push:
     branches:
       - main
