@@ -1,7 +1,7 @@
 name: ci
 
 on:
-  # Tigger this workflow on push events to the main branch.
+  # Trigger this workflow on push events to the main branch.
   push:
     branches:
       - main
@@ -37,6 +37,8 @@ jobs:
         run: make check-black
       - name: Check with isort
         run: make check-isort
+      - name: Check with codespell
+        run: make check-codespell
 
   # Run the test suite.
   test:

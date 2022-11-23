@@ -160,7 +160,7 @@ class MRIVol2Vol(ShellCommandTask):
                 "talairach_resolution",
                 int,
                 {
-                    "help_string": "resoluton of the talairach template",
+                    "help_string": "resolution of the talairach template",
                     "argstr": "--talres {talairach_resolution}",
                     "allowed_values": {1, 2},
                     "requires": ["talairach"],
