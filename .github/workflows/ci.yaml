@@ -37,6 +37,8 @@ jobs:
         run: make check-black
       - name: Check with isort
         run: make check-isort
+      - name: Check with codespell
+        run: make check-codespell
 
   # Run the test suite.
   test:
