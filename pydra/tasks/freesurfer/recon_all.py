@@ -181,6 +181,14 @@ class ReconAll(ShellCommandTask):
                     "xor": ["hemisphere"],
                 },
             ),
+            (
+                "threads",
+                int,
+                {
+                    "help_string": "set number of threads to use",
+                    "argstr": "-threads {threads}",
+                },
+            ),
         ],
         bases=(ShellSpec,),
     )
