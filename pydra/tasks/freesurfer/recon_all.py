@@ -172,6 +172,15 @@ class ReconAll(ShellCommandTask):
                     "allowed_values": ["lh", "rh"],
                 },
             ),
+            (
+                "parallel",
+                bool,
+                {
+                    "help_string": "process both hemispheres in parallel",
+                    "argstr": "-parallel",
+                    "xor": ["hemisphere"],
+                },
+            ),
         ],
         bases=(ShellSpec,),
     )
