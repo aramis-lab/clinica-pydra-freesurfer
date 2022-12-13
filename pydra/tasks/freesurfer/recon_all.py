@@ -137,21 +137,11 @@ class ReconAll(ShellCommandTask):
                 },
             ),
             (
-                "base_timepoint_id",
-                str,
-                {
-                    "help_string": "base time-point identifier",
-                    "argstr": "-base-tp {base_timepoint_id}",
-                    "xor": ["base_timepoint_ids"],
-                },
-            ),
-            (
                 "base_timepoint_ids",
                 ty.Iterable[str],
                 {
-                    "help_string": "base time-point identifiers",
+                    "help_string": "base timepoint identifiers",
                     "argstr": "-base-tp...",
-                    "xor": ["base_timepoint_id"],
                 },
             ),
             (
