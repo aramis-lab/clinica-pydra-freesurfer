@@ -74,7 +74,7 @@ class ReconAll(ShellCommandTask):
                 str,
                 {
                     "help_string": "user defined SUBJECTS_DIR",
-                    "argstr": "-sd {subject_dir}",
+                    "argstr": "-sd {subjects_dir}",
                 },
             ),
             (
