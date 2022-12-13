@@ -34,7 +34,7 @@ class ReconAll(ShellCommandTask):
     ...     base_timepoint_ids=["tp1", "tp2"]
     ... )
     >>> task.cmdline
-    'recon-all -all -base longbase -tp tp1 -tp tp2'
+    'recon-all -all -base longbase -base-tp tp1 -base-tp tp2'
 
     3. Longitudinally process tpN subjects:
 
@@ -142,7 +142,7 @@ class ReconAll(ShellCommandTask):
                 str,
                 {
                     "help_string": "base time-point identifier",
-                    "argstr": "-tp {base_timepoint_id}",
+                    "argstr": "-base-tp {base_timepoint_id}",
                     "xor": ["base_timepoint_ids"],
                 },
             ),
@@ -151,7 +151,7 @@ class ReconAll(ShellCommandTask):
                 ty.Iterable[str],
                 {
                     "help_string": "base time-point identifiers",
-                    "argstr": "-tp...",
+                    "argstr": "-base-tp...",
                     "xor": ["base_timepoint_id"],
                 },
             ),
