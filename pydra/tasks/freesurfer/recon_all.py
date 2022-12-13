@@ -50,7 +50,6 @@ class ReconAll(ShellCommandTask):
     input_spec = SpecInfo(
         name="ReconAllInput",
         fields=[
-            # Required arguments.
             (
                 "directive",
                 str,
