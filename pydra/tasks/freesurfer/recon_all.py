@@ -14,23 +14,37 @@ class ReconAll(ShellCommandTask):
 
     Examples
     --------
-    >>> task = ReconAll(directive="all", subject_id="tpnid", t1_volume="/path/to/tpn.dcm")
-    >>> task.cmdline
-    'recon-all -all -subjid tpnid -i /path/to/tpn.dcm'
+    Longitudinal processing:
+
+    1. Cross-sectionally process tpN subjects (the default workflow):
+
     >>> task = ReconAll(
     ...     directive="all",
-    ...     base_subject_id="templateid",
-    ...     base_timepoint_ids=["tp1id", "tp2id"],
+    ...     subject_id="tp1",
+    ...     t1_volume="/path/to/tp1.dcm"
     ... )
     >>> task.cmdline
-    'recon-all -all -base templateid -tp tp1id -tp tp2id'
+    'recon-all -all -subjid tp1 -i /path/to/tp1.dcm'
+
+    2. Create and process the unbiased base (subject template):
+
+    >>> task = ReconAll(
+    ...     directive="all",
+    ...     base_subject_id="longbase",
+    ...     base_timepoint_ids=["tp1", "tp2"]
+    ... )
+    >>> task.cmdline
+    'recon-all -all -base longbase -tp tp1 -tp tp2'
+
+    3. Longitudinally process tpN subjects:
+
     >>> task = ReconAll(
     ...    directive="all",
-    ...    longitudinal_timepoint_id="tpnid",
-    ...    longitudinal_template_id="templateid",
+    ...    longitudinal_timepoint_id="tp1",
+    ...    longitudinal_template_id="longbase",
     ... )
     >>> task.cmdline
-    'recon-all -all -long tpnid templateid'
+    'recon-all -all -long tp1 longbase'
     """
 
     input_spec = SpecInfo(
