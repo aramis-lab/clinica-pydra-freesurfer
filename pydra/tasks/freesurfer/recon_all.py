@@ -16,7 +16,7 @@ class ReconAll(ShellCommandTask):
     --------
     >>> task = ReconAll(directive="all", subject_id="tpNid", t1_volume="path_to_tpN_dcm")
     >>> task.cmdline
-    'recon-all -s tpNid -i path_to_tpN_dcm -all'
+    'recon-all -subjid tpNid -i path_to_tpN_dcm -all'
     >>> task = ReconAll(
     ...     directive="all",
     ...     base_subject_id="templateid",
@@ -36,20 +36,21 @@ class ReconAll(ShellCommandTask):
     input_spec = SpecInfo(
         name="ReconAllInput",
         fields=[
+            # Required arguments.
+            (
+                "subject_id",
+                str,
+                {
+                    "help_string": "subject identifier",
+                    "argstr": "-subjid {subject_id}",
+                },
+            ),
             (
                 "subjects_dir",
                 str,
                 {
                     "help_string": "user defined SUBJECTS_DIR",
                     "argstr": "-sd {subject_dir}",
-                },
-            ),
-            (
-                "subject_id",
-                str,
-                {
-                    "help_string": "subject identifier",
-                    "argstr": "-s {subject_id}",
                 },
             ),
             (
