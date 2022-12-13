@@ -42,10 +42,9 @@ class MRIConvert(ShellCommandTask):
                 str,
                 {
                     "help_string": "output volume",
-                    "mandatory": True,
                     "argstr": "{output_volume}",
                     "position": 2,
-                    "output_file_template": "{out_volume}",
+                    "output_file_template": "{input_volume}_converted.nii.gz",
                 },
             ),
             (
