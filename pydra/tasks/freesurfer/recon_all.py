@@ -14,29 +14,39 @@ class ReconAll(ShellCommandTask):
 
     Examples
     --------
-    >>> task = ReconAll(directive="all", subject_id="tpNid", t1_volume="path_to_tpN_dcm")
+    >>> task = ReconAll(directive="all", subject_id="tpnid", t1_volume="/path/to/tpn.dcm")
     >>> task.cmdline
-    'recon-all -subjid tpNid -i path_to_tpN_dcm -all'
+    'recon-all -all -subjid tpnid -i /path/to/tpn.dcm'
     >>> task = ReconAll(
     ...     directive="all",
     ...     base_subject_id="templateid",
     ...     base_timepoint_ids=["tp1id", "tp2id"],
     ... )
     >>> task.cmdline
-    'recon-all -base templateid -tp tp1id -tp tp2id -all'
+    'recon-all -all -base templateid -tp tp1id -tp tp2id'
     >>> task = ReconAll(
     ...    directive="all",
-    ...    longitudinal_timepoint_id="tpNid",
+    ...    longitudinal_timepoint_id="tpnid",
     ...    longitudinal_template_id="templateid",
     ... )
     >>> task.cmdline
-    'recon-all -long tpNid templateid -all'
+    'recon-all -all -long tpnid templateid'
     """
 
     input_spec = SpecInfo(
         name="ReconAllInput",
         fields=[
             # Required arguments.
+            (
+                "directive",
+                str,
+                {
+                    "help_string": "process directive",
+                    "argstr": "-{directive}",
+                    "allowed_values": ["all"],
+                    "position": 0,
+                },
+            ),
             (
                 "subject_id",
                 str,
@@ -146,16 +156,6 @@ class ReconAll(ShellCommandTask):
                     "help_string": "restrict processing to this hemisphere",
                     "argstr": "-hemi {hemisphere}",
                     "allowed_values": ["lh", "rh"],
-                },
-            ),
-            (
-                "directive",
-                str,
-                {
-                    "help_string": "workflow directive",
-                    "argstr": "-{directive}",
-                    "allowed_values": ["all"],
-                    "position": -1,
                 },
             ),
         ],
