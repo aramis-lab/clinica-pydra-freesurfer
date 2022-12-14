@@ -118,6 +118,7 @@ class ReconAll(ShellCommandTask):
                     "help_string": "longitudinal timepoint identifier",
                     "argstr": "-long {longitudinal_timepoint_id} {longitudinal_template_id}",
                     "requires": ["longitudinal_template_id"],
+                    "xor": ["subject_id"],
                 },
             ),
             (
