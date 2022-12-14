@@ -30,8 +30,8 @@ class ReconAll(ShellCommandTask):
 
     >>> task = ReconAll(
     ...     directive="all",
-    ...     base_subject_id="longbase",
-    ...     base_timepoint_ids=["tp1", "tp2"]
+    ...     base_template_id="longbase",
+    ...     base_timepoint_ids=["tp1", "tp2"],
     ... )
     >>> task.cmdline
     'recon-all -all -base longbase -base-tp tp1 -base-tp tp2'
@@ -129,11 +129,12 @@ class ReconAll(ShellCommandTask):
                 },
             ),
             (
-                "base_subject_id",
+                "base_template_id",
                 str,
                 {
-                    "help_string": "base subject template",
-                    "argstr": "-base {base_subject_id}",
+                    "help_string": "base template identifier",
+                    "argstr": "-base {base_template_id}",
+                    "xor": ["subject_id"],
                 },
             ),
             (
