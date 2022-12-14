@@ -66,7 +66,9 @@ class ReconAll(ShellCommandTask):
                 str,
                 {
                     "help_string": "subject identifier",
+                    "mandatory": True,
                     "argstr": "-subjid {subject_id}",
+                    "xor": ["base_template_id", "longitudinal_timepoint_id"],
                 },
             ),
             (
@@ -116,9 +118,10 @@ class ReconAll(ShellCommandTask):
                 str,
                 {
                     "help_string": "longitudinal timepoint identifier",
+                    "mandatory": True,
                     "argstr": "-long {longitudinal_timepoint_id} {longitudinal_template_id}",
                     "requires": ["longitudinal_template_id"],
-                    "xor": ["subject_id"],
+                    "xor": ["subject_id", "base_template_id"],
                 },
             ),
             (
@@ -135,8 +138,9 @@ class ReconAll(ShellCommandTask):
                 str,
                 {
                     "help_string": "base template identifier",
+                    "mandatory": True,
                     "argstr": "-base {base_template_id}",
-                    "xor": ["subject_id"],
+                    "xor": ["subject_id", "longitudinal_timepoint_id"],
                 },
             ),
             (
