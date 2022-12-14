@@ -55,6 +55,7 @@ class ReconAll(ShellCommandTask):
                 str,
                 {
                     "help_string": "process directive",
+                    "mandatory": True,
                     "argstr": "-{directive}",
                     "allowed_values": ["all"],
                     "position": 0,
