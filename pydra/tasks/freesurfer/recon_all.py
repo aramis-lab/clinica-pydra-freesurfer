@@ -1,3 +1,4 @@
+import os
 import typing as ty
 
 from pydra.engine.specs import ShellOutSpec, ShellSpec, SpecInfo
@@ -14,6 +15,20 @@ class ReconAll(ShellCommandTask):
 
     Examples
     --------
+    Cross-sectional processing:
+
+    By default, FreeSurfer writes its output to a directory defined through the `$SUBJECTS_DIR` environment variable.
+    If the latter is unset, the task will write to its current working directory. It can be overriden using the
+    `subjects_dir` argument:
+
+    >>> task = ReconAll(
+    ...     directive="all",
+    ...     subject_id="sub-P01",
+    ...     subjects_dir="/path/to/subjects/dir",
+    ... )
+    >>> task.cmdline  # doctest: +ELLIPSIS
+    'recon-all ... -sd /path/to/subjects/dir'
+
     Longitudinal processing:
 
     1. Cross-sectionally process tpN subjects (the default workflow):
@@ -23,8 +38,8 @@ class ReconAll(ShellCommandTask):
     ...     subject_id="tp1",
     ...     t1_volume="/path/to/tp1.dcm"
     ... )
-    >>> task.cmdline
-    'recon-all -all -subjid tp1 -i /path/to/tp1.dcm'
+    >>> task.cmdline  # doctest: +ELLIPSIS
+    'recon-all -all -subjid tp1 -i /path/to/tp1.dcm ...'
 
     2. Create and process the unbiased base (subject template):
 
@@ -33,8 +48,8 @@ class ReconAll(ShellCommandTask):
     ...     base_template_id="longbase",
     ...     base_timepoint_ids=["tp1", "tp2"],
     ... )
-    >>> task.cmdline
-    'recon-all -all -base longbase -base-tp tp1 -base-tp tp2'
+    >>> task.cmdline  # doctest: +ELLIPSIS
+    'recon-all -all -base longbase -base-tp tp1 -base-tp tp2 ...'
 
     3. Longitudinally process tpN subjects:
 
@@ -43,8 +58,8 @@ class ReconAll(ShellCommandTask):
     ...    longitudinal_timepoint_id="tp1",
     ...    longitudinal_template_id="longbase",
     ... )
-    >>> task.cmdline
-    'recon-all -all -long tp1 longbase'
+    >>> task.cmdline  # doctest: +ELLIPSIS
+    'recon-all -all -long tp1 longbase ...'
     """
 
     input_spec = SpecInfo(
@@ -69,14 +84,6 @@ class ReconAll(ShellCommandTask):
                     "mandatory": True,
                     "argstr": "-subjid {subject_id}",
                     "xor": ["base_template_id", "longitudinal_timepoint_id"],
-                },
-            ),
-            (
-                "subjects_dir",
-                str,
-                {
-                    "help_string": "user defined SUBJECTS_DIR",
-                    "argstr": "-sd {subjects_dir}",
                 },
             ),
             (
@@ -183,6 +190,15 @@ class ReconAll(ShellCommandTask):
                 {
                     "help_string": "set number of threads to use",
                     "argstr": "-threads {threads}",
+                },
+            ),
+            (
+                "subjects_dir",
+                str,
+                os.getenv("SUBJECTS_DIR", "."),
+                {
+                    "help_string": "user defined SUBJECTS_DIR",
+                    "argstr": "-sd {subjects_dir}",
                 },
             ),
         ],
