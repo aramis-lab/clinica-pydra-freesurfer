@@ -17,12 +17,15 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'pydra-freesurfer'
-copyright = '2022, Ghislain Vaillant'
-author = 'Ghislain Vaillant'
+from sphinx_pyproject import SphinxConfig
+config = SphinxConfig(globalns=globals())
+
+project = config['project']
+author = config['author']
+copyright = f"2022, {author}"
 
 # The full version, including alpha/beta/rc tags
-release = '0.0.1'
+release = config['version']
 
 
 # -- General configuration ---------------------------------------------------
