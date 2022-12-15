@@ -77,6 +77,16 @@ class ReconAll(ShellCommandTask):
     'recon-all -all -long tp1 longbase'
     """
 
+    DIRECTIVES = {
+        "all",              # All steps.
+        "autorecon1",       # Steps 1 to 5.
+        "autorecon2",       # Steps 6 to 23.
+        "autorecon2-cp",    # Steps 12 to 23.
+        "autorecon2-wm",    # Steps 15 to 23.
+        "autorecon2-pial",  # Steps 21 to 23.
+        "autorecon3",       # Steps 24 to 31.
+    }
+
     input_spec = SpecInfo(
         name="ReconAllInput",
         fields=[
@@ -87,7 +97,7 @@ class ReconAll(ShellCommandTask):
                     "help_string": "process directive",
                     "mandatory": True,
                     "argstr": "-{directive}",
-                    "allowed_values": ["all"],
+                    "allowed_values": DIRECTIVES,
                     "position": 0,
                 },
             ),
