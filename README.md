@@ -11,6 +11,17 @@ visualizing human brain MR images.
 This project exposes some of FreeSurfer's utilities as Pydra tasks to
 facilitate their incorporation into more advanced processing workflows.
 
+## Available interfaces
+
+- gtmseg
+- mri_convert
+- mri_surf2surf
+- mri_vol2vol
+- mris_expand
+- mris_preproc
+- recon-all
+- tkregister2
+
 ## Development
 
 This project is managed using [Poetry].
