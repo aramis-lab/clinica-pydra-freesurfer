@@ -1,6 +1,6 @@
 import typing as ty
 
-from pydra.engine.specs import ShellOutSpec, ShellSpec, SpecInfo
+from pydra.engine.specs import ShellSpec, SpecInfo
 
 from pydra import ShellCommandTask
 
@@ -256,12 +256,6 @@ $SUBJECTS_DIR/subj2/label/lh.subj1.aparc.annot --hemi lh'
             ),
         ],
         bases=(ShellSpec,),
-    )
-
-    output_spec = SpecInfo(
-        name="MRISurf2SurfOutput",
-        fields=[],
-        bases=(ShellOutSpec,),
     )
 
     executable = "mri_surf2surf"

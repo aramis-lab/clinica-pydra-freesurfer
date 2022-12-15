@@ -1,6 +1,6 @@
 import os
 
-from pydra.engine.specs import ShellOutSpec, ShellSpec, SpecInfo
+from pydra.engine.specs import ShellSpec, SpecInfo
 
 from pydra import ShellCommandTask
 
@@ -205,12 +205,6 @@ class MRIVol2Vol(ShellCommandTask):
             ),
         ],
         bases=(ShellSpec,),
-    )
-
-    output_spec = SpecInfo(
-        name="MRIVol2VolOutput",
-        fields=[],
-        bases=(ShellOutSpec,),
     )
 
     executable = "mri_vol2vol"

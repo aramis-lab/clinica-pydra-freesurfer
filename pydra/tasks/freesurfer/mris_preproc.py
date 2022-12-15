@@ -1,6 +1,6 @@
 import typing as ty
 
-from pydra.engine.specs import ShellOutSpec, ShellSpec, SpecInfo
+from pydra.engine.specs import ShellSpec, SpecInfo
 
 from pydra import ShellCommandTask
 
@@ -198,12 +198,6 @@ class MRISPreproc(ShellCommandTask):
             ),
         ],
         bases=(ShellSpec,),
-    )
-
-    output_spec = SpecInfo(
-        name="MRISPreprocOutput",
-        fields=[],
-        bases=(ShellOutSpec,),
     )
 
     executable = "mris_preproc"

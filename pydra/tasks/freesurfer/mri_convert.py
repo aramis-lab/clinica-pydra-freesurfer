@@ -1,4 +1,4 @@
-from pydra.engine.specs import ShellOutSpec, ShellSpec, SpecInfo
+from pydra.engine.specs import ShellSpec, SpecInfo
 
 from pydra import ShellCommandTask
 
@@ -57,12 +57,6 @@ class MRIConvert(ShellCommandTask):
             ),
         ],
         bases=(ShellSpec,),
-    )
-
-    output_spec = SpecInfo(
-        name="MRIConvertOutput",
-        fields=[],
-        bases=(ShellOutSpec,),
     )
 
     executable = "mri_convert"

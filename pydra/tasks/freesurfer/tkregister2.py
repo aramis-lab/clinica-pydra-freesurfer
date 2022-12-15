@@ -1,4 +1,4 @@
-from pydra.engine.specs import ShellOutSpec, ShellSpec, SpecInfo
+from pydra.engine.specs import ShellSpec, SpecInfo
 
 from pydra import ShellCommandTask
 
@@ -104,12 +104,6 @@ class TkRegister2(ShellCommandTask):
             ),
         ],
         bases=(ShellSpec,),
-    )
-
-    output_spec = SpecInfo(
-        name="TkRegisterOutput",
-        fields=[],
-        bases=(ShellOutSpec,),
     )
 
     executable = "tkregister2 --noedit"

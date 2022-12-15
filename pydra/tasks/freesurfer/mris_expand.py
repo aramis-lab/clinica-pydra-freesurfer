@@ -1,4 +1,4 @@
-from pydra.engine.specs import ShellOutSpec, ShellSpec, SpecInfo
+from pydra.engine.specs import ShellSpec, SpecInfo
 
 from pydra import ShellCommandTask
 
@@ -86,12 +86,6 @@ class MRISExpand(ShellCommandTask):
             ),
         ],
         bases=(ShellSpec,),
-    )
-
-    output_spec = SpecInfo(
-        name="MRISExpandOutput",
-        fields=[],
-        bases=(ShellOutSpec,),
     )
 
     executable = "mris_expand"
