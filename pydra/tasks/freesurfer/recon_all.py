@@ -8,6 +8,22 @@ from pydra import ShellCommandTask
 __all__ = ["ReconAll"]
 
 
+def _get_subject_id(inputs: dict) -> str:
+    return (
+        # Cross-sectional case
+        inputs.get("subject_id")
+        # Longitudinal template case
+        or inputs.get("base_template_id")
+        # Longitudinal timepoint case
+        or f"{inputs.get('longitudinal_timepoint_id')}.long.{inputs.get('longitudinal_template_id')}"
+    )
+
+
+def _get_subjects_dir(inputs: dict) -> str:
+    # Get default FreeSurfer's subjects directory unless overridden.
+    return inputs.get("subjects_dir", os.getenv("SUBJECTS_DIR"))
+
+
 class ReconAll(ShellCommandTask):
     """Task for FreeSurfer's recon-all.
 
@@ -18,8 +34,7 @@ class ReconAll(ShellCommandTask):
     Cross-sectional processing:
 
     By default, FreeSurfer writes its output to a directory defined through the `$SUBJECTS_DIR` environment variable.
-    If the latter is unset, the task will write to its current working directory. It can be overriden using the
-    `subjects_dir` argument:
+    It can be overridden using the `subjects_dir` argument:
 
     >>> task = ReconAll(
     ...     directive="all",
@@ -38,8 +53,8 @@ class ReconAll(ShellCommandTask):
     ...     subject_id="tp1",
     ...     t1_volume="/path/to/tp1.dcm"
     ... )
-    >>> task.cmdline  # doctest: +ELLIPSIS
-    'recon-all -all -subjid tp1 -i /path/to/tp1.dcm ...'
+    >>> task.cmdline
+    'recon-all -all -subjid tp1 -i /path/to/tp1.dcm'
 
     2. Create and process the unbiased base (subject template):
 
@@ -48,8 +63,8 @@ class ReconAll(ShellCommandTask):
     ...     base_template_id="longbase",
     ...     base_timepoint_ids=["tp1", "tp2"],
     ... )
-    >>> task.cmdline  # doctest: +ELLIPSIS
-    'recon-all -all -base longbase -base-tp tp1 -base-tp tp2 ...'
+    >>> task.cmdline
+    'recon-all -all -base longbase -base-tp tp1 -base-tp tp2'
 
     3. Longitudinally process tpN subjects:
 
@@ -58,8 +73,8 @@ class ReconAll(ShellCommandTask):
     ...    longitudinal_timepoint_id="tp1",
     ...    longitudinal_template_id="longbase",
     ... )
-    >>> task.cmdline  # doctest: +ELLIPSIS
-    'recon-all -all -long tp1 longbase ...'
+    >>> task.cmdline
+    'recon-all -all -long tp1 longbase'
     """
 
     input_spec = SpecInfo(
@@ -195,9 +210,8 @@ class ReconAll(ShellCommandTask):
             (
                 "subjects_dir",
                 str,
-                os.getenv("SUBJECTS_DIR", "."),
                 {
-                    "help_string": "user defined SUBJECTS_DIR",
+                    "help_string": "subjects directory processed by FreeSurfer",
                     "argstr": "-sd {subjects_dir}",
                 },
             ),
@@ -207,7 +221,24 @@ class ReconAll(ShellCommandTask):
 
     output_spec = SpecInfo(
         name="ReconAllOutput",
-        fields=[],
+        fields=[
+            (
+                "subject_id",
+                str,
+                {
+                    "help_string": "subject identifier where outputs are written",
+                    "callable": _get_subject_id,
+                },
+            ),
+            (
+                "subjects_dir",
+                str,
+                {
+                    "help_string": "subjects directory processed by FreeSurfer",
+                    "callable": _get_subjects_dir,
+                },
+            ),
+        ],
         bases=(ShellOutSpec,),
     )
 
