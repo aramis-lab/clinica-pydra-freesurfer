@@ -78,13 +78,20 @@ class ReconAll(ShellCommandTask):
     """
 
     DIRECTIVES = {
-        "all",              # All steps.
-        "autorecon1",       # Steps 1 to 5.
-        "autorecon2",       # Steps 6 to 23.
-        "autorecon2-cp",    # Steps 12 to 23.
-        "autorecon2-wm",    # Steps 15 to 23.
-        "autorecon2-pial",  # Steps 21 to 23.
-        "autorecon3",       # Steps 24 to 31.
+        # All steps.
+        "all",
+        # Steps 1 to 5.
+        "autorecon1",
+        # Steps 6 to 23.
+        "autorecon2",
+        # Steps 12 to 23.
+        "autorecon2-cp",
+        # Steps 15 to 23.
+        "autorecon2-wm",
+        # Steps 21 to 23.
+        "autorecon2-pial",
+        # Steps 24 to 31.
+        "autorecon3",
     }
 
     input_spec = SpecInfo(
