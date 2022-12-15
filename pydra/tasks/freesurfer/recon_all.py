@@ -8,20 +8,20 @@ from pydra import ShellCommandTask
 __all__ = ["ReconAll"]
 
 
-def _get_subject_id(inputs: dict) -> str:
+def _get_subject_id(inputs) -> str:
     return (
         # Cross-sectional case
-        inputs.get("subject_id")
+        inputs.subject_id
         # Longitudinal template case
-        or inputs.get("base_template_id")
+        or inputs.base_template_id
         # Longitudinal timepoint case
-        or f"{inputs.get('longitudinal_timepoint_id')}.long.{inputs.get('longitudinal_template_id')}"
+        or f"{inputs.longitudinal_timepoint_id}.long.{inputs.longitudinal_template_id}"
     )
 
 
-def _get_subjects_dir(inputs: dict) -> str:
+def _get_subjects_dir(inputs) -> str:
     # Get default FreeSurfer's subjects directory unless overridden.
-    return inputs.get("subjects_dir", os.getenv("SUBJECTS_DIR"))
+    return inputs.subjects_dir or os.getenv("SUBJECTS_DIR")
 
 
 class ReconAll(ShellCommandTask):
