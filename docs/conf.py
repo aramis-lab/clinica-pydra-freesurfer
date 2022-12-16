@@ -18,8 +18,8 @@
 # -- Project information -----------------------------------------------------
 
 project = 'pydra-freesurfer'
-copyright = '2022, Ghislain Vaillant'
-author = 'Ghislain Vaillant'
+author = 'The Aramis Lab'
+copyright = f'2022, {author}'
 
 # The full version, including alpha/beta/rc tags
 release = '0.0.2'
