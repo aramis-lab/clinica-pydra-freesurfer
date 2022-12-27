@@ -8,22 +8,6 @@ from pydra import ShellCommandTask
 __all__ = ["ReconAll"]
 
 
-def _get_subject_id(inputs) -> str:
-    return (
-        # Cross-sectional case
-        inputs.subject_id
-        # Longitudinal template case
-        or inputs.base_template_id
-        # Longitudinal timepoint case
-        or f"{inputs.longitudinal_timepoint_id}.long.{inputs.longitudinal_template_id}"
-    )
-
-
-def _get_subjects_dir(inputs) -> str:
-    # Get default FreeSurfer's subjects directory unless overridden.
-    return os.fspath(inputs.subjects_dir or os.getenv("SUBJECTS_DIR"))
-
-
 class ReconAll(ShellCommandTask):
     """Task for FreeSurfer's recon-all.
 
@@ -76,6 +60,23 @@ class ReconAll(ShellCommandTask):
     >>> task.cmdline
     'recon-all -all -long tp1 longbase'
     """
+
+    @staticmethod
+    def get_output_subject_id(inputs) -> str:
+        # Returns the output subject identifier depending on the workflow.
+        return (
+            # Cross-sectional case
+            inputs.subject_id
+            # Longitudinal template case
+            or inputs.base_template_id
+            # Longitudinal timepoint case
+            or f"{inputs.longitudinal_timepoint_id}.long.{inputs.longitudinal_template_id}"
+        )
+
+    @staticmethod
+    def get_output_subjects_dir(inputs) -> str:
+        # Returns the default FreeSurfer's subjects directory unless overridden.
+        return os.fspath(inputs.subjects_dir or os.getenv("SUBJECTS_DIR"))
 
     DIRECTIVES = {
         # All steps.
@@ -244,7 +245,7 @@ class ReconAll(ShellCommandTask):
                 str,
                 {
                     "help_string": "subject identifier where outputs are written",
-                    "callable": _get_subject_id,
+                    "callable": get_output_subject_id,
                 },
             ),
             (
@@ -252,7 +253,7 @@ class ReconAll(ShellCommandTask):
                 str,
                 {
                     "help_string": "subjects directory processed by FreeSurfer",
-                    "callable": _get_subjects_dir,
+                    "callable": get_output_subjects_dir,
                 },
             ),
         ],
