@@ -1,11 +1,9 @@
-from pydra.engine.specs import ShellSpec, SpecInfo
-
-from pydra import ShellCommandTask
+import pydra
 
 __all__ = ["MRIConvert"]
 
 
-class MRIConvert(ShellCommandTask):
+class MRIConvert(pydra.ShellCommandTask):
     """Task for mri_convert.
 
     General purpose utility for converting between different file formats.
@@ -24,7 +22,7 @@ class MRIConvert(ShellCommandTask):
     'mri_convert orig.nii.gz float.nii.gz -odt float'
     """
 
-    input_spec = SpecInfo(
+    input_spec = pydra.specs.SpecInfo(
         name="MRIConvertInput",
         fields=[
             (
@@ -56,7 +54,7 @@ class MRIConvert(ShellCommandTask):
                 },
             ),
         ],
-        bases=(ShellSpec,),
+        bases=(pydra.specs.ShellSpec,),
     )
 
     executable = "mri_convert"
