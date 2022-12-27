@@ -21,7 +21,7 @@ def _get_subject_id(inputs) -> str:
 
 def _get_subjects_dir(inputs) -> str:
     # Get default FreeSurfer's subjects directory unless overridden.
-    return inputs.subjects_dir or os.getenv("SUBJECTS_DIR")
+    return os.fspath(inputs.subjects_dir or os.getenv("SUBJECTS_DIR"))
 
 
 class ReconAll(ShellCommandTask):
@@ -120,7 +120,7 @@ class ReconAll(ShellCommandTask):
             ),
             (
                 "t1_volume",
-                str,
+                os.PathLike[str],
                 {
                     "help_string": "input T1 volume",
                     "argstr": "-i {t1_volume}",
@@ -129,7 +129,7 @@ class ReconAll(ShellCommandTask):
             ),
             (
                 "t1_volumes",
-                ty.Iterable[str],
+                ty.Iterable[os.PathLike[str]],
                 {
                     "help_string": "input T1 volumes",
                     "argstr": "-i...",
@@ -138,7 +138,7 @@ class ReconAll(ShellCommandTask):
             ),
             (
                 "t2_volume",
-                str,
+                os.PathLike[str],
                 {
                     "help_string": "input T2 volume",
                     "argstr": "-t2 {t2_volume}",
@@ -146,7 +146,7 @@ class ReconAll(ShellCommandTask):
             ),
             (
                 "flair_volume",
-                str,
+                os.PathLike[str],
                 {
                     "help_string": "input FLAIR volume",
                     "argstr": "-flair {flair_volume}",
@@ -192,7 +192,7 @@ class ReconAll(ShellCommandTask):
             ),
             (
                 "custom_mask_input",
-                str,
+                os.PathLike[str],
                 {
                     "help_string": "input custom brain mask",
                     "argstr": "-xmask {custom_mask_input}",
@@ -226,7 +226,7 @@ class ReconAll(ShellCommandTask):
             ),
             (
                 "subjects_dir",
-                str,
+                os.PathLike[str],
                 {
                     "help_string": "subjects directory processed by FreeSurfer",
                     "argstr": "-sd {subjects_dir}",
