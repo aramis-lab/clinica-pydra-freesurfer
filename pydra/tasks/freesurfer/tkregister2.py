@@ -1,11 +1,11 @@
-from pydra.engine.specs import ShellSpec, SpecInfo
+import pydra
 
-from pydra import ShellCommandTask
+from . import specs
 
 __all__ = ["TkRegister2"]
 
 
-class TkRegister2(ShellCommandTask):
+class TkRegister2(pydra.ShellCommandTask):
     """Task for tkregister2.
 
     tkregister2 is a tool to assist in the manual tuning of the linear registration between two volumes, mainly for the
@@ -39,7 +39,7 @@ class TkRegister2(ShellCommandTask):
 --s fsaverage'
     """
 
-    input_spec = SpecInfo(
+    input_spec = pydra.specs.SpecInfo(
         name="TkRegister2Input",
         fields=[
             (
@@ -94,16 +94,8 @@ class TkRegister2(ShellCommandTask):
                     "argstr": "--s {subject_id}",
                 },
             ),
-            (
-                "subjects_dir",
-                str,
-                {
-                    "help_string": "user defined subjects directory",
-                    "argstr": "--sd {subjects_dir}",
-                },
-            ),
         ],
-        bases=(ShellSpec,),
+        bases=(specs.FreeSurferBaseSpec,),
     )
 
     executable = "tkregister2 --noedit"

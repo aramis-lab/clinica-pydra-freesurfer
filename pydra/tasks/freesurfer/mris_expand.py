@@ -1,11 +1,9 @@
-from pydra.engine.specs import ShellSpec, SpecInfo
-
-from pydra import ShellCommandTask
+import pydra
 
 __all__ = ["MRISExpand"]
 
 
-class MRISExpand(ShellCommandTask):
+class MRISExpand(pydra.ShellCommandTask):
     """Task for mris_expand.
 
     Expand a surface outwards by a specified amount while maintaining smoothness and self-intersection constraints.
@@ -35,7 +33,7 @@ class MRISExpand(ShellCommandTask):
     'mris_expand -label labelfile lh.white 0.5 lh.graymid'
     """
 
-    input_spec = SpecInfo(
+    input_spec = pydra.specs.SpecInfo(
         name="MRISExpandInput",
         fields=[
             (
@@ -85,7 +83,7 @@ class MRISExpand(ShellCommandTask):
                 },
             ),
         ],
-        bases=(ShellSpec,),
+        bases=(pydra.specs.ShellSpec,),
     )
 
     executable = "mris_expand"

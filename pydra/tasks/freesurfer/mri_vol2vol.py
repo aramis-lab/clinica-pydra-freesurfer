@@ -1,13 +1,13 @@
 import os
 
-from pydra.engine.specs import ShellSpec, SpecInfo
+import pydra
 
-from pydra import ShellCommandTask
+from . import specs
 
 __all__ = ["MRIVol2Vol"]
 
 
-class MRIVol2Vol(ShellCommandTask):
+class MRIVol2Vol(pydra.ShellCommandTask):
     """Task for mri_vol2vol.
 
     Resamples a volume into another field-of-view using various types of matrices (FreeSurfer, FSL, SPM, and MNI). This
@@ -88,17 +88,9 @@ class MRIVol2Vol(ShellCommandTask):
 --xfm transforms/talairach.xfm'
     """
 
-    input_spec = SpecInfo(
+    input_spec = pydra.specs.SpecInfo(
         name="MRIVol2VolInput",
         fields=[
-            (
-                "subjects_dir",
-                str,
-                {
-                    "help_string": "user defined SUBJECTS_DIR",
-                    "argstr": "--sd {subjects_dir}",
-                },
-            ),
             (
                 "movvol",
                 str,
@@ -204,7 +196,7 @@ class MRIVol2Vol(ShellCommandTask):
                 },
             ),
         ],
-        bases=(ShellSpec,),
+        bases=(specs.FreeSurferBaseSpec,),
     )
 
     executable = "mri_vol2vol"

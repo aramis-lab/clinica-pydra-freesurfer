@@ -1,11 +1,11 @@
-from pydra.engine.specs import ShellOutSpec, ShellSpec, SpecInfo
+import pydra
 
-from pydra import ShellCommandTask
+from . import specs
 
 __all__ = ["GTMSeg"]
 
 
-class GTMSeg(ShellCommandTask):
+class GTMSeg(pydra.ShellCommandTask):
     """Task for PETSurfer's gtmseg.
 
     Examples
@@ -32,17 +32,9 @@ class GTMSeg(ShellCommandTask):
     'gtmseg --s subject --o gtmseg+myseg.mgz --head apas+head+myseg.mgz --ctab myseg.colortable.txt'
     """
 
-    input_spec = SpecInfo(
+    input_spec = pydra.specs.SpecInfo(
         name="GTMSegInput",
         fields=[
-            (
-                "subjects_dir",
-                str,
-                {
-                    "help_string": "user defined SUBJECTS_DIR",
-                    "argstr": "--sd {subjects_dir}",
-                },
-            ),
             (
                 "subject_id",
                 str,
@@ -145,13 +137,12 @@ class GTMSeg(ShellCommandTask):
                 },
             ),
         ],
-        bases=(ShellSpec,),
+        bases=(specs.FreeSurferBaseSpec,),
     )
 
-    output_spec = SpecInfo(
+    output_spec = pydra.specs.SpecInfo(
         name="GTMSegOutput",
-        fields=[],
-        bases=(ShellOutSpec,),
+        bases=(specs.FreeSurferBaseOutSpec,),
     )
 
     executable = "gtmseg"

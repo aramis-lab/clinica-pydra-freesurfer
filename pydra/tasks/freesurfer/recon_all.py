@@ -1,14 +1,14 @@
 import os
 import typing as ty
 
-from pydra.engine.specs import ShellOutSpec, ShellSpec, SpecInfo
+import pydra
 
-from pydra import ShellCommandTask
+from . import specs
 
 __all__ = ["ReconAll"]
 
 
-class ReconAll(ShellCommandTask):
+class ReconAll(pydra.ShellCommandTask):
     """Task for FreeSurfer's recon-all.
 
     Fully automatic structural imaging stream for processing cross-sectional and longitudinal data.
@@ -26,7 +26,7 @@ class ReconAll(ShellCommandTask):
     ...     subjects_dir="/path/to/subjects/dir",
     ... )
     >>> task.cmdline  # doctest: +ELLIPSIS
-    'recon-all ... -sd /path/to/subjects/dir'
+    'recon-all ... -sd /path/to/subjects/dir ...'
 
     Longitudinal processing:
 
@@ -95,7 +95,7 @@ class ReconAll(ShellCommandTask):
         "autorecon3",
     }
 
-    input_spec = SpecInfo(
+    input_spec = pydra.specs.SpecInfo(
         name="ReconAllInput",
         fields=[
             (
@@ -225,19 +225,11 @@ class ReconAll(ShellCommandTask):
                     "argstr": "-threads {threads}",
                 },
             ),
-            (
-                "subjects_dir",
-                os.PathLike,
-                {
-                    "help_string": "subjects directory processed by FreeSurfer",
-                    "argstr": "-sd {subjects_dir}",
-                },
-            ),
         ],
-        bases=(ShellSpec,),
+        bases=(specs.FreeSurferBaseSpec,),
     )
 
-    output_spec = SpecInfo(
+    output_spec = pydra.specs.SpecInfo(
         name="ReconAllOutput",
         fields=[
             (
@@ -248,16 +240,8 @@ class ReconAll(ShellCommandTask):
                     "callable": get_output_subject_id,
                 },
             ),
-            (
-                "subjects_dir",
-                str,
-                {
-                    "help_string": "subjects directory processed by FreeSurfer",
-                    "callable": get_output_subjects_dir,
-                },
-            ),
         ],
-        bases=(ShellOutSpec,),
+        bases=(specs.FreeSurferBaseOutSpec,),
     )
 
     executable = "recon-all"

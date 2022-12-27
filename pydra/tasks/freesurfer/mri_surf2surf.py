@@ -1,13 +1,13 @@
 import typing as ty
 
-from pydra.engine.specs import ShellSpec, SpecInfo
+import pydra
 
-from pydra import ShellCommandTask
+from . import specs
 
 __all__ = ["MRISurf2Surf"]
 
 
-class MRISurf2Surf(ShellCommandTask):
+class MRISurf2Surf(pydra.ShellCommandTask):
     """Task for mri_surf2surf.
 
     Resamples data from one surface onto another. If both the source and
@@ -96,17 +96,9 @@ class MRISurf2Surf(ShellCommandTask):
 $SUBJECTS_DIR/subj2/label/lh.subj1.aparc.annot --hemi lh'
     """
 
-    input_spec = SpecInfo(
+    input_spec = pydra.specs.SpecInfo(
         name="MRISurf2SurfInput",
         fields=[
-            (
-                "subjects_dir",
-                str,
-                {
-                    "help_string": "user defined SUBJECTS_DIR",
-                    "argstr": "--sd {subjects_dir}",
-                },
-            ),
             (
                 "source_subject_id",
                 str,
@@ -255,7 +247,7 @@ $SUBJECTS_DIR/subj2/label/lh.subj1.aparc.annot --hemi lh'
                 },
             ),
         ],
-        bases=(ShellSpec,),
+        bases=(specs.FreeSurferBaseSpec,),
     )
 
     executable = "mri_surf2surf"

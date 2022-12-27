@@ -1,13 +1,13 @@
 import typing as ty
 
-from pydra.engine.specs import ShellSpec, SpecInfo
+import pydra
 
-from pydra import ShellCommandTask
+from . import specs
 
 __all__ = ["MRISPreproc"]
 
 
-class MRISPreproc(ShellCommandTask):
+class MRISPreproc(pydra.ShellCommandTask):
     """Task for mris_preproc.
 
     Script to prepare surface-based data for high-level analysis by resampling surface or volume source data to a
@@ -88,7 +88,7 @@ class MRISPreproc(ShellCommandTask):
 --paired-diff'
     """
 
-    input_spec = SpecInfo(
+    input_spec = pydra.specs.SpecInfo(
         name="MRISPreprocInput",
         fields=[
             (
@@ -188,16 +188,8 @@ class MRISPreproc(ShellCommandTask):
                     "argstr": "--paired-diff",
                 },
             ),
-            (
-                "subjects_dir",
-                str,
-                {
-                    "help_string": "user defined subjects directory",
-                    "argstr": "--SUBJECTS_DIR {subjects_dir}",
-                },
-            ),
         ],
-        bases=(ShellSpec,),
+        bases=(specs.FreeSurferBaseSpec,),
     )
 
     executable = "mris_preproc"
