@@ -5,11 +5,11 @@ import attrs
 
 import pydra
 
-__all__ = ["FreeSurferBaseSpec", "FreeSurferBaseOutSpec"]
+__all__ = ["SubjectsDirSpec", "SubjectsDirOutSpec"]
 
 
-@attrs.define(kw_only=True)
-class FreeSurferBaseSpec(pydra.specs.ShellSpec):
+@attrs.define(slots=False, kw_only=True)
+class SubjectsDirSpec(pydra.specs.ShellSpec):
 
     subjects_dir: os.PathLike = attrs.field(
         metadata={
@@ -19,8 +19,8 @@ class FreeSurferBaseSpec(pydra.specs.ShellSpec):
     )
 
 
-@attrs.define(kw_only=True)
-class FreeSurferBaseOutSpec(pydra.specs.ShellOutSpec):
+@attrs.define(slots=False, kw_only=True)
+class SubjectsDirOutSpec(pydra.specs.ShellOutSpec):
     @staticmethod
     def get_subjects_dir(subjects_dir: ty.Optional[str]) -> str:
         return os.fspath(subjects_dir or os.getenv("SUBJECTS_DIR"))

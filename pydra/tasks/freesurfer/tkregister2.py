@@ -95,7 +95,7 @@ class TkRegister2(pydra.ShellCommandTask):
                 },
             ),
         ],
-        bases=(specs.FreeSurferBaseSpec,),
+        bases=(specs.SubjectsDirSpec,),
     )
 
     executable = "tkregister2 --noedit"

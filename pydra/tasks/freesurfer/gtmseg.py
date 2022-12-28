@@ -137,12 +137,12 @@ class GTMSeg(pydra.ShellCommandTask):
                 },
             ),
         ],
-        bases=(specs.FreeSurferBaseSpec,),
+        bases=(specs.SubjectsDirSpec,),
     )
 
     output_spec = pydra.specs.SpecInfo(
         name="GTMSegOutput",
-        bases=(specs.FreeSurferBaseOutSpec,),
+        bases=(specs.SubjectsDirOutSpec,),
     )
 
     executable = "gtmseg"
