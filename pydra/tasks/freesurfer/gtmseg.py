@@ -12,7 +12,7 @@ class GTMSeg(pydra.ShellCommandTask):
     --------
     >>> task = GTMSeg(subject_id="subject")
     >>> task.cmdline
-    'gtmseg --s subject'
+    'gtmseg --s subject --o gtmseg.mgz'
     >>> task = GTMSeg(
     ...     subject_id="subject",
     ...     keep_hypointensities=True,
@@ -47,6 +47,7 @@ class GTMSeg(pydra.ShellCommandTask):
             (
                 "output_volume",
                 str,
+                "gtmseg.mgz",
                 {
                     "help_string": "output volume relative to subject's mri directory",
                     "argstr": "--o {output_volume}",
