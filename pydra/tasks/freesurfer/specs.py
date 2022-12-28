@@ -5,7 +5,7 @@ import attrs
 
 import pydra
 
-__all__ = ["SubjectsDirSpec", "SubjectsDirOutSpec"]
+__all__ = ["SubjectsDirSpec", "SubjectsDirOutSpec", "HemisphereSpec"]
 
 
 @attrs.define(slots=False, kw_only=True)
