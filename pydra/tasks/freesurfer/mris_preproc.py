@@ -24,7 +24,7 @@ class MRISPreproc(pydra.ShellCommandTask):
     >>> task = MRISPreproc(
     ...     source_subject_ids=source_subject_ids,
     ...     target_subject_id="fsaverage",
-    ...     hemifield="lh",
+    ...     hemisphere="lh",
     ...     measure="thickness",
     ...     output_file="abc-lh-thickness.mgh",
     ... )
@@ -37,7 +37,7 @@ class MRISPreproc(pydra.ShellCommandTask):
     >>> task = MRISPreproc(
     ...     fsgd_file="abc.fsgd",
     ...     target_subject_id="fsaverage",
-    ...     hemifield="lh",
+    ...     hemisphere="lh",
     ...     measure="thickness",
     ...     output_file="abc-lh-thickness.mgh",
     ... )
@@ -49,7 +49,7 @@ class MRISPreproc(pydra.ShellCommandTask):
     >>> task = MRISPreproc(
     ...     source_subject_ids=source_subject_ids,
     ...     target_subject_id="fsaverage",
-    ...     hemifield="lh",
+    ...     hemisphere="lh",
     ...     measure="thickness",
     ...     output_file="abc-lh-thickness.sm5.mgh",
     ...     target_fwhm=5,
@@ -62,7 +62,7 @@ class MRISPreproc(pydra.ShellCommandTask):
 
     >>> task = MRISPreproc(
     ...     target_subject_id="fsaverage",
-    ...     hemifield="lh",
+    ...     hemisphere="lh",
     ...     output_file="abc-lh-thickness.mgh",
     ...     fsgd_file="abc.fsgd",
     ...     source_format="curv",
@@ -78,7 +78,7 @@ class MRISPreproc(pydra.ShellCommandTask):
     >>> task = MRISPreproc(
     ...     fsgd_file="abc.fsgd",
     ...     target_subject_id="fsaverage",
-    ...     hemifield="lh",
+    ...     hemisphere="lh",
     ...     measure="thickness",
     ...     output_file="abc-lh-thickness-pdiff.mgh",
     ...     paired_differences=True,
@@ -97,7 +97,7 @@ class MRISPreproc(pydra.ShellCommandTask):
                 {
                     "help_string": "path where to save output",
                     "argstr": "--out {output_file}",
-                    "output_file_template": "concat_{hemifield}_{target_subject_id}.mgz",
+                    "output_file_template": "concat_{hemisphere}_{target_subject_id}.mgz",
                 },
             ),
             (
@@ -110,10 +110,10 @@ class MRISPreproc(pydra.ShellCommandTask):
                 },
             ),
             (
-                "hemifield",
+                "hemisphere",
                 str,
                 {
-                    "help_string": "hemifield",
+                    "help_string": "hemisphere",
                     "mandatory": True,
                     "argstr": "--hemi",
                     "allowed_values": {"lh", "rh"},
