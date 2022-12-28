@@ -19,7 +19,7 @@ class MRISurf2Surf(pydra.ShellCommandTask):
     analyze4d format:
 
     >>> task = MRISurf2Surf(
-    ...     hemifield="lh",
+    ...     hemisphere="lh",
     ...     source_subject_id="bert",
     ...     sval="thickness",
     ...     sfmt="curv",
@@ -32,17 +32,17 @@ class MRISurf2Surf(pydra.ShellCommandTask):
     2. Resample data on the icosahedron to the right hemisphere of subject bert:
 
     >>> task.cmdline
-    'mri_surf2surf --srcsubject bert --sval thickness --sfmt curv --trgsubject ico --trgicoorder 7 \
---tval bert-thickness-lh.img --tfmt analyze4d --hemi lh'
+    'mri_surf2surf --hemi lh --srcsubject bert --sval thickness --sfmt curv --trgsubject ico --trgicoorder 7 \
+--tval bert-thickness-lh.img --tfmt analyze4d'
     >>> task = MRISurf2Surf(
-    ...     hemifield="rh",
+    ...     hemisphere="rh",
     ...     source_subject_id="ico",
     ...     sval="icodata-rh.mgh",
     ...     target_subject_id="bert",
     ...     tval="./bert-ico-rh.mgh",
     ... )
     >>> task.cmdline
-    'mri_surf2surf --srcsubject ico --sval icodata-rh.mgh --trgsubject bert --tval ./bert-ico-rh.mgh --hemi rh'
+    'mri_surf2surf --hemi rh --srcsubject ico --sval icodata-rh.mgh --trgsubject bert --tval ./bert-ico-rh.mgh'
 
     3. Convert the surface coordinates of the lh.white of a subject to a (talairach) average:
 
@@ -61,39 +61,39 @@ class MRISurf2Surf(pydra.ShellCommandTask):
 
     >>> task = MRISurf2Surf(
     ...     reg="register.lta",
-    ...     hemifield="lh",
+    ...     hemisphere="lh",
     ...     sval_xyz="white",
     ...     tval_xyz="template.nii.gz",
     ...     tval="./lh.white.func",
     ...     source_subject_id="yoursubject",
     ... )
     >>> task.cmdline
-    'mri_surf2surf --srcsubject yoursubject --sval-xyz white --reg register.lta --tval ./lh.white.func --tval-xyz template.nii.gz \
---hemi lh'
+    'mri_surf2surf --hemi lh --srcsubject yoursubject --sval-xyz white --reg register.lta --tval ./lh.white.func \
+--tval-xyz template.nii.gz'
 
     5. Extract surface normals of the white surface and save in a volume-encoded file:
 
     >>> task = MRISurf2Surf(
     ...     source_subject_id="yoursubject",
-    ...     hemifield="lh",
+    ...     hemisphere="lh",
     ...     sval_nxyz="white",
     ...     tval="lh.white.norm.mgh",
     ... )
     >>> task.cmdline
-    'mri_surf2surf --srcsubject yoursubject --sval-nxyz white --tval lh.white.norm.mgh --hemi lh'
+    'mri_surf2surf --hemi lh --srcsubject yoursubject --sval-nxyz white --tval lh.white.norm.mgh'
 
     6. Convert the annotation for one subject to the surface of another:
 
     >>> task = MRISurf2Surf(
     ...     source_subject_id="subj1",
     ...     target_subject_id="subj2",
-    ...     hemifield="lh",
+    ...     hemisphere="lh",
     ...     sval_annot="$SUBJECTS_DIR/subj1/label/lh.aparc.annot",
     ...     tval="$SUBJECTS_DIR/subj2/label/lh.subj1.aparc.annot",
     ... )
     >>> task.cmdline
-    'mri_surf2surf --srcsubject subj1 --sval-annot $SUBJECTS_DIR/subj1/label/lh.aparc.annot --trgsubject subj2 --tval \
-$SUBJECTS_DIR/subj2/label/lh.subj1.aparc.annot --hemi lh'
+    'mri_surf2surf --hemi lh --srcsubject subj1 --sval-annot $SUBJECTS_DIR/subj1/label/lh.aparc.annot \
+--trgsubject subj2 --tval $SUBJECTS_DIR/subj2/label/lh.subj1.aparc.annot'
     """
 
     input_spec = pydra.specs.SpecInfo(
@@ -238,16 +238,11 @@ $SUBJECTS_DIR/subj2/label/lh.subj1.aparc.annot --hemi lh'
                     "argstr": "--tfmt {tfmt}",
                 },
             ),
-            (
-                "hemifield",
-                str,
-                {
-                    "help_string": "hemifield",
-                    "argstr": "--hemi {hemifield}",
-                },
-            ),
         ],
-        bases=(specs.SubjectsDirSpec,),
+        bases=(
+            specs.HemisphereSpec,
+            specs.SubjectsDirSpec,
+        ),
     )
 
     executable = "mri_surf2surf"

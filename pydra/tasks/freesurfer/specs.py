@@ -31,3 +31,15 @@ class SubjectsDirOutSpec(pydra.specs.ShellOutSpec):
             "callable": get_subjects_dir,
         }
     )
+
+
+@attrs.define(slots=False, kw_only=True)
+class HemisphereSpec(pydra.specs.ShellSpec):
+
+    hemisphere: str = attrs.field(
+        metadata={
+            "help_string": "restrict processing to hemisphere",
+            "argstr": "--hemi {hemisphere}",
+            "allowed_values": ["lh", "rh"],
+        }
+    )
