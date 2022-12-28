@@ -14,7 +14,7 @@ class SubjectsDirSpec(pydra.specs.ShellSpec):
     subjects_dir: os.PathLike = attrs.field(
         metadata={
             "help_string": "subjects directory processed by FreeSurfer",
-            "argstr": "-sd {subjects_dir}",
+            "argstr": "--sd {subjects_dir}",
         }
     )
 
