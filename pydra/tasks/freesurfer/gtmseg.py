@@ -12,7 +12,7 @@ class GTMSeg(pydra.ShellCommandTask):
     --------
     >>> task = GTMSeg(subject_id="subject")
     >>> task.cmdline
-    'gtmseg --s subject'
+    'gtmseg --s subject --o gtmseg.mgz --usf 2.0'
     >>> task = GTMSeg(
     ...     subject_id="subject",
     ...     keep_hypointensities=True,
@@ -29,7 +29,7 @@ class GTMSeg(pydra.ShellCommandTask):
     ...     colortable="myseg.colortable.txt",
     ... )
     >>> task.cmdline
-    'gtmseg --s subject --o gtmseg+myseg.mgz --head apas+head+myseg.mgz --ctab myseg.colortable.txt'
+    'gtmseg --s subject --o gtmseg+myseg.mgz --head apas+head+myseg.mgz --ctab myseg.colortable.txt --usf 2.0'
     """
 
     input_spec = pydra.specs.SpecInfo(
@@ -47,6 +47,7 @@ class GTMSeg(pydra.ShellCommandTask):
             (
                 "output_volume",
                 str,
+                "gtmseg.mgz",
                 {
                     "help_string": "output volume relative to subject's mri directory",
                     "argstr": "--o {output_volume}",
@@ -99,6 +100,7 @@ class GTMSeg(pydra.ShellCommandTask):
             (
                 "upsampling_factor",
                 float,
+                2.0,
                 {
                     "help_string": "upsampling factor",
                     "argstr": "--usf {upsampling_factor}",
