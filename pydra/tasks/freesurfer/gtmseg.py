@@ -10,18 +10,19 @@ class GTMSeg(pydra.ShellCommandTask):
 
     Examples
     --------
-    >>> task = GTMSeg(subject_id="subject")
+    >>> task = GTMSeg(subject_id="subject", xcerseg=True)
     >>> task.cmdline
-    'gtmseg --s subject --o gtmseg.mgz'
+    'gtmseg --s subject --o gtmseg.mgz --xcerseg'
     >>> task = GTMSeg(
     ...     subject_id="subject",
     ...     keep_hypointensities=True,
     ...     subsegment_white_matter=True,
     ...     output_volume="gtmseg.wmseg.hypo.mgz",
     ...     upsampling_factor=1,
+    ...     no_xcerseg=True,
     ... )
     >>> task.cmdline
-    'gtmseg --s subject --o gtmseg.wmseg.hypo.mgz --usf 1 --keep-hypo --subsegwm'
+    'gtmseg --s subject --o gtmseg.wmseg.hypo.mgz --no-xcerseg --usf 1 --keep-hypo --subsegwm'
     >>> task = GTMSeg(
     ...     subject_id="subject",
     ...     output_volume="gtmseg+myseg.mgz",
@@ -57,18 +58,30 @@ class GTMSeg(pydra.ShellCommandTask):
                 "xcerseg",
                 bool,
                 {
-                    "help_string": "generate headseg with xcerebralseg",
+                    "help_string": "(re)generate apas+head.mgz",
+                    "mandatory": True,
                     "argstr": "--xcerseg",
-                    "xor": ["headseg"],
+                    "xor": {"headseg", "no_xcerseg"},
+                },
+            ),
+            (
+                "no_xcerseg",
+                bool,
+                {
+                    "help_string": "use existing apas+head.mgz",
+                    "mandatory": True,
+                    "argstr": "--no-xcerseg",
+                    "xor": {"headseg", "xcerseg"},
                 },
             ),
             (
                 "headseg",
                 str,
                 {
-                    "help_string": "custom headseg",
+                    "help_string": "use custom headseg instead of apas+head.mgz",
+                    "mandatory": True,
                     "argstr": "--head {headseg}",
-                    "xor": ["xcerseg"],
+                    "xor": {"no_xcerseg", "xcerseg"},
                 },
             ),
             (
