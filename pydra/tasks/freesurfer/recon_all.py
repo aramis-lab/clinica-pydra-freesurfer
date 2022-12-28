@@ -226,7 +226,7 @@ class ReconAll(pydra.ShellCommandTask):
                 },
             ),
         ],
-        bases=(specs.FreeSurferBaseSpec,),
+        bases=(specs.SubjectsDirSpec,),
     )
 
     output_spec = pydra.specs.SpecInfo(
@@ -241,7 +241,7 @@ class ReconAll(pydra.ShellCommandTask):
                 },
             ),
         ],
-        bases=(specs.FreeSurferBaseOutSpec,),
+        bases=(specs.SubjectsDirOutSpec,),
     )
 
     executable = "recon-all"

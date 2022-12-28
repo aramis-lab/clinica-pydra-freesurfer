@@ -189,7 +189,7 @@ class MRISPreproc(pydra.ShellCommandTask):
                 },
             ),
         ],
-        bases=(specs.FreeSurferBaseSpec,),
+        bases=(specs.SubjectsDirSpec,),
     )
 
     executable = "mris_preproc"

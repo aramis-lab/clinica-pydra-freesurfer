@@ -247,7 +247,7 @@ $SUBJECTS_DIR/subj2/label/lh.subj1.aparc.annot --hemi lh'
                 },
             ),
         ],
-        bases=(specs.FreeSurferBaseSpec,),
+        bases=(specs.SubjectsDirSpec,),
     )
 
     executable = "mri_surf2surf"

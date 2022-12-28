@@ -196,7 +196,7 @@ class MRIVol2Vol(pydra.ShellCommandTask):
                 },
             ),
         ],
-        bases=(specs.FreeSurferBaseSpec,),
+        bases=(specs.SubjectsDirSpec,),
     )
 
     executable = "mri_vol2vol"
