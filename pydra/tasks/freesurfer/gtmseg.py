@@ -99,15 +99,15 @@ class GTMSeg(pydra.ShellCommandTask):
             ),
             (
                 "upsampling_factor",
-                float,
+                int,
                 {
-                    "help_string": "upsampling factor",
+                    "help_string": "upsampling factor (defaults to 2)",
                     "argstr": "--usf {upsampling_factor}",
                 },
             ),
             (
                 "output_upsampling_factor",
-                float,
+                int,
                 {
                     "help_string": "output upsampling factor (if different from upsampling factor)",
                     "argstr": "--output-usf {output_upsampling_factor}",
