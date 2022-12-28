@@ -15,19 +15,6 @@ class ReconAll(pydra.ShellCommandTask):
 
     Examples
     --------
-    Cross-sectional processing:
-
-    By default, FreeSurfer writes its output to a directory defined through the `$SUBJECTS_DIR` environment variable.
-    It can be overridden using the `subjects_dir` argument:
-
-    >>> task = ReconAll(
-    ...     directive="all",
-    ...     subject_id="sub-P01",
-    ...     subjects_dir="/path/to/subjects/dir",
-    ... )
-    >>> task.cmdline  # doctest: +ELLIPSIS
-    'recon-all ... -sd /path/to/subjects/dir ...'
-
     Longitudinal processing:
 
     1. Cross-sectionally process tpN subjects (the default workflow):
