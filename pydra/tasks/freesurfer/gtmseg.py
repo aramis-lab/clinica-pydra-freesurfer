@@ -19,7 +19,7 @@ class GTMSeg(pydra.ShellCommandTask):
     ...     subsegment_white_matter=True,
     ...     output_volume="gtmseg.wmseg.hypo.mgz",
     ...     upsampling_factor=1,
-    ...     no_xcerseg=True,
+    ...     xcerseg=False,
     ... )
     >>> task.cmdline
     'gtmseg --s subject --o gtmseg.wmseg.hypo.mgz --no-xcerseg --usf 1 --keep-hypo --subsegwm'
@@ -58,20 +58,17 @@ class GTMSeg(pydra.ShellCommandTask):
                 "xcerseg",
                 bool,
                 {
-                    "help_string": "(re)generate apas+head.mgz",
+                    "help_string": "(re)generate or use apas+head.mgz",
                     "mandatory": True,
-                    "argstr": "--xcerseg",
-                    "xor": {"headseg", "no_xcerseg"},
-                },
-            ),
-            (
-                "no_xcerseg",
-                bool,
-                {
-                    "help_string": "use existing apas+head.mgz",
-                    "mandatory": True,
-                    "argstr": "--no-xcerseg",
-                    "xor": {"headseg", "xcerseg"},
+                    # See https://github.com/nipype/pydra/issues/611
+                    "formatter": (
+                        lambda field: ""
+                        if field is None
+                        else "--xcerseg"
+                        if field
+                        else "--no-xcerseg"
+                    ),
+                    "xor": {"headseg"},
                 },
             ),
             (
@@ -81,7 +78,7 @@ class GTMSeg(pydra.ShellCommandTask):
                     "help_string": "use custom headseg instead of apas+head.mgz",
                     "mandatory": True,
                     "argstr": "--head {headseg}",
-                    "xor": {"no_xcerseg", "xcerseg"},
+                    "xor": {"xcerseg"},
                 },
             ),
             (
