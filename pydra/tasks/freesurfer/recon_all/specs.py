@@ -9,6 +9,9 @@ from ..specs import SubjectsDirOutSpec as ReconAllBaseOutSpec
 
 __all__ = ["ReconAllBaseSpec", "ReconAllBaseOutSpec"]
 
+# FIXME: Change to ty.Tuple[float, float, float] once Pydra supports it, if ever.
+SeedPoint = ty.List[float]
+
 
 @attrs.define(slots=False, kw_only=True)
 class ReconAllBaseSpec(pydra.specs.ShellSpec):
@@ -49,6 +52,34 @@ class ReconAllBaseSpec(pydra.specs.ShellSpec):
             "argstr": "-hemi {hemisphere}",
             "allowed_values": ["lh", "rh"],
         },
+    )
+
+    pons_seed_point: SeedPoint = attrs.field(
+        metadata={
+            "help_string": "col, row, slice of seed point for pons",
+            "argstr": "-pons-crs",
+        }
+    )
+
+    corpus_callosum_seed_point: SeedPoint = attrs.field(
+        metadata={
+            "help_string": "col, row, slice of seed point for corpus callosum",
+            "argstr": "-cc-crs",
+        }
+    )
+
+    left_hemisphere_seed_point: SeedPoint = attrs.field(
+        metadata={
+            "help_string": "col, row, slice of seed point for left hemisphere",
+            "argstr": "-lh-crs",
+        }
+    )
+
+    right_hemisphere_seed_point: SeedPoint = attrs.field(
+        metadata={
+            "help_string": "col, row, slice of seed point for right hemisphere",
+            "argstr": "-rh-crs",
+        }
     )
 
     parallel: bool = attrs.field(
