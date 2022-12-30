@@ -39,10 +39,10 @@ class ReconAllBaseSpec(pydra.specs.ShellSpec):
         },
     )
 
-    custom_mask_input: os.PathLike = attrs.field(
+    custom_brain_mask: os.PathLike = attrs.field(
         metadata={
-            "help_string": "input custom brain mask",
-            "argstr": "-xmask {custom_mask_input}",
+            "help_string": "use a custom brain mask",
+            "argstr": "-xmask {custom_brain_mask}",
         },
     )
 
