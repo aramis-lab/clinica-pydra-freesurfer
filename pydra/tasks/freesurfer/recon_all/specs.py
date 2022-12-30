@@ -89,6 +89,13 @@ class ReconAllBaseSpec(pydra.specs.ShellSpec):
         }
     )
 
+    deface: bool = attrs.field(
+        metadata={
+            "help_string": "deface subject",
+            "argstr": "-deface",
+        }
+    )
+
     parallel: bool = attrs.field(
         metadata={
             "help_string": "process both hemispheres in parallel",
