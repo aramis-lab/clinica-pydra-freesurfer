@@ -82,6 +82,13 @@ class ReconAllBaseSpec(pydra.specs.ShellSpec):
         }
     )
 
+    custom_talairach_atlas: os.PathLike = attrs.field(
+        metadata={
+            "help_string": "use a custom talairach atlas",
+            "argstr": "-custom-tal-atlas",
+        }
+    )
+
     parallel: bool = attrs.field(
         metadata={
             "help_string": "process both hemispheres in parallel",
