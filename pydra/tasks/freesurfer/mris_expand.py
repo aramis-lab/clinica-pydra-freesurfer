@@ -1,6 +1,68 @@
+import attrs
+
 import pydra
 
 __all__ = ["MRISExpand"]
+
+
+@attrs.define(slots=False, kw_only=True)
+class MIRSExpandSpec(pydra.specs.ShellSpec):
+    input_surface: str = attrs.field(
+        metadata={
+            "help_string": "input surface",
+            "mandatory": True,
+            "argstr": "",
+            "position": -3,
+        }
+    )
+
+    distance: float = attrs.field(
+        metadata={
+            "help_string": "distance in millimeters",
+            "mandatory": True,
+            "argstr": "",
+            "position": -2,
+            "xor": {"fraction_of_cortical_thickness"},
+        }
+    )
+
+    fraction_of_cortical_thickness: float = attrs.field(
+        metadata={
+            "help_string": "fraction of cortical thickness",
+            "mandatory": True,
+            "argstr": "",
+            "position": -2,
+            "xor": {"distance"},
+        }
+    )
+
+    output_surface: str = attrs.field(
+        metadata={
+            "help_string": "output surface",
+            "argstr": "",
+            "position": -1,
+            "output_file_template": "{input_surface}_expanded",
+        }
+    )
+
+    distance_is_fraction_of_cortical_thickness: bool = attrs.field(
+        metadata={
+            "help_string": "treat distance as fraction of cortical thickness",
+            "formatter": (
+                lambda fraction_of_cortical_thickness, distance_is_fraction_of_cortical_thickness: "-thickness"
+                if fraction_of_cortical_thickness
+                or distance_is_fraction_of_cortical_thickness
+                else ""
+            ),
+        }
+    )
+
+    label: str = attrs.field(
+        metadata={
+            "help_string": "input labels",
+            "argstr": "-label",
+        }
+    )
 
 
 class MRISExpand(pydra.ShellCommandTask):
@@ -15,8 +77,7 @@ class MRISExpand(pydra.ShellCommandTask):
 
     >>> task = MRISExpand(
     ...     input_surface="lh.white",
-    ...     distance=0.5,
-    ...     thickness=True
+    ...     fraction_of_cortical_thickness=0.5,
     ... )
     >>> task.cmdline    # doctest: +ELLIPSIS
     'mris_expand -thickness lh.white 0.5 ...lh_expanded.white'
@@ -35,55 +96,7 @@ class MRISExpand(pydra.ShellCommandTask):
 
     input_spec = pydra.specs.SpecInfo(
         name="MRISExpandInput",
-        fields=[
-            (
-                "input_surface",
-                str,
-                {
-                    "help_string": "input surface file",
-                    "mandatory": True,
-                    "argstr": "{input_surface}",
-                    "position": -3,
-                },
-            ),
-            (
-                "distance",
-                float,
-                {
-                    "help_string": "distance in mm or fraction of cortical thickness",
-                    "mandatory": True,
-                    "argstr": "{distance}",
-                    "position": -2,
-                },
-            ),
-            (
-                "output_surface",
-                str,
-                {
-                    "help_string": "output surface file",
-                    "argstr": "{output_surface}",
-                    "position": -1,
-                    "output_file_template": "{input_surface}_expanded",
-                },
-            ),
-            (
-                "thickness",
-                bool,
-                {
-                    "help_string": "expand by fraction of cortical thickness",
-                    "argstr": "-thickness",
-                },
-            ),
-            (
-                "label",
-                str,
-                {
-                    "help_string": "label file",
-                    "argstr": "-label {label}",
-                },
-            ),
-        ],
-        bases=(pydra.specs.ShellSpec,),
+        bases=(MIRSExpandSpec, pydra.specs.ShellSpec),
     )
 
     executable = "mris_expand"
