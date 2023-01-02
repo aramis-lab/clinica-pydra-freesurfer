@@ -38,7 +38,7 @@ class HemisphereSpec(pydra.specs.ShellSpec):
 
     hemisphere: str = attrs.field(
         metadata={
-            "help_string": "restrict processing to hemisphere",
+            "help_string": "restrict processing to left or right hemisphere",
             "argstr": "--hemi {hemisphere}",
             "allowed_values": ["lh", "rh"],
         }

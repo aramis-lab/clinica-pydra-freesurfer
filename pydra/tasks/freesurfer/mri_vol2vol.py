@@ -1,10 +1,103 @@
 import os
 
+import attrs
+
 import pydra
 
 from . import specs
 
 __all__ = ["MRIVol2Vol"]
+
+
+@attrs.define(slots=False, kw_only=True)
+class MRIVol2VolSpec(pydra.specs.ShellSpec):
+    moving_volume: str = attrs.field(
+        metadata={
+            "help_string": "moving volume (target volume if transform is inverted)",
+            "argstr": "--mov",
+        }
+    )
+
+    target_volume: str = attrs.field(
+        metadata={
+            "help_string": "target volume (moving volume if transform is inverted)",
+            "argstr": "--targ",
+        }
+    )
+
+    output_volume: str = attrs.field(
+        metadata={
+            "help_string": "output volume",
+            "argstr": "--o",
+        }
+    )
+
+    registration_file: str = attrs.field(
+        metadata={
+            "help_string": "registration file in FreeSurfer format",
+            "argstr": "--reg",
+        }
+    )
+
+    use_registered_volume_as_target: bool = attrs.field(
+        metadata={
+            "help_string": "use volume in registration file as target",
+            "argstr": "--fstarg",
+            "requires": {"registration_file"},
+        }
+    )
+
+    fsl_registration_file: str = attrs.field(
+        metadata={
+            "help_string": "registration file in FSL format",
+            "argstr": "--fsl",
+        }
+    )
+
+    xfm_registration_file: str = attrs.field(
+        metadata={
+            "help_string": "registration file in XFM format",
+            "argstr": "--xfm",
+        }
+    )
+
+    resample_to_talairach: bool = attrs.field(
+        metadata={
+            "help_string": "resample moving volume to Talairach",
+            "argstr": "--tal",
+        }
+    )
+
+    talairach_resolution: int = attrs.field(
+        metadata={
+            "help_string": "resolution of the Talairach template",
+            "argstr": "--talres",
+            "allowed_values": {1, 2},
+            "requires": ["resample_to_talairach"],
+        }
+    )
+
+    invert_transform: bool = attrs.field(
+        metadata={
+            "help_string": "invert transform",
+            "argstr": "--inv",
+        }
+    )
+
+    no_resampling: bool = attrs.field(
+        metadata={
+            "help_string": "change the vox2ras matrix instead of resampling",
+            "argstr": "--no-resample",
+        }
+    )
+
+    interpolation: str = attrs.field(
+        metadata={
+            "help_string": "interpolate output with the chosen method",
+            "argstr": "--interp",
+            "allowed_values": {"cubic", "nearest", "trilin"},
+        }
+    )
 
 
 class MRIVol2Vol(pydra.ShellCommandTask):
@@ -19,10 +112,10 @@ class MRIVol2Vol(pydra.ShellCommandTask):
     1. Resample functional data into anatomical space:
 
     >>> task = MRIVol2Vol(
-    ...     regfile="register.dat",
-    ...     movvol="func.nii.gz",
-    ...     fstarg=True,
-    ...     outvol="func-in-anat.mgh",
+    ...     moving_volume="func.nii.gz",
+    ...     output_volume="func-in-anat.mgh",
+    ...     registration_file="register.dat",
+    ...     use_registered_volume_as_target=True,
     ... )
     >>> task.cmdline
     'mri_vol2vol --mov func.nii.gz --o func-in-anat.mgh --reg register.dat --fstarg'
@@ -30,11 +123,11 @@ class MRIVol2Vol(pydra.ShellCommandTask):
     2. Resample anatomical data into functional space:
 
     >>> task = MRIVol2Vol(
-    ...     regfile="register.dat",
-    ...     movvol="func.nii.gz",
-    ...     fstarg=True,
-    ...     outvol="anat-in-func.mgh",
-    ...     invert=True,
+    ...     moving_volume="func.nii.gz",
+    ...     output_volume="anat-in-func.mgh",
+    ...     registration_file="register.dat",
+    ...     use_registered_volume_as_target=True,
+    ...     invert_transform=True,
     ... )
     >>> task.cmdline
     'mri_vol2vol --mov func.nii.gz --o anat-in-func.mgh --reg register.dat --fstarg --inv'
@@ -42,11 +135,11 @@ class MRIVol2Vol(pydra.ShellCommandTask):
     3. Map functional to anatomical without resampling:
 
     >>> task = MRIVol2Vol(
-    ...     regfile="register.dat",
-    ...     movvol="func.nii.gz",
-    ...     fstarg=True,
-    ...     outvol="func.new.vox2ras.nii.gz",
-    ...     no_resample=True,
+    ...     moving_volume="func.nii.gz",
+    ...     output_volume="func.new.vox2ras.nii.gz",
+    ...     registration_file="register.dat",
+    ...     use_registered_volume_as_target=True,
+    ...     no_resampling=True,
     ... )
     >>> task.cmdline
     'mri_vol2vol --mov func.nii.gz --o func.new.vox2ras.nii.gz --reg register.dat --fstarg --no-resample'
@@ -54,11 +147,11 @@ class MRIVol2Vol(pydra.ShellCommandTask):
     4. Map a binary mask in functional space to anatomical space:
 
     >>> task = MRIVol2Vol(
-    ...     regfile="register.dat",
-    ...     movvol="mask.nii.gz",
-    ...     fstarg=True,
-    ...     outvol="mask-in-anat.mgh",
-    ...     interp="nearest",
+    ...     moving_volume="mask.nii.gz",
+    ...     output_volume="mask-in-anat.mgh",
+    ...     registration_file="register.dat",
+    ...     use_registered_volume_as_target=True,
+    ...     interpolation="nearest",
     ... )
     >>> task.cmdline
     'mri_vol2vol --mov mask.nii.gz --o mask-in-anat.mgh --reg register.dat --fstarg --interp nearest'
@@ -66,10 +159,10 @@ class MRIVol2Vol(pydra.ShellCommandTask):
     5. Map functional data to talairach (MNI305) space with 2mm isotropic resolution:
 
     >>> task = MRIVol2Vol(
-    ...     movvol="func.nii.gz",
-    ...     outvol="func-in-tal.2mm.mgh",
-    ...     regfile="register.dat",
-    ...     talairach=True,
+    ...     moving_volume="func.nii.gz",
+    ...     output_volume="func-in-tal.2mm.mgh",
+    ...     registration_file="register.dat",
+    ...     resample_to_talairach=True,
     ...     talairach_resolution=2,
     ... )
     >>> task.cmdline
@@ -78,10 +171,10 @@ class MRIVol2Vol(pydra.ShellCommandTask):
     6. Apply an MNI transform by resampling the anatomical data into talairach space:
 
     >>> task = MRIVol2Vol(
-    ...     movvol="orig.mgz",
-    ...     targvol="$FREESURFER_HOME/average/mni305.cor.mgz",
-    ...     outvol="orig-in-mni305.mgz",
-    ...     xfmfile="transforms/talairach.xfm",
+    ...     moving_volume="orig.mgz",
+    ...     target_volume="$FREESURFER_HOME/average/mni305.cor.mgz",
+    ...     output_volume="orig-in-mni305.mgz",
+    ...     xfm_registration_file="transforms/talairach.xfm",
     ... )
     >>> task.cmdline
     'mri_vol2vol --mov orig.mgz --targ $FREESURFER_HOME/average/mni305.cor.mgz --o orig-in-mni305.mgz \
@@ -90,113 +183,7 @@ class MRIVol2Vol(pydra.ShellCommandTask):
 
     input_spec = pydra.specs.SpecInfo(
         name="MRIVol2VolInput",
-        fields=[
-            (
-                "movvol",
-                str,
-                {
-                    "help_string": "input volume (or output template with --inv)",
-                    "argstr": "--mov {movvol}",
-                },
-            ),
-            (
-                "targvol",
-                str,
-                {
-                    "help_string": "output template (or input volume with --inv)",
-                    "argstr": "--targ {targvol}",
-                },
-            ),
-            (
-                "outvol",
-                str,
-                {
-                    "help_string": "output volume",
-                    "argstr": "--o {outvol}",
-                    "output_file_template": "{outvol}",
-                },
-            ),
-            (
-                "regfile",
-                os.PathLike,
-                {
-                    "help_string": "registration matrix generated by FreeSurfer",
-                    "argstr": "--reg {regfile}",
-                },
-            ),
-            (
-                "fslfile",
-                os.PathLike,
-                {
-                    "help_string": "registration matrix generated by FSL flirt",
-                    "argstr": "--fsl {fslfile}",
-                },
-            ),
-            (
-                "xfmfile",
-                os.PathLike,
-                {
-                    "help_string": "MNI-style registration matrix",
-                    "argstr": "--xfm {xfmfile}",
-                },
-            ),
-            (
-                "talairach",
-                bool,
-                {
-                    "help_string": "resample moving volume to talairach",
-                    "argstr": "--tal",
-                },
-            ),
-            (
-                "talairach_resolution",
-                int,
-                {
-                    "help_string": "resolution of the talairach template",
-                    "argstr": "--talres {talairach_resolution}",
-                    "allowed_values": {1, 2},
-                    "requires": ["talairach"],
-                },
-            ),
-            (
-                "fstarg",
-                bool,
-                {
-                    "help_string": "use vol from subject in --reg as target",
-                    "argstr": "--fstarg",
-                    "requires": ["regfile"],
-                },
-            ),
-            (
-                "invert",
-                bool,
-                {
-                    "help_string": "invert the transform",
-                    "argstr": "--inv",
-                },
-            ),
-            (
-                "no_resample",
-                bool,
-                {
-                    "help_string": "do not resample, just change vox2ras matrix",
-                    "argstr": "--no-resample",
-                },
-            ),
-            (
-                "interp",
-                str,
-                {
-                    "help_string": (
-                        "Interpolate the output based on the given method. Legal values are: "
-                        "cubic, trilin and nearest."
-                    ),
-                    "argstr": "--interp {interp}",
-                    "allowed_values": {"cubic", "nearest", "trilin"},
-                },
-            ),
-        ],
-        bases=(specs.SubjectsDirSpec,),
+        bases=(MRIVol2VolSpec, specs.SubjectsDirSpec),
     )
 
     executable = "mri_vol2vol"

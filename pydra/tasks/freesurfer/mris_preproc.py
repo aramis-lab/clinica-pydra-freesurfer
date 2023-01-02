@@ -1,10 +1,103 @@
 import typing as ty
 
+import attrs
+
 import pydra
 
 from . import specs
 
 __all__ = ["MRISPreproc"]
+
+
+@attrs.define(slots=False, kw_only=True)
+class MRISPreprocSpec(pydra.specs.ShellSpec):
+
+    output_file: str = attrs.field(
+        metadata={
+            "help_string": "output file",
+            "argstr": "--out",
+            "requires": {"target_subject_id", "hemisphere"},
+            "output_file_template": "{target_subject_id}_{hemisphere}.mgz",
+        }
+    )
+
+    target_subject_id: str = attrs.field(
+        metadata={
+            "help_string": "subject identifier to use as common space",
+            "mandatory": True,
+            "argstr": "--target",
+        }
+    )
+
+    hemisphere: str = attrs.field(
+        metadata={
+            "help_string": "left or right hemisphere",
+            "mandatory": True,
+            "argstr": "--hemi",
+            "allowed_values": {"lh", "rh"},
+        }
+    )
+
+    measure: str = attrs.field(
+        metadata={
+            "help_string": "use source subject's measure as input",
+            "argstr": "--meas",
+        }
+    )
+
+    source_subject_ids: ty.Iterable[str] = attrs.field(
+        metadata={
+            "help_string": "source subjects used as input",
+            "argstr": "--s ...",
+            "requires": {"measure"},
+            "xor": {"fsdg_file"},
+        }
+    )
+
+    fsgd_file: str = attrs.field(
+        metadata={
+            "help_string": "fsgd file containing the source subjects",
+            "argstr": "--fsgd",
+            "xor": {"source_subject_ids"},
+        }
+    )
+
+    input_surface_measures: ty.Iterable[str] = attrs.field(
+        metadata={
+            "help_string": "paths to input surface measure files",
+            "argstr": "--isp ...",
+            "requires": {"fsgd_file"},
+        }
+    )
+
+    source_format: str = attrs.field(
+        metadata={
+            "help_string": "source format of input surface measure files",
+            "argstr": "--srcfmt",
+            "requires": {"input_surface_measures"},
+        }
+    )
+
+    target_smoothing: float = attrs.field(
+        metadata={
+            "help_string": "smooth target surface by X mm",
+            "argstr": "--fwhm",
+        }
+    )
+
+    source_smoothing: float = attrs.field(
+        metadata={
+            "help_string": "smooth source surface by X mm",
+            "argstr": "--fwhm-src",
+        }
+    )
+
+    compute_paired_differences: bool = attrs.field(
+        metadata={
+            "help_string": "compute paired differences",
+            "argstr": "--paired-diff",
+        }
+    )
 
 
 class MRISPreproc(pydra.ShellCommandTask):
@@ -52,7 +145,7 @@ class MRISPreproc(pydra.ShellCommandTask):
     ...     hemisphere="lh",
     ...     measure="thickness",
     ...     output_file="abc-lh-thickness.sm5.mgh",
-    ...     target_fwhm=5,
+    ...     target_smoothing=5,
     ... )
     >>> task.cmdline
     'mris_preproc --out abc-lh-thickness.sm5.mgh --target fsaverage --hemi lh --meas thickness \
@@ -66,7 +159,7 @@ class MRISPreproc(pydra.ShellCommandTask):
     ...     output_file="abc-lh-thickness.mgh",
     ...     fsgd_file="abc.fsgd",
     ...     source_format="curv",
-    ...     input_surface_paths=[f"abc{s:02d}-anat/surf/lh.thickness" for s in range(1, 5)],
+    ...     input_surface_measures=[f"abc{s:02d}-anat/surf/lh.thickness" for s in range(1, 5)],
     ... )
     >>> task.cmdline
     'mris_preproc --out abc-lh-thickness.mgh --target fsaverage --hemi lh --fsgd abc.fsgd \
@@ -81,7 +174,7 @@ class MRISPreproc(pydra.ShellCommandTask):
     ...     hemisphere="lh",
     ...     measure="thickness",
     ...     output_file="abc-lh-thickness-pdiff.mgh",
-    ...     paired_differences=True,
+    ...     compute_paired_differences=True,
     ... )
     >>> task.cmdline
     'mris_preproc --out abc-lh-thickness-pdiff.mgh --target fsaverage --hemi lh --meas thickness --fsgd abc.fsgd \
@@ -90,106 +183,7 @@ class MRISPreproc(pydra.ShellCommandTask):
 
     input_spec = pydra.specs.SpecInfo(
         name="MRISPreprocInput",
-        fields=[
-            (
-                "output_file",
-                str,
-                {
-                    "help_string": "path where to save output",
-                    "argstr": "--out {output_file}",
-                    "output_file_template": "concat_{hemisphere}_{target_subject_id}.mgz",
-                },
-            ),
-            (
-                "target_subject_id",
-                str,
-                {
-                    "help_string": "subject to use as the common space",
-                    "mandatory": True,
-                    "argstr": "--target {target_subject_id}",
-                },
-            ),
-            (
-                "hemisphere",
-                str,
-                {
-                    "help_string": "hemisphere",
-                    "mandatory": True,
-                    "argstr": "--hemi",
-                    "allowed_values": {"lh", "rh"},
-                },
-            ),
-            (
-                "measure",
-                str,
-                {
-                    "help_string": "use source subject's measure as input",
-                    "argstr": "--meas {measure}",
-                },
-            ),
-            (
-                "source_subject_ids",
-                ty.Iterable[str],
-                {
-                    "help_string": "source subjects used as input",
-                    "argstr": "--s...",
-                    "requires": {"measure"},
-                    "xor": {"fsgd_file"},
-                },
-            ),
-            (
-                "fsgd_file",
-                str,
-                {
-                    "help_string": "fsgd file containing the list of input subjects",
-                    "argstr": "--fsgd {fsgd_file}",
-                    "xor": {"source_sibject_ids"},
-                },
-            ),
-            (
-                "input_surface_paths",
-                ty.Iterable[str],
-                {
-                    "help_string": "full paths to input surface measure files",
-                    "argstr": "--isp...",
-                    "requires": {"fsgd_file"},
-                },
-            ),
-            (
-                "source_format",
-                str,
-                {
-                    "help_string": "source format of input surface measure files",
-                    "argstr": "--srcfmt {source_format}",
-                    "requires": {"input_surface_paths"},
-                },
-            ),
-            (
-                "target_fwhm",
-                float,
-                {
-                    "help_string": "smooth target surface data by fwhm mm",
-                    "argstr": "--fwhm {target_fwhm}",
-                },
-            ),
-            (
-                "source_fwhm",
-                float,
-                {
-                    "help_string": "smooth source surface data by fwhm mm",
-                    "argstr": "--fwhm-src {source_fwhm}",
-                },
-            ),
-            (
-                "paired_differences",
-                bool,
-                {
-                    "help_string": "compute paired differences",
-                    "argstr": "--paired-diff",
-                },
-            ),
-        ],
-        bases=(specs.SubjectsDirSpec,),
+        bases=(MRISPreprocSpec, specs.SubjectsDirSpec),
     )
 
     executable = "mris_preproc"

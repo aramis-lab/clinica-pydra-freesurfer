@@ -13,56 +13,58 @@ class GTMSegSpec(pydra.specs.ShellSpec):
         metadata={
             "help_string": "subject to analyze",
             "mandatory": True,
-            "argstr": "--s {subject_id}",
+            "argstr": "--s",
         }
     )
 
-    output_volume: str = attrs.field(
+    output_volume_file: str = attrs.field(
         default="gtmseg.mgz",
         metadata={
-            "help_string": "output volume relative to subject's mri directory",
-            "argstr": "--o {output_volume}",
+            "help_string": "output volume file relative to the subject's mri directory",
+            "argstr": "--o",
         },
     )
 
-    xcerseg: bool = attrs.field(
+    generate_segmentation: bool = attrs.field(
         metadata={
-            "help_string": "(re)generate or use apas+head.mgz",
+            "help_string": "generate segmentation using xcerebralseg",
             "mandatory": True,
-            # See https://github.com/nipype/pydra/issues/611
-            "formatter": (
-                lambda field: ""
-                if field is None
-                else "--xcerseg"
-                if field
-                else "--no-xcerseg"
-            ),
-            "xor": {"headseg"},
+            "argstr": "--xcerseg",
+            "xor": {"use_existing_segmentation", "segmentation_file"},
         }
     )
 
-    headseg: str = attrs.field(
+    use_existing_segmentation: bool = attrs.field(
         metadata={
-            "help_string": "use custom headseg instead of apas+head.mgz",
+            "help_string": "use existing segmentation",
             "mandatory": True,
-            "argstr": "--head {headseg}",
-            "xor": {"xcerseg"},
+            "argstr": "--no-xcerseg",
+            "xor": {"generate_segmentation", "segmentation_file"},
         }
     )
 
-    no_pons: bool = attrs.field(
+    segmentation_file: str = attrs.field(
         metadata={
-            "help_string": "no pons segmentation with xcerebralseg",
+            "help_string": "use custom segmentation",
+            "mandatory": True,
+            "argstr": "--head",
+            "xor": {"generate_segmentation", "use_existing_segmentation"},
+        }
+    )
+
+    no_pons_segmentation: bool = attrs.field(
+        metadata={
+            "help_string": "exclude pons from segmentation",
             "argstr": "--no-pons",
-            "requires": ["xcerseg"],
+            "requires": {"generate_segmentation"},
         }
     )
 
-    no_vermis: bool = attrs.field(
+    no_vermis_segmentation: bool = attrs.field(
         metadata={
-            "help_string": "no vermis segmentation with xcerebralseg",
+            "help_string": "exclude vermis from segmentation",
             "argstr": "--no-vermis",
-            "requires": ["xcerseg"],
+            "requires": {"generate_segmentation"},
         }
     )
 
@@ -76,14 +78,14 @@ class GTMSegSpec(pydra.specs.ShellSpec):
     upsampling_factor: int = attrs.field(
         metadata={
             "help_string": "upsampling factor (defaults to 2)",
-            "argstr": "--usf {upsampling_factor}",
+            "argstr": "--usf",
         }
     )
 
     output_upsampling_factor: int = attrs.field(
         metadata={
             "help_string": "output upsampling factor (if different from upsampling factor)",
-            "argstr": "--output-usf {output_upsampling_factor}",
+            "argstr": "--output-usf",
         }
     )
 
@@ -114,23 +116,23 @@ class GTMSeg(pydra.ShellCommandTask):
 
     Examples
     --------
-    >>> task = GTMSeg(subject_id="subject", xcerseg=True)
+    >>> task = GTMSeg(subject_id="subject", generate_segmentation=True)
     >>> task.cmdline
     'gtmseg --s subject --o gtmseg.mgz --xcerseg'
     >>> task = GTMSeg(
     ...     subject_id="subject",
     ...     keep_hypointensities=True,
     ...     subsegment_white_matter=True,
-    ...     output_volume="gtmseg.wmseg.hypo.mgz",
+    ...     output_volume_file="gtmseg.wmseg.hypo.mgz",
     ...     upsampling_factor=1,
-    ...     xcerseg=False,
+    ...     use_existing_segmentation=True,
     ... )
     >>> task.cmdline
     'gtmseg --s subject --o gtmseg.wmseg.hypo.mgz --no-xcerseg --usf 1 --keep-hypo --subsegwm'
     >>> task = GTMSeg(
     ...     subject_id="subject",
-    ...     output_volume="gtmseg+myseg.mgz",
-    ...     headseg="apas+head+myseg.mgz",
+    ...     output_volume_file="gtmseg+myseg.mgz",
+    ...     segmentation_file="apas+head+myseg.mgz",
     ...     colortable="myseg.colortable.txt",
     ... )
     >>> task.cmdline
