@@ -1,6 +1,36 @@
+import attrs
+
 import pydra
 
 __all__ = ["MRIConvert"]
+
+
+@attrs.define(slots=False, kw_only=True)
+class MRIConvertSpec(pydra.specs.ShellSpec):
+    input_volume: str = attrs.field(
+        metadata={
+            "help_string": "input volume",
+            "mandatory": True,
+            "argstr": "",
+            "position": 1,
+        }
+    )
+
+    output_volume: str = attrs.field(
+        metadata={
+            "help_string": "output volume",
+            "argstr": "",
+            "position": 2,
+            "output_file_template": "{input_volume}_converted.nii.gz",
+        }
+    )
+
+    output_data_type: str = attrs.field(
+        metadata={
+            "help_string": "output data type",
+            "argstr": "-odt",
+        }
+    )
 
 
 class MRIConvert(pydra.ShellCommandTask):
@@ -24,37 +54,7 @@ class MRIConvert(pydra.ShellCommandTask):
 
     input_spec = pydra.specs.SpecInfo(
         name="MRIConvertInput",
-        fields=[
-            (
-                "input_volume",
-                str,
-                {
-                    "help_string": "input volume",
-                    "mandatory": True,
-                    "argstr": "{input_volume}",
-                    "position": 1,
-                },
-            ),
-            (
-                "output_volume",
-                str,
-                {
-                    "help_string": "output volume",
-                    "argstr": "{output_volume}",
-                    "position": 2,
-                    "output_file_template": "{input_volume}_converted.nii.gz",
-                },
-            ),
-            (
-                "output_data_type",
-                str,
-                {
-                    "help_string": "output data type",
-                    "argstr": "-odt {output_data_type}",
-                },
-            ),
-        ],
-        bases=(pydra.specs.ShellSpec,),
+        bases=(MRIConvertSpec, pydra.specs.ShellSpec),
     )
 
     executable = "mri_convert"
