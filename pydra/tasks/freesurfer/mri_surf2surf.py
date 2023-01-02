@@ -1,10 +1,162 @@
 import typing as ty
 
+import attrs
+
 import pydra
 
 from . import specs
 
 __all__ = ["MRISurf2Surf"]
+
+
+@attrs.define(slots=False, kw_only=True)
+class MRISurf2SurfSpec(pydra.specs.ShellSpec):
+    source_subject_id: str = attrs.field(
+        metadata={
+            "help_string": "source subject identifier within FreeSurfer's subjects directory",
+            "argstr": "--srcsubject",
+        }
+    )
+
+    source_surface_file: str = attrs.field(
+        metadata={
+            "help_string": "source surface file",
+            "argstr": "--sval",
+        }
+    )
+
+    use_vertex_coordinates_from_surface: str = attrs.field(
+        metadata={
+            "help_string": "extract coordinates for each vertex of the surface",
+            "argstr": "--sval-xyz",
+            "xor": {
+                "use_vertex_coordinates_in_talairach_from_surface",
+                "use_vertex_area_from_surface",
+                "use_vertex_normal_coordinates_from_surface",
+            },
+        }
+    )
+
+    use_vertex_coordinates_in_talairach_from_surface: str = attrs.field(
+        metadata={
+            "help_string": "extract coordinates and transform them to Talairach for each vertex of the surface",
+            "argstr": "--sval-tal-xyz",
+            "xor": {
+                "use_vertex_coordinates_from_surface",
+                "use_vertex_area_from_surface",
+                "use_vertex_normal_coordinates_from_surface",
+            },
+        }
+    )
+
+    use_vertex_area_from_surface: str = attrs.field(
+        metadata={
+            "help_string": "extract surface area for each vertex of the surface",
+            "argstr": "--sval-area",
+            "xor": {
+                "use_vertex_coordinates_from_surface",
+                "use_vertex_coordinates_in_talairach_from_surface",
+                "use_vertex_normal_coordinates_from_surface",
+            },
+        }
+    )
+
+    use_vertex_normal_coordinates_from_surface: str = attrs.field(
+        metadata={
+            "help_string": "extract surface normal coordinates for each vertex of the surface",
+            "argstr": "--sval-nxyz",
+            "xor": {
+                "use_vertex_coordinates_from_surface",
+                "use_vertex_coordinates_in_talairach_from_surface",
+                "use_vertex_area_from_surface",
+            },
+        }
+    )
+
+    source_annotation_file: str = attrs.field(
+        metadata={
+            "help_string": "source annotation file",
+            "argstr": "--sval-annot",
+            "requires": {"target_annotation_file"},
+        }
+    )
+
+    source_format: str = attrs.field(
+        metadata={
+            "help_string": "source format type string",
+            "argstr": "--sfmt",
+        }
+    )
+
+    source_icosahedron_order: int = attrs.field(
+        metadata={
+            "help_string": "source icosahedron order number",
+            "argstr": "--srcicoorder",
+        }
+    )
+
+    registration_file: str = attrs.field(
+        metadata={
+            "help_string": "apply registration to vertex coordinates",
+            "argstr": "--reg",
+            "requires": {"use_vertex_coordinates_from_surface"},
+            "xor": {"inverse_registration_file"},
+        }
+    )
+
+    inverse_registration_file: str = attrs.field(
+        metadata={
+            "help_string": "apply inverse registration to vertex coordinates",
+            "argstr": "--reg-inv",
+            "requires": {"use_vertex_coordinates_from_surface"},
+            "xor": {"registration_file"},
+        }
+    )
+
+    target_subject_id: str = attrs.field(
+        metadata={
+            "help_string": "target subject identifier within FreeSurfer's subjects directory",
+            "argstr": "--trgsubject",
+        }
+    )
+
+    target_icosahedron_order: int = attrs.field(
+        metadata={
+            "help_string": "target icosahedron order number",
+            "argstr": "--trgicoorder",
+        }
+    )
+
+    target_surface_file: str = attrs.field(
+        metadata={
+            "help_string": "target surface file",
+            "argstr": "--tval",
+            "xor": {"target_annotation_file"},
+        }
+    )
+
+    save_target_with_vertex_coordinates_from_file: str = attrs.field(
+        metadata={
+            "help_string": "save target surface with different vertex coordinates",
+            "argstr": "--tval-xyz",
+            "requires": {"target_surface_file"},
+        }
+    )
+
+    target_annotation_file: str = attrs.field(
+        metadata={
+            "help_string": "target annotation file",
+            "argstr": "--tval",
+            "xor": {"target_surface_file"},
+        }
+    )
+
+    target_format: str = attrs.field(
+        metadata={
+            "help_string": "target format type string",
+            "argstr": "--tfmt",
+        }
+    )
 
 
 class MRISurf2Surf(pydra.ShellCommandTask):
@@ -21,37 +173,37 @@ class MRISurf2Surf(pydra.ShellCommandTask):
     >>> task = MRISurf2Surf(
     ...     hemisphere="lh",
     ...     source_subject_id="bert",
-    ...     sval="thickness",
-    ...     sfmt="curv",
+    ...     source_surface_file="thickness",
+    ...     source_format="curv",
     ...     target_subject_id="ico",
-    ...     trgicoorder=7,
-    ...     tval="bert-thickness-lh.img",
-    ...     tfmt="analyze4d",
+    ...     target_icosahedron_order=7,
+    ...     target_surface_file="bert-thickness-lh.img",
+    ...     target_format="analyze4d",
     ... )
+    >>> task.cmdline
+    'mri_surf2surf --srcsubject bert --sval thickness --sfmt curv --trgsubject ico --trgicoorder 7 \
+--tval bert-thickness-lh.img --tfmt analyze4d --hemi lh'
 
     2. Resample data on the icosahedron to the right hemisphere of subject bert:
 
-    >>> task.cmdline
-    'mri_surf2surf --hemi lh --srcsubject bert --sval thickness --sfmt curv --trgsubject ico --trgicoorder 7 \
---tval bert-thickness-lh.img --tfmt analyze4d'
     >>> task = MRISurf2Surf(
     ...     hemisphere="rh",
     ...     source_subject_id="ico",
-    ...     sval="icodata-rh.mgh",
+    ...     source_surface_file="icodata-rh.mgh",
     ...     target_subject_id="bert",
-    ...     tval="./bert-ico-rh.mgh",
+    ...     target_surface_file="bert-ico-rh.mgh",
     ... )
     >>> task.cmdline
-    'mri_surf2surf --hemi rh --srcsubject ico --sval icodata-rh.mgh --trgsubject bert --tval ./bert-ico-rh.mgh'
+    'mri_surf2surf --srcsubject ico --sval icodata-rh.mgh --trgsubject bert --tval bert-ico-rh.mgh --hemi rh'
 
     3. Convert the surface coordinates of the lh.white of a subject to a (talairach) average:
 
     >>> task = MRISurf2Surf(
     ...     source_subject_id="yoursubject",
-    ...     sval_tal_xyz="white",
+    ...     use_vertex_coordinates_in_talairach_from_surface="white",
     ...     target_subject_id="youraveragesubject",
-    ...     tval="lh.white.yoursubject",
-    ...     tval_xyz="$SUBJECTS_DIR/fsaverage/mri/orig.mgz",
+    ...     target_surface_file="lh.white.yoursubject",
+    ...     save_target_with_vertex_coordinates_from_file="$SUBJECTS_DIR/fsaverage/mri/orig.mgz",
     ... )
     >>> task.cmdline
     'mri_surf2surf --srcsubject yoursubject --sval-tal-xyz white --trgsubject youraveragesubject \
@@ -60,27 +212,28 @@ class MRISurf2Surf(pydra.ShellCommandTask):
     4. Convert the surface coordinates of the lh.white of a subject to the subject's functional space:
 
     >>> task = MRISurf2Surf(
-    ...     reg="register.lta",
+    ...     registration_file="register.lta",
     ...     hemisphere="lh",
-    ...     sval_xyz="white",
-    ...     tval_xyz="template.nii.gz",
-    ...     tval="./lh.white.func",
+    ...     use_vertex_coordinates_from_surface="white",
+    ...     save_target_with_vertex_coordinates_from_file="template.nii.gz",
+    ...     target_surface_file="./lh.white.func",
     ...     source_subject_id="yoursubject",
     ... )
     >>> task.cmdline
-    'mri_surf2surf --hemi lh --srcsubject yoursubject --sval-xyz white --reg register.lta --tval ./lh.white.func \
---tval-xyz template.nii.gz'
+    'mri_surf2surf --srcsubject yoursubject --sval-xyz white --reg register.lta --tval ./lh.white.func \
+--tval-xyz template.nii.gz --hemi lh'
+
 
     5. Extract surface normals of the white surface and save in a volume-encoded file:
 
     >>> task = MRISurf2Surf(
     ...     source_subject_id="yoursubject",
     ...     hemisphere="lh",
-    ...     sval_nxyz="white",
-    ...     tval="lh.white.norm.mgh",
+    ...     use_vertex_normal_coordinates_from_surface="white",
+    ...     target_surface_file="lh.white.norm.mgh",
     ... )
     >>> task.cmdline
-    'mri_surf2surf --hemi lh --srcsubject yoursubject --sval-nxyz white --tval lh.white.norm.mgh'
+    'mri_surf2surf --srcsubject yoursubject --sval-nxyz white --tval lh.white.norm.mgh --hemi lh'
 
     6. Convert the annotation for one subject to the surface of another:
 
@@ -88,161 +241,18 @@ class MRISurf2Surf(pydra.ShellCommandTask):
     ...     source_subject_id="subj1",
     ...     target_subject_id="subj2",
     ...     hemisphere="lh",
-    ...     sval_annot="$SUBJECTS_DIR/subj1/label/lh.aparc.annot",
-    ...     tval="$SUBJECTS_DIR/subj2/label/lh.subj1.aparc.annot",
+    ...     source_annotation_file="$SUBJECTS_DIR/subj1/label/lh.aparc.annot",
+    ...     target_annotation_file="$SUBJECTS_DIR/subj2/label/lh.subj1.aparc.annot",
     ... )
     >>> task.cmdline
-    'mri_surf2surf --hemi lh --srcsubject subj1 --sval-annot $SUBJECTS_DIR/subj1/label/lh.aparc.annot \
---trgsubject subj2 --tval $SUBJECTS_DIR/subj2/label/lh.subj1.aparc.annot'
+    'mri_surf2surf --srcsubject subj1 --sval-annot $SUBJECTS_DIR/subj1/label/lh.aparc.annot --trgsubject subj2 \
+--tval $SUBJECTS_DIR/subj2/label/lh.subj1.aparc.annot --hemi lh'
+
     """
 
     input_spec = pydra.specs.SpecInfo(
         name="MRISurf2SurfInput",
-        fields=[
-            (
-                "source_subject_id",
-                str,
-                {
-                    "help_string": "source subject identifier",
-                    "mandatory": True,
-                    "argstr": "--srcsubject {source_subject_id}",
-                },
-            ),
-            (
-                "sval",
-                str,
-                {
-                    "help_string": "source input surface file",
-                    "argstr": "--sval {sval}",
-                },
-            ),
-            (
-                "sval_xyz",
-                str,
-                {
-                    "help_string": "source input surface file",
-                    "argstr": "--sval-xyz {sval_xyz}",
-                },
-            ),
-            (
-                "sval_tal_xyz",
-                str,
-                {
-                    "help_string": "source input surface file",
-                    "argstr": "--sval-tal-xyz {sval_tal_xyz}",
-                },
-            ),
-            (
-                "sval_area",
-                str,
-                {
-                    "help_string": "source input surface file",
-                    "argstr": "--sval-area {sval_area}",
-                },
-            ),
-            (
-                "sval_nxyz",
-                str,
-                {
-                    "help_string": "source input surface file",
-                    "argstr": "--sval-nxyz {sval_nxyz}",
-                },
-            ),
-            (
-                "proj_frac",
-                ty.Tuple[str, str],
-                {
-                    "help_string": "",
-                    "argstr": "--projfrac {proj_frac}",
-                },
-            ),
-            (
-                "projabs",
-                ty.Tuple[str, str],
-                {
-                    "help_string": "",
-                    "argstr": "--projabs {projabs}",
-                },
-            ),
-            (
-                "sval_annot",
-                str,
-                {
-                    "help_string": (
-                        "Map annotation file to the output. The target data will be saved as an annotation."
-                    ),
-                    "argstr": "--sval-annot {sval_annot}",
-                },
-            ),
-            (
-                "sfmt",
-                str,
-                {
-                    "help_string": "source format type string",
-                    "argstr": "--sfmt {sfmt}",
-                },
-            ),
-            (
-                "reg",
-                str,
-                {
-                    "help_string": "apply register.dat to sval_xyz",
-                    "argstr": "--reg...",
-                },
-            ),
-            (
-                "srcicoorder",
-                int,
-                {
-                    "help_string": "icosahedron order of the source",
-                    "argstr": "--srcicoorder {srcicoorder}",
-                },
-            ),
-            (
-                "target_subject_id",
-                str,
-                {
-                    "help_string": "target subject identifier",
-                    "argstr": "--trgsubject {target_subject_id}",
-                },
-            ),
-            (
-                "trgicoorder",
-                int,
-                {
-                    "help_string": "icosahedron order of the target",
-                    "argstr": "--trgicoorder {trgicoorder}",
-                },
-            ),
-            (
-                "tval",
-                str,
-                {
-                    "help_string": "target surface file",
-                    "argstr": "--tval {tval}",
-                },
-            ),
-            (
-                "tval_xyz",
-                str,
-                {
-                    "help_string": "volume in target space",
-                    "argstr": "--tval-xyz {tval_xyz}",
-                },
-            ),
-            (
-                "tfmt",
-                str,
-                {
-                    "help_string": "target format type string",
-                    "argstr": "--tfmt {tfmt}",
-                },
-            ),
-        ],
-        bases=(
-            specs.HemisphereSpec,
-            specs.SubjectsDirSpec,
-        ),
+        bases=(MRISurf2SurfSpec, specs.HemisphereSpec, specs.SubjectsDirSpec),
     )
 
     executable = "mri_surf2surf"
