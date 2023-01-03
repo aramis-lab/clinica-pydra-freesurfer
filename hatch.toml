@@ -1,0 +1,48 @@
+[build.targets.wheel]
+packages = ["pydra/tasks/freesurfer"]
+
+[envs.default]
+dependencies = [
+  "coverage[toml]",
+  "pytest",
+  "pytest-cov",
+]
+[envs.default.scripts]
+cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=pydra"
+no-cov = "cov --no-cov"
+
+[[envs.test.matrix]]
+python = ["3.7", "3.8", "3.9", "3.10", "3.11"]
+
+[envs.docs]
+dependencies = [
+  "pydata-sphinx-theme",
+  "sphinx <6",  # https://github.com/pydata/pydata-sphinx-theme/pull/1097
+  "sphinx-autobuild",
+]
+[envs.docs.scripts]
+build = "make -C docs {args:html}"
+serve = "sphinx-autobuild docs docs/_build/html {args}"
+
+[envs.lint]
+detached = true
+dependencies = [
+  "black",
+  "codespell",
+  "isort",
+  "tomli",
+]
+[envs.lint.scripts]
+all = [
+  "style",
+  "spelling",
+]
+fix = [
+  "black --quiet {args:.}",
+  "isort --quiet {args:.}",
+]
+spelling = "codespell {args:.}"
+style = [
+  "black --check --diff {args:.}",
+  "isort --check --diff {args:.}",
+]

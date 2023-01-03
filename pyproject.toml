@@ -1,35 +1,61 @@
-[tool.poetry]
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
 name = "pydra-freesurfer"
 version = "0.0.8"
 description = "Pydra tasks for FreeSurfer"
-authors = ["The Aramis Lab"]
-license = "Apache-2.0"
 readme = "README.md"
+requires-python = ">=3.7"
+license = "Apache-2.0"
+keywords = [
+  "pydra",
+  "freesurfer",
+  "neuroimaging",
+]
+authors = [
+  {name = "Ghislain Vaillant", email = "ghislain.vaillant@icm-institute.org"},
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Software Development :: Libraries",
+]
+dependencies = [
+  "pydra >=0.21",
+]
+
+[project.urls]
+documentation = "https://aramis-lab.github.io/pydra-freesurfer"
+issues = "https://github.com/aramis-lab/pydra-freesurfer/issues"
 repository = "https://github.com/aramis-lab/pydra-freesurfer"
-documentation = "https://aramis-lab.github.io/pydra-freesurfer/"
-keywords = ["pydra", "freesurfer", "neuroimaging"]
-packages = [{include = "pydra"}]
 
-[tool.poetry.dependencies]
-python = "^3.7"
-pydra = "^0.21"
+[tool.hatch.build.targets.wheel]
+packages = ["pydra"]
+include-only = ["pydra/tasks/freesurfer"]
 
-[tool.poetry.group.dev.dependencies]
-black = "^22.3.0"
-isort = "^5.10.1"
-codespell = {extras = ["toml"], version = "^2.2.2"}
+[tool.black]
+extend-exclude = ["docs"]
 
-[tool.poetry.group.docs.dependencies]
-sphinx = "^5.3.0"
-pydata-sphinx-theme = "^0.12.0"
-sphinx-autobuild = "^2021.3.14"
+[tool.codespell]
+quiet-level = 3
+skip = ".git"
 
-[tool.poetry.group.test.dependencies]
-pytest = "^7.1.2"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[tool.isort]
+profile = "black"
+atomic = true
+extend_skip = ["docs"]
+src_paths = ["pydra"]
 
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -38,16 +64,3 @@ addopts = [
   "--doctest-continue-on-failure",
 ]
 testpaths = ["pydra"]
-
-[tool.black]
-target-version = ["py37"]
-
-[tool.isort]
-py_version = 37
-profile = "black"
-
-[tool.codespell]
-summary = ''
-skip = ".git"
-quiet-level = 3
-
