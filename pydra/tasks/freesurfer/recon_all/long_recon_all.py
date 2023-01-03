@@ -24,8 +24,7 @@ class LongReconAllSpec(pydra.specs.ShellSpec):
         metadata={
             "help_string": "longitudinal template identifier",
             "argstr": None,
-            "requires": ["longitudinal_timepoint_id"],
-        },
+        }
     )
 
 

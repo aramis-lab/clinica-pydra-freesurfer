@@ -12,7 +12,7 @@ __all__ = ["MRISPreproc"]
 @attrs.define(slots=False, kw_only=True)
 class MRISPreprocSpec(pydra.specs.ShellSpec):
 
-    output_file: str = attrs.field(
+    output_surface_file: str = attrs.field(
         metadata={
             "help_string": "output file",
             "argstr": "--out",
@@ -119,7 +119,7 @@ class MRISPreproc(pydra.ShellCommandTask):
     ...     target_subject_id="fsaverage",
     ...     hemisphere="lh",
     ...     measure="thickness",
-    ...     output_file="abc-lh-thickness.mgh",
+    ...     output_surface_file="abc-lh-thickness.mgh",
     ... )
     >>> task.cmdline
     'mris_preproc --out abc-lh-thickness.mgh --target fsaverage --hemi lh --meas thickness \
@@ -132,7 +132,7 @@ class MRISPreproc(pydra.ShellCommandTask):
     ...     target_subject_id="fsaverage",
     ...     hemisphere="lh",
     ...     measure="thickness",
-    ...     output_file="abc-lh-thickness.mgh",
+    ...     output_surface_file="abc-lh-thickness.mgh",
     ... )
     >>> task.cmdline
     'mris_preproc --out abc-lh-thickness.mgh --target fsaverage --hemi lh --meas thickness --fsgd abc.fsgd'
@@ -144,7 +144,7 @@ class MRISPreproc(pydra.ShellCommandTask):
     ...     target_subject_id="fsaverage",
     ...     hemisphere="lh",
     ...     measure="thickness",
-    ...     output_file="abc-lh-thickness.sm5.mgh",
+    ...     output_surface_file="abc-lh-thickness.sm5.mgh",
     ...     target_smoothing=5,
     ... )
     >>> task.cmdline
@@ -156,7 +156,7 @@ class MRISPreproc(pydra.ShellCommandTask):
     >>> task = MRISPreproc(
     ...     target_subject_id="fsaverage",
     ...     hemisphere="lh",
-    ...     output_file="abc-lh-thickness.mgh",
+    ...     output_surface_file="abc-lh-thickness.mgh",
     ...     fsgd_file="abc.fsgd",
     ...     source_format="curv",
     ...     input_surface_measures=[f"abc{s:02d}-anat/surf/lh.thickness" for s in range(1, 5)],
@@ -173,7 +173,7 @@ class MRISPreproc(pydra.ShellCommandTask):
     ...     target_subject_id="fsaverage",
     ...     hemisphere="lh",
     ...     measure="thickness",
-    ...     output_file="abc-lh-thickness-pdiff.mgh",
+    ...     output_surface_file="abc-lh-thickness-pdiff.mgh",
     ...     compute_paired_differences=True,
     ... )
     >>> task.cmdline

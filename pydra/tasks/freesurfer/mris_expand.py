@@ -7,7 +7,7 @@ __all__ = ["MRISExpand"]
 
 @attrs.define(slots=False, kw_only=True)
 class MIRSExpandSpec(pydra.specs.ShellSpec):
-    input_surface: str = attrs.field(
+    input_surface_file: str = attrs.field(
         metadata={
             "help_string": "input surface",
             "mandatory": True,
@@ -36,12 +36,12 @@ class MIRSExpandSpec(pydra.specs.ShellSpec):
         }
     )
 
-    output_surface: str = attrs.field(
+    output_surface_file: str = attrs.field(
         metadata={
             "help_string": "output surface",
             "argstr": "",
             "position": -1,
-            "output_file_template": "{input_surface}_expanded",
+            "output_file_template": "{input_surface_file}_expanded",
         }
     )
 
@@ -76,7 +76,7 @@ class MRISExpand(pydra.ShellCommandTask):
     1. Expand by cortical thickness:
 
     >>> task = MRISExpand(
-    ...     input_surface="lh.white",
+    ...     input_surface_file="lh.white",
     ...     fraction_of_cortical_thickness=0.5,
     ... )
     >>> task.cmdline    # doctest: +ELLIPSIS
@@ -85,9 +85,9 @@ class MRISExpand(pydra.ShellCommandTask):
     2. Expand by distance from label:
 
     >>> task = MRISExpand(
-    ...     input_surface="lh.white",
+    ...     input_surface_file="lh.white",
     ...     distance=0.5,
-    ...     output_surface="lh.graymid",
+    ...     output_surface_file="lh.graymid",
     ...     label="labelfile",
     ... )
     >>> task.cmdline

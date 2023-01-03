@@ -17,7 +17,7 @@ class BaseReconAllSpec(pydra.specs.ShellSpec):
         metadata={
             "help_string": "base template identifier",
             "mandatory": True,
-            "argstr": "-base {base_template_id}",
+            "argstr": "-base",
         }
     )
 

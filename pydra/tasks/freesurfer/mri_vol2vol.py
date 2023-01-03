@@ -11,21 +11,21 @@ __all__ = ["MRIVol2Vol"]
 
 @attrs.define(slots=False, kw_only=True)
 class MRIVol2VolSpec(pydra.specs.ShellSpec):
-    moving_volume: str = attrs.field(
+    moving_volume_file: str = attrs.field(
         metadata={
             "help_string": "moving volume (target volume if transform is inverted)",
             "argstr": "--mov",
         }
     )
 
-    target_volume: str = attrs.field(
+    target_volume_file: str = attrs.field(
         metadata={
             "help_string": "target volume (moving volume if transform is inverted)",
             "argstr": "--targ",
         }
     )
 
-    output_volume: str = attrs.field(
+    output_volume_file: str = attrs.field(
         metadata={
             "help_string": "output volume",
             "argstr": "--o",
@@ -112,8 +112,8 @@ class MRIVol2Vol(pydra.ShellCommandTask):
     1. Resample functional data into anatomical space:
 
     >>> task = MRIVol2Vol(
-    ...     moving_volume="func.nii.gz",
-    ...     output_volume="func-in-anat.mgh",
+    ...     moving_volume_file="func.nii.gz",
+    ...     output_volume_file="func-in-anat.mgh",
     ...     registration_file="register.dat",
     ...     use_registered_volume_as_target=True,
     ... )
@@ -123,8 +123,8 @@ class MRIVol2Vol(pydra.ShellCommandTask):
     2. Resample anatomical data into functional space:
 
     >>> task = MRIVol2Vol(
-    ...     moving_volume="func.nii.gz",
-    ...     output_volume="anat-in-func.mgh",
+    ...     moving_volume_file="func.nii.gz",
+    ...     output_volume_file="anat-in-func.mgh",
     ...     registration_file="register.dat",
     ...     use_registered_volume_as_target=True,
     ...     invert_transform=True,
@@ -135,8 +135,8 @@ class MRIVol2Vol(pydra.ShellCommandTask):
     3. Map functional to anatomical without resampling:
 
     >>> task = MRIVol2Vol(
-    ...     moving_volume="func.nii.gz",
-    ...     output_volume="func.new.vox2ras.nii.gz",
+    ...     moving_volume_file="func.nii.gz",
+    ...     output_volume_file="func.new.vox2ras.nii.gz",
     ...     registration_file="register.dat",
     ...     use_registered_volume_as_target=True,
     ...     no_resampling=True,
@@ -147,8 +147,8 @@ class MRIVol2Vol(pydra.ShellCommandTask):
     4. Map a binary mask in functional space to anatomical space:
 
     >>> task = MRIVol2Vol(
-    ...     moving_volume="mask.nii.gz",
-    ...     output_volume="mask-in-anat.mgh",
+    ...     moving_volume_file="mask.nii.gz",
+    ...     output_volume_file="mask-in-anat.mgh",
     ...     registration_file="register.dat",
     ...     use_registered_volume_as_target=True,
     ...     interpolation="nearest",
@@ -159,8 +159,8 @@ class MRIVol2Vol(pydra.ShellCommandTask):
     5. Map functional data to talairach (MNI305) space with 2mm isotropic resolution:
 
     >>> task = MRIVol2Vol(
-    ...     moving_volume="func.nii.gz",
-    ...     output_volume="func-in-tal.2mm.mgh",
+    ...     moving_volume_file="func.nii.gz",
+    ...     output_volume_file="func-in-tal.2mm.mgh",
     ...     registration_file="register.dat",
     ...     resample_to_talairach=True,
     ...     talairach_resolution=2,
@@ -171,9 +171,9 @@ class MRIVol2Vol(pydra.ShellCommandTask):
     6. Apply an MNI transform by resampling the anatomical data into talairach space:
 
     >>> task = MRIVol2Vol(
-    ...     moving_volume="orig.mgz",
-    ...     target_volume="$FREESURFER_HOME/average/mni305.cor.mgz",
-    ...     output_volume="orig-in-mni305.mgz",
+    ...     moving_volume_file="orig.mgz",
+    ...     target_volume_file="$FREESURFER_HOME/average/mni305.cor.mgz",
+    ...     output_volume_file="orig-in-mni305.mgz",
     ...     xfm_registration_file="transforms/talairach.xfm",
     ... )
     >>> task.cmdline

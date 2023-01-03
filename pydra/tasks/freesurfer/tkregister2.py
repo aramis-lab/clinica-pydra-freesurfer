@@ -7,7 +7,7 @@ __all__ = ["TkRegister2"]
 
 @attrs.define(slots=False, kw_only=True)
 class TkRegister2Spec(pydra.specs.ShellSpec):
-    moving_volume: str = attrs.field(
+    moving_volume_file: str = attrs.field(
         metadata={
             "help_string": "moving volume",
             "mandatory": True,
@@ -15,7 +15,7 @@ class TkRegister2Spec(pydra.specs.ShellSpec):
         }
     )
 
-    target_volume: str = attrs.field(
+    target_volume_file: str = attrs.field(
         metadata={
             "help_string": "target volume",
             "mandatory": True,
@@ -51,8 +51,8 @@ class TkRegister2(pydra.ShellCommandTask):
     1. Create a registration matrix between the conformed space (orig.mgz) and the native anatomical (rawavg.mgz):
 
     >>> task = TkRegister2(
-    ...     moving_volume="rawavg.mgz",
-    ...     target_volume="orig.mgz",
+    ...     moving_volume_file="rawavg.mgz",
+    ...     target_volume_file="orig.mgz",
     ...     registration_file="register.native.dat",
     ...     compute_registration_from_headers=True,
     ... )

@@ -18,37 +18,37 @@ class ReconAllSpec(pydra.specs.ShellSpec):
         metadata={
             "help_string": "subject identifier",
             "mandatory": True,
-            "argstr": "-subjid {subject_id}",
+            "argstr": "-subjid",
         }
     )
 
-    t1_volume: os.PathLike = attrs.field(
+    t1_volume_file: os.PathLike = attrs.field(
         metadata={
             "help_string": "input T1 volume",
-            "argstr": "-i {t1_volume}",
-            "xor": ["t1_volumes"],
+            "argstr": "-i",
+            "xor": ["t1_volume_files"],
         }
     )
 
-    t1_volumes: ty.Iterable[os.PathLike] = attrs.field(
+    t1_volume_files: ty.Iterable[os.PathLike] = attrs.field(
         metadata={
             "help_string": "input T1 volumes",
             "argstr": "-i...",
-            "xor": ["t1_volume"],
+            "xor": ["t1_volume_file"],
         }
     )
 
-    t2_volume: os.PathLike = attrs.field(
+    t2_volume_file: os.PathLike = attrs.field(
         metadata={
             "help_string": "input T2 volume",
-            "argstr": "-t2 {t2_volume}",
+            "argstr": "-t2",
         }
     )
 
-    flair_volume: os.PathLike = attrs.field(
+    flair_volume_file: os.PathLike = attrs.field(
         metadata={
             "help_string": "input FLAIR volume",
-            "argstr": "-flair {flair_volume}",
+            "argstr": "-flair",
         }
     )
 
