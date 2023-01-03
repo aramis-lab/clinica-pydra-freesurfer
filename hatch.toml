@@ -15,6 +15,7 @@ no-cov = "cov --no-cov"
 python = ["3.7", "3.8", "3.9", "3.10", "3.11"]
 
 [envs.docs]
+template = "docs"
 dependencies = [
   "pydata-sphinx-theme",
   "sphinx <6",  # https://github.com/pydata/pydata-sphinx-theme/pull/1097
