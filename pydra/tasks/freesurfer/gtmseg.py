@@ -71,7 +71,7 @@ class GTMSegSpec(pydra.specs.ShellSpec):
     colortable: str = attrs.field(
         metadata={
             "help_string": "use custom colortable",
-            "argstr": "--ctab {colortable}",
+            "argstr": "--ctab",
         }
     )
 
