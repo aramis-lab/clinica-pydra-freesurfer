@@ -7,7 +7,7 @@ __all__ = ["MRIConvert"]
 
 @attrs.define(slots=False, kw_only=True)
 class MRIConvertSpec(pydra.specs.ShellSpec):
-    input_volume: str = attrs.field(
+    input_volume_file: str = attrs.field(
         metadata={
             "help_string": "input volume",
             "mandatory": True,
@@ -16,7 +16,7 @@ class MRIConvertSpec(pydra.specs.ShellSpec):
         }
     )
 
-    output_volume: str = attrs.field(
+    output_volume_file: str = attrs.field(
         metadata={
             "help_string": "output volume",
             "argstr": "",
@@ -44,8 +44,8 @@ class MRIConvert(pydra.ShellCommandTask):
     1. Convert data to float:
 
     >>> task = MRIConvert(
-    ...     input_volume="orig.nii.gz",
-    ...     output_volume="float.nii.gz",
+    ...     input_volume_file="orig.nii.gz",
+    ...     output_volume_file="float.nii.gz",
     ...     output_data_type="float",
     ... )
     >>> task.cmdline

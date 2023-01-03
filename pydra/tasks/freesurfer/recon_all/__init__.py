@@ -10,7 +10,7 @@ In addition, the longitudinal processing interfaces to `recon-all` are available
 1. Cross-sectionally process timepoints:
 >>> task = ReconAll(
 ...     subject_id="tp1",
-...     t1_volume="/path/to/tp1.dcm",
+...     t1_volume_file="/path/to/tp1.dcm",
 ... )
 >>> task.cmdline
 'recon-all -subjid tp1 -i /path/to/tp1.dcm -all'

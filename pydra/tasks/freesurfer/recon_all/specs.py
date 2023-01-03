@@ -39,10 +39,10 @@ class ReconAllBaseSpec(pydra.specs.ShellSpec):
         },
     )
 
-    custom_brain_mask: os.PathLike = attrs.field(
+    custom_brain_mask_file: os.PathLike = attrs.field(
         metadata={
             "help_string": "use a custom brain mask",
-            "argstr": "-xmask {custom_brain_mask}",
+            "argstr": "-xmask",
         },
     )
 
@@ -82,7 +82,7 @@ class ReconAllBaseSpec(pydra.specs.ShellSpec):
         }
     )
 
-    custom_talairach_atlas: os.PathLike = attrs.field(
+    custom_talairach_atlas_file: os.PathLike = attrs.field(
         metadata={
             "help_string": "use a custom talairach atlas",
             "argstr": "-custom-tal-atlas",
