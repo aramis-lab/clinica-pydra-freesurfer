@@ -5,4 +5,3 @@ API
     :toctree: generated
 
 .. automodule:: pydra.tasks.freesurfer
-    :members:

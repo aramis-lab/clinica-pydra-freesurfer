@@ -1,3 +1,34 @@
+"""
+MRISExpand
+==========
+
+Expand a surface outwards by a specified amount
+while maintaining smoothness and self-intersection constraints.
+
+Examples
+--------
+
+1. Expand by cortical thickness:
+
+>>> task = MRISExpand(
+...     input_surface_file="lh.white",
+...     fraction_of_cortical_thickness=0.5,
+... )
+>>> task.cmdline    # doctest: +ELLIPSIS
+'mris_expand -thickness lh.white 0.5 ...lh_expanded.white'
+
+2. Expand by distance from label:
+
+>>> task = MRISExpand(
+...     input_surface_file="lh.white",
+...     distance=0.5,
+...     output_surface_file="lh.graymid",
+...     label="labelfile",
+... )
+>>> task.cmdline
+'mris_expand -label labelfile lh.white 0.5 lh.graymid'
+"""
+
 import attrs
 
 import pydra
@@ -7,6 +38,8 @@ __all__ = ["MRISExpand"]
 
 @attrs.define(slots=False, kw_only=True)
 class MIRSExpandSpec(pydra.specs.ShellSpec):
+    """Specifications for mris_expand."""
+
     input_surface_file: str = attrs.field(
         metadata={
             "help_string": "input surface",
@@ -66,33 +99,7 @@ class MIRSExpandSpec(pydra.specs.ShellSpec):
 
 
 class MRISExpand(pydra.ShellCommandTask):
-    """Task for mris_expand.
-
-    Expand a surface outwards by a specified amount while maintaining smoothness and self-intersection constraints.
-
-    Examples
-    --------
-
-    1. Expand by cortical thickness:
-
-    >>> task = MRISExpand(
-    ...     input_surface_file="lh.white",
-    ...     fraction_of_cortical_thickness=0.5,
-    ... )
-    >>> task.cmdline    # doctest: +ELLIPSIS
-    'mris_expand -thickness lh.white 0.5 ...lh_expanded.white'
-
-    2. Expand by distance from label:
-
-    >>> task = MRISExpand(
-    ...     input_surface_file="lh.white",
-    ...     distance=0.5,
-    ...     output_surface_file="lh.graymid",
-    ...     label="labelfile",
-    ... )
-    >>> task.cmdline
-    'mris_expand -label labelfile lh.white 0.5 lh.graymid'
-    """
+    """Task for mris_expand."""
 
     input_spec = pydra.specs.SpecInfo(
         name="MRISExpandInput",
