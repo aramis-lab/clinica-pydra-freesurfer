@@ -1,5 +1,10 @@
 # pydra-freesurfer
 
+[![PyPI - Version](https://img.shields.io/pypi/v/pydra-freesurfer.svg)](https://pypi.org/project/pydra-freesurfer)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pydra-freesurfer.svg)](https://pypi.org/project/pydra-freesurfer)
+
+---
+
 Pydra tasks for FreeSurfer.
 
 [Pydra] is a dataflow engine which provides a set of lightweight abstractions
