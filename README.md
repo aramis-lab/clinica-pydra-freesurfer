@@ -17,6 +17,13 @@ for processing, analyzing, and visualizing human brain MR images.
 This project exposes some of FreeSurfer's utilities as Pydra tasks
 to facilitate their incorporation into more advanced processing workflows.
 
+**Table of contents**
+
+- [Installation](#installation)
+- [Available interfaces](#available-interfaces)
+- [Development](#development)
+- [Licensing](#licensing)
+
 ## Installation
 
 ```console
