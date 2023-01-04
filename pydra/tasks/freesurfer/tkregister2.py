@@ -1,3 +1,27 @@
+"""
+TkRegister2
+===========
+
+Linear registration between two volumes,
+mainly for the purpose of interacting with the FreeSurfer anatomical stream.
+
+Examples
+--------
+
+Create a registration matrix between the conformed space (orig.mgz) and the native anatomical (rawavg.mgz):
+
+>>> task = TkRegister2(
+...     moving_volume_file="rawavg.mgz",
+...     target_volume_file="orig.mgz",
+...     registration_file="register.native.dat",
+...     compute_registration_from_headers=True,
+... )
+>>> task.cmdline
+'tkregister2 --noedit --mov rawavg.mgz --targ orig.mgz --reg register.native.dat --regheader'
+
+
+"""
+
 import attrs
 
 import pydra
@@ -7,6 +31,8 @@ __all__ = ["TkRegister2"]
 
 @attrs.define(slots=False, kw_only=True)
 class TkRegister2Spec(pydra.specs.ShellSpec):
+    """Specifications for tkregister2."""
+
     moving_volume_file: str = attrs.field(
         metadata={
             "help_string": "moving volume",
@@ -40,25 +66,7 @@ class TkRegister2Spec(pydra.specs.ShellSpec):
 
 
 class TkRegister2(pydra.ShellCommandTask):
-    """Task for tkregister2.
-
-    tkregister2 is a tool to assist in the manual tuning of the linear registration between two volumes, mainly for the
-    purpose of interacting with the FreeSurfer anatomical stream.
-
-    Examples
-    --------
-
-    1. Create a registration matrix between the conformed space (orig.mgz) and the native anatomical (rawavg.mgz):
-
-    >>> task = TkRegister2(
-    ...     moving_volume_file="rawavg.mgz",
-    ...     target_volume_file="orig.mgz",
-    ...     registration_file="register.native.dat",
-    ...     compute_registration_from_headers=True,
-    ... )
-    >>> task.cmdline
-    'tkregister2 --noedit --mov rawavg.mgz --targ orig.mgz --reg register.native.dat --regheader'
-    """
+    """Task for tkregister2."""
 
     input_spec = pydra.specs.SpecInfo(
         name="TkRegister2Input",

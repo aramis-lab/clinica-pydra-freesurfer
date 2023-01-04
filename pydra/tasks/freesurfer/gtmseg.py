@@ -1,3 +1,31 @@
+"""
+GTMSeg
+======
+
+Examples
+--------
+>>> task = GTMSeg(subject_id="subject", generate_segmentation=True)
+>>> task.cmdline
+'gtmseg --s subject --o gtmseg.mgz --xcerseg'
+>>> task = GTMSeg(
+...     subject_id="subject",
+...     keep_hypointensities=True,
+...     subsegment_white_matter=True,
+...     output_volume_file="gtmseg.wmseg.hypo.mgz",
+...     upsampling_factor=1,
+...     use_existing_segmentation=True,
+... )
+>>> task.cmdline
+'gtmseg --s subject --o gtmseg.wmseg.hypo.mgz --no-xcerseg --usf 1 --keep-hypo --subsegwm'
+>>> task = GTMSeg(
+...     subject_id="subject",
+...     output_volume_file="gtmseg+myseg.mgz",
+...     segmentation_file="apas+head+myseg.mgz",
+...     colortable="myseg.colortable.txt",
+... )
+>>> task.cmdline
+'gtmseg --s subject --o gtmseg+myseg.mgz --head apas+head+myseg.mgz --ctab myseg.colortable.txt'
+"""
 import attrs
 
 import pydra
@@ -9,6 +37,8 @@ __all__ = ["GTMSeg"]
 
 @attrs.define(slots=False, kw_only=True)
 class GTMSegSpec(pydra.specs.ShellSpec):
+    """Specifications for FreeSurfer's gtmseg."""
+
     subject_id: str = attrs.field(
         metadata={
             "help_string": "subject to analyze",
@@ -112,32 +142,7 @@ class GTMSegSpec(pydra.specs.ShellSpec):
 
 
 class GTMSeg(pydra.ShellCommandTask):
-    """Task for PETSurfer's gtmseg.
-
-    Examples
-    --------
-    >>> task = GTMSeg(subject_id="subject", generate_segmentation=True)
-    >>> task.cmdline
-    'gtmseg --s subject --o gtmseg.mgz --xcerseg'
-    >>> task = GTMSeg(
-    ...     subject_id="subject",
-    ...     keep_hypointensities=True,
-    ...     subsegment_white_matter=True,
-    ...     output_volume_file="gtmseg.wmseg.hypo.mgz",
-    ...     upsampling_factor=1,
-    ...     use_existing_segmentation=True,
-    ... )
-    >>> task.cmdline
-    'gtmseg --s subject --o gtmseg.wmseg.hypo.mgz --no-xcerseg --usf 1 --keep-hypo --subsegwm'
-    >>> task = GTMSeg(
-    ...     subject_id="subject",
-    ...     output_volume_file="gtmseg+myseg.mgz",
-    ...     segmentation_file="apas+head+myseg.mgz",
-    ...     colortable="myseg.colortable.txt",
-    ... )
-    >>> task.cmdline
-    'gtmseg --s subject --o gtmseg+myseg.mgz --head apas+head+myseg.mgz --ctab myseg.colortable.txt'
-    """
+    """Task generator for FreeSurfer's gtmseg."""
 
     input_spec = pydra.specs.SpecInfo(
         name="GTMSegInput",
