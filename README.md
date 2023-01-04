@@ -7,14 +7,15 @@
 
 Pydra tasks for FreeSurfer.
 
-[Pydra] is a dataflow engine which provides a set of lightweight abstractions
+[Pydra][pydra] is a dataflow engine
+which provides a set of lightweight abstractions
 for DAG construction, manipulation, and distributed execution.
 
-[FreeSurfer] is a neuroimaging toolkit for processing, analyzing, and
-visualizing human brain MR images.
+[FreeSurfer][freesurfer] is a neuroimaging toolkit
+for processing, analyzing, and visualizing human brain MR images.
 
-This project exposes some of FreeSurfer's utilities as Pydra tasks to
-facilitate their incorporation into more advanced processing workflows.
+This project exposes some of FreeSurfer's utilities as Pydra tasks
+to facilitate their incorporation into more advanced processing workflows.
 
 ## Available interfaces
 
@@ -60,6 +61,6 @@ make docs
 This project is released under the terms of the Apache License 2.0.
 
 
-[Pydra]: https://nipype.github.io/pydra
-[Freesurfer]: https://surfer.nmr.mgh.harvard.edu
-[Poetry]: https://python-poetry.org
+[pydra]: https://nipype.github.io/pydra
+[freesurfer]: https://surfer.nmr.mgh.harvard.edu
+[poetry]: https://python-poetry.org
