@@ -71,9 +71,9 @@ make docs
 
 ## Licensing
 
-This project is released under the terms of the Apache License 2.0.
-
+This project is released under the terms of the [Apache License, Version 2.0][license].
 
 [pydra]: https://nipype.github.io/pydra
 [freesurfer]: https://surfer.nmr.mgh.harvard.edu
 [poetry]: https://python-poetry.org
+[license]: https://opensource.org/licenses/Apache-2.0
