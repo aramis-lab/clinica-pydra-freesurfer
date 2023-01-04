@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pydra-freesurfer"
-version = "0.0.2"
+version = "0.0.3"
 description = "Pydra tasks for FreeSurfer"
 authors = ["The Aramis Lab"]
 license = "Apache-2.0"
