@@ -17,6 +17,12 @@ for processing, analyzing, and visualizing human brain MR images.
 This project exposes some of FreeSurfer's utilities as Pydra tasks
 to facilitate their incorporation into more advanced processing workflows.
 
+## Installation
+
+```console
+pip install pydra-freesurfer
+```
+
 ## Available interfaces
 
 - gtmseg
