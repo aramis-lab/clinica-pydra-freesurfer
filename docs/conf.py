@@ -9,7 +9,7 @@
 project = 'pydra-freesurfer'
 author = 'The Aramis Lab'
 copyright = f'2022-2023, {author}'
-release = '0.0.4'
+release = '0.0.5'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
