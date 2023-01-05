@@ -96,6 +96,13 @@ class ReconAllBaseSpec(pydra.specs.ShellSpec):
         }
     )
 
+    no_subcortical_segmentation: bool = attrs.field(
+        metadata={
+            "help_string": "skip subcortical segmentation steps",
+            "argstr": "-nosubcortseg",
+        }
+    )
+
     conform_width_to_256: bool = attrs.field(
         metadata={
             "help_string": (
