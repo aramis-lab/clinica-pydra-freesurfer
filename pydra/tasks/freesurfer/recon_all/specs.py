@@ -96,6 +96,25 @@ class ReconAllBaseSpec(pydra.specs.ShellSpec):
         }
     )
 
+    conform_width_to_256: bool = attrs.field(
+        metadata={
+            "help_string": (
+                "conform image dimensions to 256 when running mri_convert",
+            ),
+            "argstr": "-cw256",
+        }
+    )
+
+    cache_files_for_qdec: bool = attrs.field(
+        metadata={
+            "help_string": (
+                "accelerate analysis of group data "
+                "by pre-computing files required for the Qdec utility"
+            ),
+            "argstr": "-qcache",
+        }
+    )
+
     parallel: bool = attrs.field(
         metadata={
             "help_string": "process both hemispheres in parallel",
