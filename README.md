@@ -38,6 +38,7 @@ pip install pydra-freesurfer
 - mri_vol2vol
 - mris_anatomical_stats
 - mris_ca_label
+- mris_ca_train
 - mris_expand
 - mris_preproc
 - recon-all
