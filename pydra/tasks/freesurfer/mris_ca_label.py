@@ -104,7 +104,7 @@ class MRISCaLabelSpec(pydra.specs.ShellSpec):
 
     no_covariance: bool = attrs.field(
         metadata={
-            "help_string": "set all covariance matrices to identify",
+            "help_string": "set covariance matrices to identity",
             "argstr": "-novar",
         }
     )
