@@ -14,6 +14,7 @@ use cases. Those interfaces have to be imported from their corresponding subpack
 .. automodule:: pydra.tasks.freesurfer.mri_surf2surf
 .. automodule:: pydra.tasks.freesurfer.mri_vol2vol
 .. automodule:: pydra.tasks.freesurfer.mris_anatomical_stats
+.. automodule:: pydra.tasks.freesurfer.mris_ca_label
 .. automodule:: pydra.tasks.freesurfer.mris_expand
 .. automodule:: pydra.tasks.freesurfer.mris_preproc
 .. automodule:: pydra.tasks.freesurfer.recon_all
@@ -24,6 +25,7 @@ from .mri_convert import MRIConvert
 from .mri_surf2surf import MRISurf2Surf
 from .mri_vol2vol import MRIVol2Vol
 from .mris_anatomical_stats import MRISAnatomicalStats
+from .mris_ca_label import MRISCaLabel
 from .mris_expand import MRISExpand
 from .mris_preproc import MRISPreproc
 from .recon_all import ReconAll
@@ -35,6 +37,7 @@ __all__ = [
     "MRISurf2Surf",
     "MRIVol2Vol",
     "MRISAnatomicalStats",
+    "MRISCaLabel",
     "MRISExpand",
     "MRISPreproc",
     "ReconAll",
