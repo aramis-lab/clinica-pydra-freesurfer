@@ -1,5 +1,5 @@
 """
-MRIAnatomicalStats
+MRISAnatomicalStats
 ==================
 
 Computes a number of anatomical properties.
@@ -7,7 +7,7 @@ Computes a number of anatomical properties.
 Examples
 --------
 
->>> task = MRIAnatomicalStats(
+>>> task = MRISAnatomicalStats(
 ...     subject_id="subjid",
 ...     hemisphere="lh",
 ...     annotation_file="subjid/label/lh.aparc.annot",
@@ -16,7 +16,7 @@ Examples
 >>> task.cmdline
 'mris_anatomical_stats -a subjid/label/lh.aparc.annot -b subjid lh'
 
->>> task = MRIAnatomicalStats(
+>>> task = MRISAnatomicalStats(
 ...     subject_id="subjid",
 ...     hemisphere="lh",
 ...     label_file="lh.cortex.label",
@@ -32,12 +32,12 @@ import pydra
 
 from . import specs
 
-__all__ = ["MRIAnatomicalStats"]
+__all__ = ["MRISAnatomicalStats"]
 
 
 @attrs.define(slots=False, kw_only=True)
-class MRIAnatomicalStatsSpec(pydra.specs.ShellSpec):
-    """Specifications for mri_anatomical_stats."""
+class MRISAnatomicalStatsSpec(pydra.specs.ShellSpec):
+    """Specifications for mris_anatomical_stats."""
 
     subject_id: str = attrs.field(
         metadata={
@@ -101,16 +101,16 @@ class MRIAnatomicalStatsSpec(pydra.specs.ShellSpec):
     )
 
 
-class MRIAnatomicalStats(pydra.engine.ShellCommandTask):
-    """Task for mri_annatomical_stats."""
+class MRISAnatomicalStats(pydra.engine.ShellCommandTask):
+    """Task for mris_annatomical_stats."""
 
     input_spec = pydra.specs.SpecInfo(
-        name="MRIAnnatomicalStatsInput",
-        bases=(MRIAnatomicalStatsSpec,),
+        name="MRISAnnatomicalStatsInput",
+        bases=(MRISAnatomicalStatsSpec,),
     )
 
     output_spec = pydra.specs.SpecInfo(
-        name="MRIAnnatomicalStatsOutput",
+        name="MRISAnnatomicalStatsOutput",
         bases=(specs.SubjectsDirOutSpec,),
     )
 
