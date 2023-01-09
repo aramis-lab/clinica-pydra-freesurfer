@@ -23,7 +23,7 @@ from .gtmseg import GTMSeg
 from .mri_convert import MRIConvert
 from .mri_surf2surf import MRISurf2Surf
 from .mri_vol2vol import MRIVol2Vol
-from .mris_anatomical_stats import MRIAnatomicalStats
+from .mris_anatomical_stats import MRISAnatomicalStats
 from .mris_expand import MRISExpand
 from .mris_preproc import MRISPreproc
 from .recon_all import ReconAll
@@ -34,7 +34,7 @@ __all__ = [
     "MRIConvert",
     "MRISurf2Surf",
     "MRIVol2Vol",
-    "MRIAnatomicalStats",
+    "MRISAnatomicalStats",
     "MRISExpand",
     "MRISPreproc",
     "ReconAll",
