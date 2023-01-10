@@ -16,7 +16,7 @@ that tksurfer (and other utilities) can read it in.
 ...     subject_id="my_subject",
 ...     hemisphere="lh",
 ...     canonical_surface_file="sphere.reg",
-...     classifier_array_file="$SUBJECTS_DIR/average/lh.rahul.gcs",
+...     surface_atlas_file="$SUBJECTS_DIR/average/lh.rahul.gcs",
 ...     output_annotation_file="$SUBJECTS_DIR/my_subject/label/lh.raparc.annot",
 ...     original_surface_file="white",
 ...     no_covariance=True,
@@ -69,9 +69,9 @@ class MRISCaLabelSpec(pydra.specs.ShellSpec):
         }
     )
 
-    classifier_array_file = attrs.field(
+    surface_atlas_file = attrs.field(
         metadata={
-            "help_string": "classifier array file",
+            "help_string": "surface atlas file",
             "mandatory": True,
             "argstr": "",
             "position": -2,

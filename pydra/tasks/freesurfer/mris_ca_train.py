@@ -10,7 +10,7 @@ Examples
 ...     canonical_surface_file="sphere.reg",
 ...     annotation_file="my_manual_labeling",
 ...     subject_ids=["subj1", "subj2"],
-...     output_classifier_file="./lh.my_atlas.gcs",
+...     output_surface_atlas_file="./lh.my_atlas.gcs",
 ...     parcellation_table_file="./my_color_file.txt",
 ... )
 >>> task.cmdline
@@ -70,9 +70,9 @@ class MRISCaTrainSpec(pydra.specs.ShellSpec):
         }
     )
 
-    output_classifier_file: str = attrs.field(
+    output_surface_atlas_file: str = attrs.field(
         metadata={
-            "help_string": "output classifier array",
+            "help_string": "output surface atlas file",
             "mandatory": True,
             "argstr": "",
             "position": -1,
