@@ -46,30 +46,28 @@ pip install pydra-freesurfer
 
 ## Development
 
-This project is managed using [Poetry].
-
-To install, check and test the code:
+This project is managed with [Hatch][hatch]:
 
 ```console
-make
+pipx install hatch
 ```
 
-To run the test suite when hacking:
+To run the test suite:
 
 ```console
-make test
+hatch run test:no-cov
 ```
 
-To format the code before review:
+To fix linting issues:
 
 ```console
-make format
+hatch run lint:fix
 ```
 
-To build the project's documentation:
+To check the documentation:
 
 ```console
-make docs
+hatch run docs:serve --open-browser
 ```
 
 ## Licensing
@@ -78,5 +76,5 @@ This project is released under the terms of the [Apache License, Version 2.0][li
 
 [pydra]: https://nipype.github.io/pydra
 [freesurfer]: https://surfer.nmr.mgh.harvard.edu
-[poetry]: https://python-poetry.org
+[hatch]: https://hatch.pypa.io
 [license]: https://opensource.org/licenses/Apache-2.0
