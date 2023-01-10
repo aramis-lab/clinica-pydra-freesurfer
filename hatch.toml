@@ -1,6 +1,3 @@
-[build.targets.wheel]
-only-include = ["pydra/tasks/freesurfer"]
-
 [envs.default]
 dependencies = [
   "coverage[toml]",

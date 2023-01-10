@@ -41,8 +41,7 @@ issues = "https://github.com/aramis-lab/pydra-freesurfer/issues"
 repository = "https://github.com/aramis-lab/pydra-freesurfer"
 
 [tool.hatch.build.targets.wheel]
-packages = ["pydra"]
-include-only = ["pydra/tasks/freesurfer"]
+only-include = ["pydra/tasks/freesurfer"]
 
 [tool.black]
 extend-exclude = ["docs"]
