@@ -1,5 +1,5 @@
 [build.targets.wheel]
-packages = ["pydra/tasks/freesurfer"]
+only-include = ["pydra/tasks/freesurfer"]
 
 [envs.default]
 dependencies = [
