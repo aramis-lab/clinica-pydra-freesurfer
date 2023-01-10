@@ -1,6 +1,6 @@
 """
 MRISAnatomicalStats
-==================
+===================
 
 Computes a number of anatomical properties.
 
