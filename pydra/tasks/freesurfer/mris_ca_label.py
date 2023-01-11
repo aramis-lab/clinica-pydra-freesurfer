@@ -1,5 +1,5 @@
 """
-MRISCaLabel
+MRISCALabel
 ===========
 
 Assign an anatomical label to each cortical surface vertex.
@@ -7,7 +7,7 @@ Assign an anatomical label to each cortical surface vertex.
 Examples
 --------
 
->>> task = MRISCaLabel(
+>>> task = MRISCALabel(
 ...     subject_id="my_subject",
 ...     hemisphere="lh",
 ...     canonical_surface_file="sphere.reg",
@@ -27,11 +27,11 @@ import pydra
 
 from . import specs
 
-__all__ = ["MRISCaLabel"]
+__all__ = ["MRISCALabel"]
 
 
 @attrs.define(slots=False, kw_only=True)
-class MRISCaLabelSpec(pydra.specs.ShellSpec):
+class MRISCALabelSpec(pydra.specs.ShellSpec):
     """Specifications for mris_ca_label."""
 
     subject_id: str = attrs.field(
@@ -110,16 +110,16 @@ class MRISCaLabelSpec(pydra.specs.ShellSpec):
     )
 
 
-class MRISCaLabel(pydra.ShellCommandTask):
+class MRISCALabel(pydra.ShellCommandTask):
     """Task for mris_ca_label."""
 
     input_spec = pydra.specs.SpecInfo(
-        name="MRISCaLabelInput",
-        bases=(MRISCaLabelSpec,),
+        name="MRISCALabelInput",
+        bases=(MRISCALabelSpec,),
     )
 
     output_spec = pydra.specs.SpecInfo(
-        name="MRISCaLabelOuput",
+        name="MRISCALabelOuput",
         bases=(specs.SubjectsDirOutSpec,),
     )
 

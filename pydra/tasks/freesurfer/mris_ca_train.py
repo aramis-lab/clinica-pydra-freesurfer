@@ -1,11 +1,11 @@
 """
-MRISCaTrain
+MRISCATrain
 ===========
 
 Examples
 --------
 
->>> task = MRISCaTrain(
+>>> task = MRISCATrain(
 ...     hemisphere="lh",
 ...     canonical_surface_file="sphere.reg",
 ...     annotation_file="my_manual_labeling",
@@ -25,11 +25,11 @@ import pydra
 
 from . import specs
 
-__all__ = ["MRISCaTrain"]
+__all__ = ["MRISCATrain"]
 
 
 @attrs.define(slots=False, kw_only=True)
-class MRISCaTrainSpec(pydra.specs.ShellSpec):
+class MRISCATrainSpec(pydra.specs.ShellSpec):
     """Specifications for mris_ca_train."""
 
     hemisphere: str = attrs.field(
@@ -108,16 +108,16 @@ class MRISCaTrainSpec(pydra.specs.ShellSpec):
     )
 
 
-class MRISCaTrain(pydra.ShellCommandTask):
+class MRISCATrain(pydra.ShellCommandTask):
     """Task for mris_ca_train."""
 
     input_spec = pydra.specs.SpecInfo(
-        name="MRISCaTrainInput",
-        bases=(MRISCaTrainSpec,),
+        name="MRISCATrainInput",
+        bases=(MRISCATrainSpec,),
     )
 
     output_spec = pydra.specs.SpecInfo(
-        name="MRISCaTrainOuput",
+        name="MRISCATrainOuput",
         bases=(specs.SubjectsDirOutSpec,),
     )
 

@@ -26,8 +26,8 @@ from .mri_convert import MRIConvert
 from .mri_surf2surf import MRISurf2Surf
 from .mri_vol2vol import MRIVol2Vol
 from .mris_anatomical_stats import MRISAnatomicalStats
-from .mris_ca_label import MRISCaLabel
-from .mris_ca_train import MRISCaTrain
+from .mris_ca_label import MRISCALabel
+from .mris_ca_train import MRISCATrain
 from .mris_expand import MRISExpand
 from .mris_preproc import MRISPreproc
 from .recon_all import ReconAll
@@ -39,7 +39,7 @@ __all__ = [
     "MRISurf2Surf",
     "MRIVol2Vol",
     "MRISAnatomicalStats",
-    "MRISCaLabel",
+    "MRISCALabel",
     "MRISExpand",
     "MRISPreproc",
     "ReconAll",
