@@ -15,7 +15,7 @@ Convert volume data to float:
 ...     output_data_type="float",
 ... )
 >>> task.cmdline
-'mri_convert orig.nii.gz float.nii.gz -odt float'
+'mri_convert -odt float orig.nii.gz float.nii.gz'
 """
 
 import attrs
@@ -34,7 +34,7 @@ class MRIConvertSpec(pydra.specs.ShellSpec):
             "help_string": "input volume",
             "mandatory": True,
             "argstr": "",
-            "position": 1,
+            "position": -2,
         }
     )
 
@@ -42,7 +42,7 @@ class MRIConvertSpec(pydra.specs.ShellSpec):
         metadata={
             "help_string": "output volume",
             "argstr": "",
-            "position": 2,
+            "position": -1,
             "output_file_template": "{input_volume}_converted.nii.gz",
         }
     )
