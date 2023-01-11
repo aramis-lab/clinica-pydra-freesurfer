@@ -40,6 +40,7 @@ __all__ = [
     "MRIVol2Vol",
     "MRISAnatomicalStats",
     "MRISCALabel",
+    "MRISCATrain",
     "MRISExpand",
     "MRISPreproc",
     "ReconAll",
