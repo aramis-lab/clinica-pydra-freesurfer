@@ -84,6 +84,7 @@ class MRISCaLabelSpec(pydra.specs.ShellSpec):
             "mandatory": True,
             "argstr": "",
             "position": -1,
+            "output_file_template": "{hemisphere}.aparc.annot",
         }
     )
 
