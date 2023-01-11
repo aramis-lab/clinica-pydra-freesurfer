@@ -60,7 +60,7 @@ class MRISCaLabelSpec(pydra.specs.ShellSpec):
         }
     )
 
-    canonical_surface_file = attrs.field(
+    canonical_surface_file: str = attrs.field(
         metadata={
             "help_string": "canonical surface file",
             "mandatory": True,
@@ -69,7 +69,7 @@ class MRISCaLabelSpec(pydra.specs.ShellSpec):
         }
     )
 
-    surface_atlas_file = attrs.field(
+    surface_atlas_file: str = attrs.field(
         metadata={
             "help_string": "surface atlas file",
             "mandatory": True,
@@ -78,7 +78,7 @@ class MRISCaLabelSpec(pydra.specs.ShellSpec):
         }
     )
 
-    output_annotation_file = attrs.field(
+    output_annotation_file: str = attrs.field(
         metadata={
             "help_string": "output surface annotation file",
             "mandatory": True,
@@ -110,7 +110,7 @@ class MRISCaLabelSpec(pydra.specs.ShellSpec):
         }
     )
 
-    parcellation_table_file = attrs.field(
+    parcellation_table_file: str = attrs.field(
         metadata={
             "help_string": "parcellation table file",
             "argstr": "-t",
