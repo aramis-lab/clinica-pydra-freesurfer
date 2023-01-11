@@ -7,25 +7,18 @@ Assign an anatomical label to each cortical surface vertex.
 Examples
 --------
 
-In this example, mris_ca_label takes sphere.reg as the canonical surface input file,
-lh.rahul.gcs as the classifier array input file, and writes the annotated surface info
-to lh.raparc.annot. The file colortable_final.txt is embedded into the output file, so
-that tksurfer (and other utilities) can read it in.
-
 >>> task = MRISCaLabel(
 ...     subject_id="my_subject",
 ...     hemisphere="lh",
 ...     canonical_surface_file="sphere.reg",
-...     surface_atlas_file="$SUBJECTS_DIR/average/lh.rahul.gcs",
-...     output_annotation_file="$SUBJECTS_DIR/my_subject/label/lh.raparc.annot",
+...     surface_atlas_file="lh.rahul.gcs",
 ...     original_surface_file="white",
 ...     no_covariance=True,
-...     parcellation_table_file="$SUBJECTS_DIR/scripts/colortable_final.txt",
+...     parcellation_table_file="colortable.txt",
 ... )
->>> task.cmdline
-'mris_ca_label -orig white -novar -t $SUBJECTS_DIR/scripts/colortable_final.txt \
-my_subject lh sphere.reg $SUBJECTS_DIR/average/lh.rahul.gcs \
-$SUBJECTS_DIR/my_subject/label/lh.raparc.annot'
+>>> task.cmdline  # doctest: +ELLIPSIS
+'mris_ca_label -orig white -novar -t colortable.txt \
+my_subject lh sphere.reg lh.rahul.gcs ...lh.aparc.annot'
 """
 
 import attrs
@@ -78,10 +71,9 @@ class MRISCaLabelSpec(pydra.specs.ShellSpec):
         }
     )
 
-    output_annotation_file: str = attrs.field(
+    annotation_file: str = attrs.field(
         metadata={
             "help_string": "output surface annotation file",
-            "mandatory": True,
             "argstr": "",
             "position": -1,
             "output_file_template": "{hemisphere}.aparc.annot",

@@ -10,12 +10,11 @@ Examples
 ...     canonical_surface_file="sphere.reg",
 ...     annotation_file="my_manual_labeling",
 ...     subject_ids=["subj1", "subj2"],
-...     output_surface_atlas_file="./lh.my_atlas.gcs",
-...     parcellation_table_file="./my_color_file.txt",
+...     parcellation_table_file="colortable.txt",
 ... )
->>> task.cmdline
-'mris_ca_train -orig smoothwm -t ./my_color_file.txt -n 2 \
-lh sphere.reg my_manual_labeling subj1 subj2 ./lh.my_atlas.gcs'
+>>> task.cmdline  # doctest: +ELLIPSIS
+'mris_ca_train -orig smoothwm -t colortable.txt -n 2 \
+lh sphere.reg my_manual_labeling subj1 subj2 ...lh.my_atlas.gcs'
 """
 
 import typing as ty
@@ -73,9 +72,9 @@ class MRISCaTrainSpec(pydra.specs.ShellSpec):
     output_surface_atlas_file: str = attrs.field(
         metadata={
             "help_string": "output surface atlas file",
-            "mandatory": True,
             "argstr": "",
             "position": -1,
+            "output_file_template": "{hemisphere}.my_atlas.gcs",
         }
     )
 
