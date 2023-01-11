@@ -69,7 +69,7 @@ class MRISCATrainSpec(pydra.specs.ShellSpec):
         }
     )
 
-    surface_atlas_file: str = attrs.field(
+    output_surface_atlas_file: str = attrs.field(
         metadata={
             "help_string": "output surface atlas file",
             "argstr": "",

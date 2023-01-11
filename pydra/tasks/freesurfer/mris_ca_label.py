@@ -71,7 +71,7 @@ class MRISCALabelSpec(pydra.specs.ShellSpec):
         }
     )
 
-    annotation_file: str = attrs.field(
+    output_annotation_file: str = attrs.field(
         metadata={
             "help_string": "output surface annotation file",
             "argstr": "",
