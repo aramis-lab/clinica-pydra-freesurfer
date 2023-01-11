@@ -14,7 +14,7 @@ Examples
 ...     format_stdout_as_table=True,
 ... )
 >>> task.cmdline
-'mris_anatomical_stats -a subjid/label/lh.aparc.annot -b subjid lh'
+'mris_anatomical_stats -a subjid/label/lh.aparc.annot -b subjid lh white'
 
 >>> task = MRISAnatomicalStats(
 ...     subject_id="subjid",
@@ -23,7 +23,7 @@ Examples
 ...     format_stdout_as_table=True,
 ... )
 >>> task.cmdline
-'mris_anatomical_stats -l lh.cortex.label -b subjid lh'
+'mris_anatomical_stats -l lh.cortex.label -b subjid lh white'
 """
 
 import attrs
@@ -44,7 +44,7 @@ class MRISAnatomicalStatsSpec(pydra.specs.ShellSpec):
             "help_string": "subject to process",
             "mandatory": True,
             "argstr": "",
-            "position": -2,
+            "position": -3,
         }
     )
 
@@ -53,9 +53,18 @@ class MRISAnatomicalStatsSpec(pydra.specs.ShellSpec):
             "help_string": "left or right hemisphere",
             "mandatory": True,
             "argstr": "",
-            "position": -1,
+            "position": -2,
             "allowed_values": {"lh", "rh"},
         }
+    )
+
+    surface_name: str = attrs.field(
+        default="white",
+        metadata={
+            "help_string": "surface name",
+            "argstr": "",
+            "position": -1,
+        },
     )
 
     label_file: str = attrs.field(
