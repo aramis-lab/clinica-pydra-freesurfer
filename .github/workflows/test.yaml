@@ -1,4 +1,4 @@
-name: ci
+name: test
 
 on:
   # Trigger this workflow on push events to the main branch.
@@ -16,31 +16,21 @@ on:
 permissions:
   contents: read
 
-# Set the default Python version for jobs.
-env:
-  DEFAULT_PYTHON_VERSION: '3.10'
-
 jobs:
-  # Run code checks.
-  check:
+  # Lint codebase.
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: snok/install-poetry@v1
       - uses: actions/setup-python@v4
         with:
-          python-version: ${{ env.DEFAULT_PYTHON_VERSION }}
-          cache: poetry
-      - name: Install dependencies
-        run: make install
-      - name: Check with black
-        run: make check-black
-      - name: Check with isort
-        run: make check-isort
-      - name: Check with codespell
-        run: make check-codespell
+          python-version: '3.x'
+      - name: Install Hatch
+        run: pipx install hatch
+      - name: Lint codebase
+        run: hatch run lint:all
 
-  # Run the test suite.
+  # Test codebase.
   test:
     strategy:
       fail-fast: false
@@ -50,12 +40,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
-      - uses: snok/install-poetry@v1
       - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-          cache: poetry
-      - name: Install dependencies
-        run: make install
-      - name: Run tests
-        run: make test
+      - name: Install Hatch
+        run: pipx install hatch
+      - name: Test codebase
+        run: hatch run +python=${{ matrix.python-version }} test:cov
