@@ -84,6 +84,10 @@ publish: publish-pypi
 publish-pypi: config-pypi
 	@$(POETRY) publish --build
 
+.PHONY: serve-docs
+serve-docs:
+	@$(POETRY) run make -C docs livehtml
+
 .PHONY: test
 test:
 	@$(POETRY) run pytest
