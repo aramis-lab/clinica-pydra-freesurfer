@@ -10,11 +10,11 @@ Examples
 >>> task = MRISAnatomicalStats(
 ...     subject_id="subjid",
 ...     hemisphere="lh",
-...     annotation_file="subjid/label/lh.aparc.annot",
+...     annotation_file="lh.aparc.annot",
 ...     format_stdout_as_table=True,
 ... )
 >>> task.cmdline
-'mris_anatomical_stats -a subjid/label/lh.aparc.annot -b subjid lh white'
+'mris_anatomical_stats -a lh.aparc.annot -b subjid lh white'
 
 >>> task = MRISAnatomicalStats(
 ...     subject_id="subjid",
@@ -111,15 +111,15 @@ class MRISAnatomicalStatsSpec(pydra.specs.ShellSpec):
 
 
 class MRISAnatomicalStats(pydra.engine.ShellCommandTask):
-    """Task for mris_annatomical_stats."""
+    """Task definition for mris_anatomical_stats."""
 
     input_spec = pydra.specs.SpecInfo(
-        name="MRISAnnatomicalStatsInput",
+        name="MRISAnatomicalStatsInput",
         bases=(MRISAnatomicalStatsSpec,),
     )
 
     output_spec = pydra.specs.SpecInfo(
-        name="MRISAnnatomicalStatsOutput",
+        name="MRISAnatomicalStatsOutput",
         bases=(specs.SubjectsDirOutSpec,),
     )
 
