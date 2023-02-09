@@ -1,6 +1,6 @@
 [envs.default]
 dependencies = [
-  "coverage[toml]",
+  "coverage[toml] <7",
   "pytest",
   "pytest-cov",
 ]
