@@ -49,8 +49,9 @@ class ReconAllBaseSpec(pydra.specs.ShellSpec):
     hemisphere: str = attrs.field(
         metadata={
             "help_string": "restrict processing to this hemisphere",
-            "argstr": "-hemi {hemisphere}",
+            "argstr": "-hemi",
             "allowed_values": ["lh", "rh"],
+            "xor": {"parallel"},
         },
     )
 
@@ -133,13 +134,13 @@ class ReconAllBaseSpec(pydra.specs.ShellSpec):
     threads: int = attrs.field(
         metadata={
             "help_string": "set number of threads to use",
-            "argstr": "-threads {threads}",
+            "argstr": "-threads",
         },
     )
 
     subjects_dir: os.PathLike = attrs.field(
         metadata={
             "help_string": "subjects directory processed by FreeSurfer",
-            "argstr": "-sd {subjects_dir}",
+            "argstr": "-sd",
         },
     )
