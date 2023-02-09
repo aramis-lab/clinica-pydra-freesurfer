@@ -19,7 +19,7 @@ and more hits than any other label.
 Examples
 --------
 
-#. Convert a label to a binary mask in the functional space.
+1. Convert a label to a binary mask in the functional space.
 Require that a functional voxel be filled at least 50% by the label.
 
 >>> task = MRILabel2Vol(
@@ -33,7 +33,7 @@ Require that a functional voxel be filled at least 50% by the label.
 'mri_label2vol --label lh-avg_central_sulcus.label --temp f.nii.gz --reg register.dat --fillthresh 0.5 \
 --o cent-lh.nii.gz'
 
-#. Convert a surface label into a binary mask in the functional space.
+2. Convert a surface label into a binary mask in the functional space.
 Fill in all the cortical gray matter.
 Require that a functional voxel be filled at least 30% by the label.
 
@@ -51,7 +51,7 @@ Require that a functional voxel be filled at least 30% by the label.
 'mri_label2vol --label lh-avg_central_sulcus.label --temp f.nii.gz --reg register.dat --fillthresh 0.3 \
 --proj frac 0 1 0.1 --subject bert --hemi lh --o cent-lh.nii.gz'
 
-#. Convert a surface label into a binary mask in the functional space.
+3. Convert a surface label into a binary mask in the functional space.
 Sample a 1mm ribbon 2mm below the gray / white surface.
 Do not require a fill threshold.
 
@@ -68,7 +68,7 @@ Do not require a fill threshold.
 'mri_label2vol --label lh-avg_central_sulcus.label --temp f.nii.gz --reg register.dat --proj abs -3 -2 0.1 \
 --subject bert --hemi lh --o cent-lh.nii.gz'
 
-#. Convert two labels into a volume in the same space as the labels.
+4. Convert two labels into a volume in the same space as the labels.
 The voxels corresponding to lh-avg_central_sulcus.label will have a value of 1
 whereas those assigned to lh-avg_calcarine_sulcus.label will have a value of 2.
 
