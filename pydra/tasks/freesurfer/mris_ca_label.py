@@ -109,6 +109,13 @@ class MRISCALabelSpec(pydra.specs.ShellSpec):
         }
     )
 
+    cortex_label_file: str = attrs.field(
+        metadata={
+            "help_string": "cortex label file",
+            "argstr": "-l",
+        }
+    )
+
 
 class MRISCALabel(pydra.ShellCommandTask):
     """Task for mris_ca_label."""
