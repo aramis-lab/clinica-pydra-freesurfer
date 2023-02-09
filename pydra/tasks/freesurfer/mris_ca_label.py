@@ -15,10 +15,11 @@ Examples
 ...     original_surface_file="white",
 ...     no_covariance=True,
 ...     parcellation_table_file="colortable.txt",
+...     altas_name="rahul",
 ... )
 >>> task.cmdline  # doctest: +ELLIPSIS
 'mris_ca_label -orig white -novar -t colortable.txt \
-my_subject lh sphere.reg lh.rahul.gcs ...lh.aparc.annot'
+my_subject lh sphere.reg lh.rahul.gcs ...lh.rahul.annot'
 """
 
 import attrs
