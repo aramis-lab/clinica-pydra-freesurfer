@@ -11,19 +11,17 @@ Examples
 ...     subject_id="subjid",
 ...     hemisphere="lh",
 ...     annotation_file="lh.aparc.annot",
-...     format_stdout_as_table=True,
 ... )
->>> task.cmdline
-'mris_anatomical_stats -a lh.aparc.annot -b subjid lh white'
+>>> task.cmdline  # doctest: +ELLIPSIS
+'mris_anatomical_stats -a lh.aparc.annot -f ...lh.white.stats -log ...lh.white.log subjid lh white'
 
 >>> task = MRISAnatomicalStats(
 ...     subject_id="subjid",
 ...     hemisphere="lh",
 ...     label_file="lh.cortex.label",
-...     format_stdout_as_table=True,
 ... )
->>> task.cmdline
-'mris_anatomical_stats -l lh.cortex.label -b subjid lh white'
+>>> task.cmdline  # doctest: +ELLIPSIS
+'mris_anatomical_stats -l lh.cortex.label -f ...lh.white.stats -log ...lh.white.log subjid lh white'
 """
 
 import attrs
@@ -78,13 +76,6 @@ class MRISAnatomicalStatsSpec(pydra.specs.ShellSpec):
         metadata={
             "help_string": "compute statistics for each annotation in this file",
             "argstr": "-a",
-        }
-    )
-
-    format_stdout_as_table: bool = attrs.field(
-        metadata={
-            "help_string": "write to stdout in table format",
-            "argstr": "-b",
         }
     )
 
