@@ -102,6 +102,14 @@ class MRISAnatomicalStatsSpec(pydra.specs.ShellSpec):
         }
     )
 
+    output_colortable_file: str = attrs.field(
+        metadata={
+            "help_string": "write colortable for annotations",
+            "argstr": "-c",
+            "requires": {"annotation_file"},
+        }
+    )
+
     subjects_dir: str = attrs.field(
         metadata={
             "help_string": "subjects directory",
