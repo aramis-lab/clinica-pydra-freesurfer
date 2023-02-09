@@ -71,12 +71,17 @@ class MRISCALabelSpec(pydra.specs.ShellSpec):
         }
     )
 
+    atlas_name: str = attrs.field(
+        default="atlas",
+        metadata={"help_string": "atlas name"},
+    )
+
     output_annotation_file: str = attrs.field(
         metadata={
             "help_string": "output surface annotation file",
             "argstr": "",
             "position": -1,
-            "output_file_template": "{hemisphere}.atlas.annot",
+            "output_file_template": "{hemisphere}.{atlas_name}.annot",
         }
     )
 
