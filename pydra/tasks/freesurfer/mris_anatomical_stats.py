@@ -112,6 +112,14 @@ class MRISAnatomicalStatsSpec(pydra.specs.ShellSpec):
         }
     )
 
+    no_header: bool = attrs.field(
+        metadata={
+            "help_string": "do not write a header in log file",
+            "argstr": "-noheader",
+            "requires": {"output_log_file"},
+        }
+    )
+
     subjects_dir: str = attrs.field(
         metadata={
             "help_string": "subjects directory",
