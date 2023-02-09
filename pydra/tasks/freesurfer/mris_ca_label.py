@@ -76,7 +76,7 @@ class MRISCALabelSpec(pydra.specs.ShellSpec):
             "help_string": "output surface annotation file",
             "argstr": "",
             "position": -1,
-            "output_file_template": "{hemisphere}.aparc.annot",
+            "output_file_template": "{hemisphere}.atlas.annot",
         }
     )
 
