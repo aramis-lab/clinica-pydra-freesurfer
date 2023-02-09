@@ -92,6 +92,7 @@ class MRISAnatomicalStatsSpec(pydra.specs.ShellSpec):
         metadata={
             "help_string": "output stats file in table format",
             "argstr": "-f",
+            "output_file_template": "{hemisphere}.{surface_name}.stats",
         }
     )
 
@@ -99,6 +100,7 @@ class MRISAnatomicalStatsSpec(pydra.specs.ShellSpec):
         metadata={
             "help_string": "output stats file in log format",
             "argstr": "-log",
+            "output_file_template": "{hemisphere}.{surface_name}.log",
         }
     )
 
