@@ -88,16 +88,16 @@ class MRISAnatomicalStatsSpec(pydra.specs.ShellSpec):
         }
     )
 
-    output_table_file = attrs.field(
+    output_table_file: str = attrs.field(
         metadata={
-            "help_string": "write table output to this file",
+            "help_string": "output stats file in table format",
             "argstr": "-f",
         }
     )
 
-    output_stats_file = attrs.field(
+    output_log_file: str = attrs.field(
         metadata={
-            "help_string": "write stats output to this file",
+            "help_string": "output stats file in log format",
             "argstr": "-log",
         }
     )
