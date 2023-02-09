@@ -15,7 +15,7 @@ Examples
 ...     original_surface_file="white",
 ...     no_covariance=True,
 ...     parcellation_table_file="colortable.txt",
-...     altas_name="rahul",
+...     atlas_name="rahul",
 ... )
 >>> task.cmdline  # doctest: +ELLIPSIS
 'mris_ca_label -orig white -novar -t colortable.txt \
