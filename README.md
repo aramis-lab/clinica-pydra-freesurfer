@@ -15,7 +15,7 @@ for DAG construction, manipulation, and distributed execution.
 for processing, analyzing, and visualizing human brain MR images.
 
 This project exposes some of FreeSurfer's utilities as Pydra tasks
-to facilitate their incorporation into more advanced processing workflows.
+to facilitate their integration into more advanced processing workflows.
 
 **Table of contents**
 
@@ -34,6 +34,7 @@ pip install pydra-freesurfer
 
 - gtmseg
 - mri_convert
+- mri_label2vol
 - mri_surf2surf
 - mri_vol2vol
 - mris_anatomical_stats
