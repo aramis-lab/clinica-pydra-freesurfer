@@ -103,6 +103,14 @@ class MRISAnatomicalStatsSpec(pydra.specs.ShellSpec):
         }
     )
 
+    no_global_stats: bool = attrs.field(
+        metadata={
+            "help_string": "do not write global stats in table file",
+            "argstr": "-noglobal",
+            "requires": {"output_table_file"},
+        }
+    )
+
     no_header: bool = attrs.field(
         metadata={
             "help_string": "do not write a header in log file",
