@@ -93,6 +93,13 @@ class MRISCALabelSpec(pydra.specs.ShellSpec):
         }
     )
 
+    aseg_volume_file: str = attrs.field(
+        metadata={
+            "help_string": "use aseg volume to correct midline",
+            "argstr": "-aseg",
+        }
+    )
+
     original_surface_file: str = attrs.field(
         default="smoothwm",
         metadata={
