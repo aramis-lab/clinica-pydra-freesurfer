@@ -10,6 +10,7 @@ use cases. Those interfaces have to be imported from their corresponding subpack
 >>> from pydra.tasks.freesurfer.recon_all import BaseReconAll, LongReconAll
 
 .. automodule:: pydra.tasks.freesurfer.gtmseg
+.. automodule:: pydra.tasks.freesurfer.mri_aparc2aseg
 .. automodule:: pydra.tasks.freesurfer.mri_convert
 .. automodule:: pydra.tasks.freesurfer.mri_label2vol
 .. automodule:: pydra.tasks.freesurfer.mri_surf2surf
@@ -23,6 +24,7 @@ use cases. Those interfaces have to be imported from their corresponding subpack
 .. automodule:: pydra.tasks.freesurfer.tkregister2
 """
 from .gtmseg import GTMSeg
+from .mri_aparc2aseg import MRIAparc2Aseg
 from .mri_convert import MRIConvert
 from .mri_label2vol import MRILabel2Vol
 from .mri_surf2surf import MRISurf2Surf
@@ -37,6 +39,7 @@ from .tkregister2 import TkRegister2
 
 __all__ = [
     "GTMSeg",
+    "MRIAparc2Aseg",
     "MRIConvert",
     "MRILabel2Vol",
     "MRISurf2Surf",
