@@ -11,6 +11,7 @@ use cases. Those interfaces have to be imported from their corresponding subpack
 
 .. automodule:: pydra.tasks.freesurfer.gtmseg
 .. automodule:: pydra.tasks.freesurfer.mri_aparc2aseg
+.. automodule:: pydra.tasks.freesurfer.mri_binarize
 .. automodule:: pydra.tasks.freesurfer.mri_convert
 .. automodule:: pydra.tasks.freesurfer.mri_label2vol
 .. automodule:: pydra.tasks.freesurfer.mri_surf2surf
