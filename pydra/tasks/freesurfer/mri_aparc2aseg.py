@@ -23,7 +23,7 @@ import attrs
 
 import pydra
 
-from .specs import SubjectsDirOutSpec
+from .specs import SubjectsDirSpec, SubjectsDirOutSpec
 
 __all__ = ["MRIAparc2Aseg"]
 
@@ -31,10 +31,6 @@ __all__ = ["MRIAparc2Aseg"]
 @attrs.define(slots=False, kw_only=True)
 class MRIAparc2AsegSpec(pydra.specs.ShellSpec):
     """Specifications for mri_aparc2aseg."""
-
-    subjects_dir: str = attrs.field(
-        metadata={"help_string": "subjects directory", "argstr": "--sd"}
-    )
 
     subject_id: str = attrs.field(
         metadata={"help_string": "subject identifier", "argstr": "--s"}
@@ -90,7 +86,7 @@ class MRIAparc2Aseg(pydra.engine.ShellCommandTask):
 
     input_spec = pydra.specs.SpecInfo(
         name="MRIAparc2AsegInput",
-        bases=(MRIAparc2AsegSpec,),
+        bases=(MRIAparc2AsegSpec, SubjectsDirSpec),
     )
 
     output_spec = pydra.specs.SpecInfo(

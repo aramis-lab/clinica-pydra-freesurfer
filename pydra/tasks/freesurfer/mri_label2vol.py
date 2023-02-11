@@ -90,6 +90,8 @@ import attrs
 
 import pydra
 
+from .specs import SubjectsDirSpec, SubjectsDirOutSpec
+
 __all__ = ["MRILabel2Vol"]
 
 
@@ -207,7 +209,12 @@ class MRILabel2Vol(pydra.engine.ShellCommandTask):
 
     input_spec = pydra.specs.SpecInfo(
         name="MRILabel2VolInput",
-        bases=(MRILabel2VolSpec,),
+        bases=(MRILabel2VolSpec, SubjectsDirSpec),
+    )
+
+    output_spec = pydra.specs.SpecInfo(
+        name="MRILabel2VolOutput",
+        bases=(SubjectsDirOutSpec,),
     )
 
     executable = "mri_label2vol"
