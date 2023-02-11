@@ -23,7 +23,7 @@ import attrs
 
 import pydra
 
-from .specs import SubjectsDirSpec, SubjectsDirOutSpec
+from . import specs
 
 __all__ = ["MRIAparc2Aseg"]
 
@@ -86,12 +86,12 @@ class MRIAparc2Aseg(pydra.engine.ShellCommandTask):
 
     input_spec = pydra.specs.SpecInfo(
         name="MRIAparc2AsegInput",
-        bases=(MRIAparc2AsegSpec, SubjectsDirSpec),
+        bases=(MRIAparc2AsegSpec, specs.SubjectsDirSpec),
     )
 
     output_spec = pydra.specs.SpecInfo(
         name="MRIAparc2AsegOutput",
-        bases=(SubjectsDirOutSpec,),
+        bases=(specs.SubjectsDirOutSpec,),
     )
 
     executable = "mri_aparc2aseg"
