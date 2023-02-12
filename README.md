@@ -2,6 +2,7 @@
 
 [![PyPI - Version](https://img.shields.io/pypi/v/pydra-freesurfer.svg)](https://pypi.org/project/pydra-freesurfer)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pydra-freesurfer.svg)](https://pypi.org/project/pydra-freesurfer)
+[![PyPI - Downloads](https://static.pepy.tech/badge/pydra-freesurfer)](https://pypi.org/project/pydra-freesurfer)
 
 ---
 
