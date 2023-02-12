@@ -9,10 +9,10 @@ Examples
 --------
 
 >>> task = MRIBinarize(
-...     input_volume="aseg.nii.gz",
-...     output_volume="mask.nii.gz",
-...     min=1000,
-...     max=1999,
+...     input_volume_file="aseg.nii.gz",
+...     output_volume_file="mask.nii.gz",
+...     min_value=1000,
+...     max_value=1999,
 ...     bin_value=1,
 ... )
 >>> task.cmdline
@@ -32,70 +32,67 @@ __all__ = ["MRIBinarize"]
 class MRIBinarizeSpec(pydra.specs.ShellSpec):
     """Specifications for mri_binarize."""
 
-    input_volume: os.PathLike = attrs.field(
+    input_volume_file: os.PathLike = attrs.field(
         metadata={"help_string": "input volume", "mandatory": True, "argstr": "--i"}
     )
 
-    min: float = attrs.field(
+    min_value: float = attrs.field(
         metadata={
-            "help_string": "minimum threshold",
+            "help_string": "minimum absolute threshold value",
             "argstr": "--min",
-            "xor": {"rmin", "rmax", "match"},
+            "xor": {"relative_min", "relative_max", "match_values"},
         }
     )
 
-    max: float = attrs.field(
+    max_value: float = attrs.field(
         metadata={
-            "help_string": "maximum threshold",
+            "help_string": "maximum absolute threshold value",
             "argstr": "--max",
-            "xor": {"rmin", "rmax", "match"},
+            "xor": {"relative_min", "relative_max", "match_values"},
         }
     )
 
-    rmin: float = attrs.field(
+    relative_min: float = attrs.field(
         metadata={
-            "help_string": "minimum relative threshold",
+            "help_string": "minimum threshold value relative to the global mean",
             "argstr": "--rmin",
-            "xor": {"min", "max", "match"},
+            "xor": {"min_value", "max_value", "match_values"},
         }
     )
 
-    rmax: float = attrs.field(
+    relative_max: float = attrs.field(
         metadata={
-            "help_string": "maximum relative threshold",
+            "help_string": "maximum threshold value relative to the global mean",
             "argstr": "--rmax",
-            "xor": {"min", "max", "match"},
+            "xor": {"min_value", "max_value", "match_values"},
         }
     )
 
-    pct: float = attrs.field(
+    percentage: float = attrs.field(
         metadata={
-            "help_string": (
-                "Set min threshold so that the top P percent of the voxels"
-                " are captured in the output mask."
-            ),
+            "help_string": "set the minimum threshold to capture a given percentage of top voxel values",
             "argstr": "--pct",
-            "xor": {"min", "rmin"},
+            "xor": {"min_value", "relative_min", "match_values"},
         }
     )
 
-    fdr: float = attrs.field(
+    false_discovery_rate: float = attrs.field(
         metadata={
-            "help_string": "set min threshold to achieve a given FDR.",
+            "help_string": "set the minimum threshold to achieve a given false discovery rate",
             "argstr": "--fdr",
-            "xor": {"min", "rmin"},
+            "xor": {"min_value", "relative_min", "match_values"},
         }
     )
 
-    match: ty.Iterable[float] = attrs.field(
+    match_values: ty.Iterable[float] = attrs.field(
         metadata={
             "help_string": "binarize based on match values",
             "argstr": "--match",
-            "xor": {"min", "max", "rmin", "rmax"},
+            "xor": {"min_value", "max_value", "relative_min", "relative_max"},
         }
     )
 
-    output_volume: str = attrs.field(
+    output_volume_file: str = attrs.field(
         metadata={
             "help_string": "output volume",
             "mandatory": True,
@@ -105,12 +102,12 @@ class MRIBinarizeSpec(pydra.specs.ShellSpec):
     )
 
     bin_value: int = attrs.field(
-        metadata={"help_string": "value to use for voxels in range for binarization", "argstr": "--binval"}
+        metadata={"help_string": "substitute value for voxels in range of binarization", "argstr": "--binval"}
     )
 
     not_bin_value: int = attrs.field(
         metadata={
-            "help_string": "value to use for voxels not in range for binarization",
+            "help_string": "substitute value for voxels not in range for binarization",
             "argstr": "--binvalnot",
             "xor": {"merge_volume_file"},
         }
@@ -124,7 +121,7 @@ class MRIBinarizeSpec(pydra.specs.ShellSpec):
         metadata={"help_string": "merge binarization with this volume", "argstr": "--merge", "xor": {"not_bin_value"}}
     )
 
-    mask_volume_file: os.PathLike = attrs.field(
+    mask_file: os.PathLike = attrs.field(
         metadata={"help_string": "input mask applied to volume", "argstr": "--mask"}
     )
 
