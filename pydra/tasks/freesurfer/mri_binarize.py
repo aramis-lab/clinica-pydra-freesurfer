@@ -15,8 +15,8 @@ Examples
 ...     max_value=1999,
 ...     bin_value=1,
 ... )
->>> task.cmdline
-'mri_binarize --i aseg.nii.gz --min 1000 --max 1999 --o mask.nii.gz --binval 1'
+>>> task.cmdline  # doctest: +ELLIPSIS
+'mri_binarize --i aseg.nii.gz --min 1000 --max 1999 --o mask.nii.gz --count ...aseg_count.txt --binval 1'
 """
 import os
 import typing as ty
@@ -98,6 +98,15 @@ class MRIBinarizeSpec(pydra.specs.ShellSpec):
             "mandatory": True,
             "argstr": "--o",
             "output_file_template": "{input_volume}_binarized",
+        }
+    )
+
+    output_count_file: str = attrs.field(
+        metadata={
+            "help_string": "save hit counts",
+            "argstr": "--count",
+            "output_file_template": "{input_volume_file}_count.txt",
+            "keep_extension": False,
         }
     )
 
