@@ -108,9 +108,9 @@ class MRIBinarizeSpec(pydra.specs.ShellSpec):
         metadata={"help_string": "value to use for voxels in range for binarization", "argstr": "--binval"}
     )
 
-    out_bin_value: int = attrs.field(
+    not_bin_value: int = attrs.field(
         metadata={
-            "help_string": "value to use for voxels out of range for binarization",
+            "help_string": "value to use for voxels not in range for binarization",
             "argstr": "--binvalnot",
             "xor": {"merge_volume_file"},
         }
@@ -121,7 +121,7 @@ class MRIBinarizeSpec(pydra.specs.ShellSpec):
     )
 
     merge_volume_file: os.PathLike = attrs.field(
-        metadata={"help_string": "merge binarization with this volume", "argstr": "--merge", "xor": {"out_bin_value"}}
+        metadata={"help_string": "merge binarization with this volume", "argstr": "--merge", "xor": {"not_bin_value"}}
     )
 
     mask_volume_file: os.PathLike = attrs.field(
