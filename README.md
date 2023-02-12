@@ -33,6 +33,8 @@ pip install pydra-freesurfer
 ## Available interfaces
 
 - gtmseg
+- mri_aparc2aseg
+- mri_binarize
 - mri_convert
 - mri_label2vol
 - mri_surf2surf
