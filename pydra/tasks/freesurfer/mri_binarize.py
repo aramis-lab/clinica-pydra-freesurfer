@@ -95,9 +95,8 @@ class MRIBinarizeSpec(pydra.specs.ShellSpec):
     output_volume_file: str = attrs.field(
         metadata={
             "help_string": "output volume",
-            "mandatory": True,
             "argstr": "--o",
-            "output_file_template": "{input_volume}_binarized",
+            "output_file_template": "{input_volume_file}_mask",
         }
     )
 
