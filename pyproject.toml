@@ -45,15 +45,16 @@ only-include = ["pydra/tasks/freesurfer"]
 
 [tool.black]
 extend-exclude = ["docs"]
+force-exclude = [".hatch"]
 
 [tool.codespell]
 quiet-level = 3
-skip = ".git"
+skip = ".git,.hatch"
 
 [tool.isort]
 profile = "black"
 atomic = true
-extend_skip = ["docs"]
+extend_skip = [".hatch", "docs"]
 src_paths = ["pydra"]
 
 [tool.pytest.ini_options]
