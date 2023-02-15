@@ -1,14 +1,15 @@
 name: publish
 
 on:
-  # Trigger this workflow when a release is published.
   release:
-    types:
-      - published
+    types: [ published ]
 
 permissions:
-  # Allow checkout of the project.
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   publish:
@@ -25,4 +26,4 @@ jobs:
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          password: ${{ secrets.PYPI_TOKEN }}
+          password: ${{ secrets.PYPI_API_TOKEN }}
