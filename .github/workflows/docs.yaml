@@ -1,15 +1,16 @@
 name: docs
 
 on:
-  # Trigger this workflow on push events to the main branch.
   push:
-    branches:
-      - main
-  # Trigger this workflow on pull request events to the main branch.
+    paths:
+      - '.github/workflows/docs.yaml'
+      - 'docs/**'
+      - 'pydra/**'
   pull_request:
-    branches:
-      - main
-  # Run this workflow manually from the Actions tab.
+    paths:
+      - '.github/workflows/docs.yaml'
+      - 'docs/**'
+      - 'pydra/**'
   workflow_dispatch:
 
 permissions:
@@ -22,7 +23,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Build the documentation.
   build:
     runs-on: ubuntu-latest
     steps:
@@ -38,10 +38,9 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: docs
-          path: ./docs/_build/html
+          path: 'docs/_build/html'
           retention-days: 1
 
-  # Deploy the documentation if on main branch.
   deploy:
     needs: build
     if: contains('refs/heads/main', github.ref)
