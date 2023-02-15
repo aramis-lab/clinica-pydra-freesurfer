@@ -12,11 +12,14 @@ on:
   # Run this workflow manually from the Actions tab.
   workflow_dispatch:
 
-# Set permissions of the GITHUB_TOKEN to enable deployment to GitHub Pages.
 permissions:
   contents: read
   pages: write
   id-token: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
 
 jobs:
   # Build the documentation.
