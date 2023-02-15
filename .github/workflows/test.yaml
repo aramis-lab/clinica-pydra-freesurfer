@@ -1,18 +1,18 @@
 name: test
 
 on:
-  # Trigger this workflow on push events to the main branch.
   push:
-    branches:
-      - main
-  # Trigger this workflow on pull request events to the main branch.
+    paths:
+      - '.github/workflows/test.yaml'
+      - 'pydra/**'
+      - 'tests/**'
   pull_request:
-    branches:
-      - main
-  # Run this workflow manually from the Actions tab.
+    paths:
+      - '.github/workflows/test.yaml'
+      - 'pydra/**'
+      - 'tests/**'
   workflow_dispatch:
 
-# Set permissions of the GITHUB_TOKEN to checkout the source repository.
 permissions:
   contents: read
 
@@ -21,7 +21,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Lint codebase.
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -34,7 +33,6 @@ jobs:
       - name: Lint codebase
         run: hatch run lint:all
 
-  # Test codebase.
   test:
     strategy:
       fail-fast: false
