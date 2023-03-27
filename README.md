@@ -1,8 +1,10 @@
 # pydra-freesurfer
 
-[![PyPI - Version](https://img.shields.io/pypi/v/pydra-freesurfer.svg)](https://pypi.org/project/pydra-freesurfer)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pydra-freesurfer.svg)](https://pypi.org/project/pydra-freesurfer)
-[![PyPI - Downloads](https://static.pepy.tech/badge/pydra-freesurfer)](https://pypi.org/project/pydra-freesurfer)
+[![PyPI - Version][pypi-version]][pypi-project]
+[![PyPI - Python Version][pypi-pyversions]][pypi-project]
+[![PyPI - Downloads][pypi-downloads]][pypi-project]
+![][status-docs]
+![][status-test]
 
 ---
 
@@ -78,7 +80,22 @@ hatch run docs:serve --open-browser
 
 This project is released under the terms of the [Apache License, Version 2.0][license].
 
+[pypi-project]: https://pypi.org/project/pydra-freesurfer
+
+[pypi-version]: https://img.shields.io/pypi/v/pydra-freesurfer.svg
+
+[pypi-pyversions]: https://img.shields.io/pypi/pyversions/pydra-freesurfer.svg
+
+[pypi-downloads]: https://static.pepy.tech/badge/pydra-freesurfer
+
+[status-docs]: https://github.com/aramis-lab/pydra-freesurfer/actions/workflows/docs.yaml/badge.svg
+
+[status-test]: https://github.com/aramis-lab/pydra-freesurfer/actions/workflows/test.yaml/badge.svg
+
 [pydra]: https://nipype.github.io/pydra
+
 [freesurfer]: https://surfer.nmr.mgh.harvard.edu
+
 [hatch]: https://hatch.pypa.io
+
 [license]: https://opensource.org/licenses/Apache-2.0
