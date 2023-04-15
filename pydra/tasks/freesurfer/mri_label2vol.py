@@ -49,7 +49,7 @@ Require that a functional voxel be filled at least 30% by the label.
 ... )
 >>> task.cmdline  # doctest: +ELLIPSIS
 'mri_label2vol --label lh-avg_central_sulcus.label --temp f.nii.gz --reg register.dat --fillthresh 0.3 \
---proj frac 0 1 0.1 --subject bert --hemi lh --o cent-lh.nii.gz'
+--proj frac 0 1 0.1 --subject bert --o cent-lh.nii.gz --hemi lh'
 
 3. Convert a surface label into a binary mask in the functional space.
 Sample a 1mm ribbon 2mm below the gray / white surface.
@@ -66,7 +66,7 @@ Do not require a fill threshold.
 ... )
 >>> task.cmdline  # doctest: +ELLIPSIS
 'mri_label2vol --label lh-avg_central_sulcus.label --temp f.nii.gz --reg register.dat --proj abs -3 -2 0.1 \
---subject bert --hemi lh --o cent-lh.nii.gz'
+--subject bert --o cent-lh.nii.gz --hemi lh'
 
 4. Convert two labels into a volume in the same space as the labels.
 The voxels corresponding to lh-avg_central_sulcus.label will have a value of 1
@@ -180,14 +180,6 @@ class MRILabel2VolSpec(pydra.specs.ShellSpec):
         }
     )
 
-    hemisphere: str = attrs.field(
-        metadata={
-            "help_string": "load surface for this hemisphere",
-            "argstr": "--hemi",
-            "allowed_values": ["lh", "rh"],
-        }
-    )
-
     no_registration: bool = attrs.field(
         metadata={
             "help_string": "use the identity matrix for registration",
@@ -209,7 +201,7 @@ class MRILabel2Vol(pydra.engine.ShellCommandTask):
 
     input_spec = pydra.specs.SpecInfo(
         name="MRILabel2VolInput",
-        bases=(MRILabel2VolSpec, specs.SubjectsDirSpec),
+        bases=(MRILabel2VolSpec, specs.HemisphereSpec, specs.SubjectsDirSpec),
     )
 
     output_spec = pydra.specs.SpecInfo(

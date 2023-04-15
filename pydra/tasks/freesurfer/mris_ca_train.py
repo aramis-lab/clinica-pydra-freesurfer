@@ -34,7 +34,7 @@ class MRISCATrainSpec(pydra.specs.ShellSpec):
 
     hemisphere: str = attrs.field(
         metadata={
-            "help_string": "left or right hemisphere",
+            "help_string": "process left or right hemisphere",
             "mandatory": True,
             "argstr": "",
             "position": -5,

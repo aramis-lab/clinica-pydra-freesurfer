@@ -71,14 +71,6 @@ class MRIAparc2AsegSpec(pydra.specs.ShellSpec):
         }
     )
 
-    hemisphere: str = attrs.field(
-        metadata={
-            "help_string": "only process hemisphere",
-            "argstr": "--{hemisphere}",
-            "allowed_values": {"lh", "rh"},
-        }
-    )
-
     threads: int = attrs.field(
         metadata={"help_string": "run in parallel", "argstr": "--threads"}
     )
@@ -89,7 +81,7 @@ class MRIAparc2Aseg(pydra.engine.ShellCommandTask):
 
     input_spec = pydra.specs.SpecInfo(
         name="MRIAparc2AsegInput",
-        bases=(MRIAparc2AsegSpec, specs.SubjectsDirSpec),
+        bases=(MRIAparc2AsegSpec, specs.HemisphereSpec, specs.SubjectsDirSpec),
     )
 
     output_spec = pydra.specs.SpecInfo(

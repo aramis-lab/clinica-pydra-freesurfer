@@ -34,10 +34,12 @@ class SubjectsDirOutSpec(pydra.specs.ShellOutSpec):
 
 @attrs.define(slots=False, kw_only=True)
 class HemisphereSpec(pydra.specs.ShellSpec):
+    """Specifications for hemisphere parameter."""
+
     hemisphere: str = attrs.field(
         metadata={
-            "help_string": "restrict processing to left or right hemisphere",
-            "argstr": "--hemi {hemisphere}",
+            "help_string": "process left or right hemisphere",
+            "argstr": "--hemi",
             "allowed_values": ["lh", "rh"],
         }
     )
