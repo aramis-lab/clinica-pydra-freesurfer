@@ -17,8 +17,8 @@ python = ["3.7", "3.8", "3.9", "3.10", "3.11"]
 [envs.docs]
 template = "docs"
 dependencies = [
-  "pydata-sphinx-theme",
-  "sphinx <6",  # https://github.com/pydata/pydata-sphinx-theme/pull/1097
+  "pydata-sphinx-theme >=0.13",
+  "sphinx <7",
   "sphinx-autobuild",
   "sphinx-pyproject",
 ]
