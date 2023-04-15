@@ -10,7 +10,6 @@ __all__ = ["SubjectsDirSpec", "SubjectsDirOutSpec", "HemisphereSpec"]
 
 @attrs.define(slots=False, kw_only=True)
 class SubjectsDirSpec(pydra.specs.ShellSpec):
-
     subjects_dir: os.PathLike = attrs.field(
         metadata={
             "help_string": "subjects directory processed by FreeSurfer",
@@ -35,7 +34,6 @@ class SubjectsDirOutSpec(pydra.specs.ShellOutSpec):
 
 @attrs.define(slots=False, kw_only=True)
 class HemisphereSpec(pydra.specs.ShellSpec):
-
     hemisphere: str = attrs.field(
         metadata={
             "help_string": "restrict processing to left or right hemisphere",

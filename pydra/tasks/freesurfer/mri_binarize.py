@@ -110,7 +110,10 @@ class MRIBinarizeSpec(pydra.specs.ShellSpec):
     )
 
     bin_value: int = attrs.field(
-        metadata={"help_string": "substitute value for voxels in range of binarization", "argstr": "--binval"}
+        metadata={
+            "help_string": "substitute value for voxels in range of binarization",
+            "argstr": "--binval",
+        }
     )
 
     not_bin_value: int = attrs.field(
@@ -122,11 +125,18 @@ class MRIBinarizeSpec(pydra.specs.ShellSpec):
     )
 
     copy_volume_file: os.PathLike = attrs.field(
-        metadata={"help_string": "copy values from this volume to the output", "argstr": "--copy"}
+        metadata={
+            "help_string": "copy values from this volume to the output",
+            "argstr": "--copy",
+        }
     )
 
     merge_volume_file: os.PathLike = attrs.field(
-        metadata={"help_string": "merge binarization with this volume", "argstr": "--merge", "xor": {"not_bin_value"}}
+        metadata={
+            "help_string": "merge binarization with this volume",
+            "argstr": "--merge",
+            "xor": {"not_bin_value"},
+        }
     )
 
     mask_file: os.PathLike = attrs.field(
@@ -142,7 +152,10 @@ class MRIBinarizeSpec(pydra.specs.ShellSpec):
     )
 
     save_as_uchar: bool = attrs.field(
-        metadata={"help_string": "save output volume as unsigned char", "argstr": "--uchar"}
+        metadata={
+            "help_string": "save output volume as unsigned char",
+            "argstr": "--uchar",
+        }
     )
 
 

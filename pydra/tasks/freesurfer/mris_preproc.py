@@ -93,7 +93,6 @@ __all__ = ["MRISPreproc"]
 
 @attrs.define(slots=False, kw_only=True)
 class MRISPreprocSpec(pydra.specs.ShellSpec):
-
     output_surface_file: str = attrs.field(
         metadata={
             "help_string": "output file",

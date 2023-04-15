@@ -41,7 +41,10 @@ class MRIAparc2AsegSpec(pydra.specs.ShellSpec):
     )
 
     mask_cortical_voxels: bool = attrs.field(
-        metadata={"help_string": "mask cortical voxels with mri/ribbon.mgz", "argstr": "--volmask"}
+        metadata={
+            "help_string": "mask cortical voxels with mri/ribbon.mgz",
+            "argstr": "--volmask",
+        }
     )
 
     use_a2005s_annotation: bool = attrs.field(
