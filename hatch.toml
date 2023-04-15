@@ -1,3 +1,6 @@
+[build.targets.wheel]
+only-include = ["pydra/tasks/freesurfer"]
+
 [envs.default]
 dependencies = [
   "coverage[toml] <7",
@@ -37,11 +40,11 @@ all = [
   "spelling",
 ]
 fix = [
-  "black --quiet {args:.}",
-  "isort --quiet {args:.}",
+  "black --quiet {args:pydra}",
+  "isort --quiet {args:pydra}",
 ]
-spelling = "codespell {args:.}"
+spelling = "codespell {args:pydra}"
 style = [
-  "black --check --diff {args:.}",
-  "isort --check --diff {args:.}",
+  "black --check --diff {args:pydra}",
+  "isort --check --diff {args:pydra}",
 ]

@@ -36,26 +36,27 @@ dependencies = [
 ]
 
 [project.urls]
-documentation = "https://aramis-lab.github.io/pydra-freesurfer"
-issues = "https://github.com/aramis-lab/pydra-freesurfer/issues"
-repository = "https://github.com/aramis-lab/pydra-freesurfer"
-
-[tool.hatch.build.targets.wheel]
-only-include = ["pydra/tasks/freesurfer"]
-
-[tool.black]
-extend-exclude = ["docs"]
-force-exclude = [".hatch"]
+Documentation = "https://aramis-lab.github.io/pydra-freesurfer"
+Issues = "https://github.com/aramis-lab/pydra-freesurfer/issues"
+Repository = "https://github.com/aramis-lab/pydra-freesurfer"
 
 [tool.codespell]
 quiet-level = 3
 skip = ".git,.hatch"
 
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
+
+[tool.coverage.run]
+branch = true
+parallel = true
+
 [tool.isort]
 profile = "black"
-atomic = true
-extend_skip = [".hatch", "docs"]
-src_paths = ["pydra"]
 
 [tool.pytest.ini_options]
 minversion = "6.0"
