@@ -33,6 +33,10 @@ to facilitate their integration into more advanced processing workflows.
 pip install pydra-freesurfer
 ```
 
+A separate installation of FreeSurfer is required to use this package.
+Please review the following [instructions][freesurfer-install]
+and [licensing details][freesurfer-license].
+
 ## Available interfaces
 
 - gtmseg
@@ -95,6 +99,10 @@ This project is released under the terms of the [Apache License, Version 2.0][li
 [pydra]: https://nipype.github.io/pydra
 
 [freesurfer]: https://surfer.nmr.mgh.harvard.edu
+
+[freesurfer-install]: https://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall
+
+[freesurfer-license]: https://surfer.nmr.mgh.harvard.edu/registration.html
 
 [hatch]: https://hatch.pypa.io
 
