@@ -41,20 +41,12 @@ Documentation = "https://aramis-lab.github.io/pydra-freesurfer"
 Issues = "https://github.com/aramis-lab/pydra-freesurfer/issues"
 Repository = "https://github.com/aramis-lab/pydra-freesurfer"
 
+[tool.black]
+target-version = ["py37"]
+line-length = 120
+
 [tool.codespell]
 quiet-level = 3
-skip = ".git,.hatch"
-
-[tool.coverage.report]
-exclude_lines = [
-  "no cov",
-  "if __name__ == .__main__.:",
-  "if TYPE_CHECKING:",
-]
-
-[tool.coverage.run]
-branch = true
-parallel = true
 
 [tool.isort]
 profile = "black"
@@ -65,4 +57,3 @@ addopts = [
   "--doctest-modules",
   "--doctest-continue-on-failure",
 ]
-testpaths = ["pydra"]

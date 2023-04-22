@@ -31,9 +31,7 @@ class LongReconAllSpec(pydra.specs.ShellSpec):
 @attrs.define(slots=False, kw_only=True)
 class LongReconAllOutSpec(pydra.specs.ShellOutSpec):
     @staticmethod
-    def get_subject_id(
-        longitudinal_timepoint_id: str, longitudinal_template_id: str
-    ) -> str:
+    def get_subject_id(longitudinal_timepoint_id: str, longitudinal_template_id: str) -> str:
         return f"{longitudinal_timepoint_id}.long.{longitudinal_template_id}"
 
     subject_id: str = attrs.field(

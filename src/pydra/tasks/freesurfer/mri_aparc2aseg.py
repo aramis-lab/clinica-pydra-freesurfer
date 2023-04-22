@@ -32,13 +32,9 @@ __all__ = ["MRIAparc2Aseg"]
 class MRIAparc2AsegSpec(pydra.specs.ShellSpec):
     """Specifications for mri_aparc2aseg."""
 
-    subject_id: str = attrs.field(
-        metadata={"help_string": "subject identifier", "argstr": "--s"}
-    )
+    subject_id: str = attrs.field(metadata={"help_string": "subject identifier", "argstr": "--s"})
 
-    output_volume_file: str = attrs.field(
-        metadata={"help_string": "output segmented volume", "argstr": "--o"}
-    )
+    output_volume_file: str = attrs.field(metadata={"help_string": "output segmented volume", "argstr": "--o"})
 
     mask_cortical_voxels: bool = attrs.field(
         metadata={
@@ -71,9 +67,7 @@ class MRIAparc2AsegSpec(pydra.specs.ShellSpec):
         }
     )
 
-    threads: int = attrs.field(
-        metadata={"help_string": "run in parallel", "argstr": "--threads"}
-    )
+    threads: int = attrs.field(metadata={"help_string": "run in parallel", "argstr": "--threads"})
 
 
 class MRIAparc2Aseg(pydra.engine.ShellCommandTask):

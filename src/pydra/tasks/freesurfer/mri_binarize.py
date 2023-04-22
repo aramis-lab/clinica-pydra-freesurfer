@@ -139,9 +139,7 @@ class MRIBinarizeSpec(pydra.specs.ShellSpec):
         }
     )
 
-    mask_file: os.PathLike = attrs.field(
-        metadata={"help_string": "input mask applied to volume", "argstr": "--mask"}
-    )
+    mask_file: os.PathLike = attrs.field(metadata={"help_string": "input mask applied to volume", "argstr": "--mask"})
 
     mask_threshold: float = attrs.field(
         metadata={

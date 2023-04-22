@@ -83,8 +83,7 @@ class MIRSExpandSpec(pydra.specs.ShellSpec):
             "help_string": "treat distance as fraction of cortical thickness",
             "formatter": (
                 lambda fraction_of_cortical_thickness, distance_is_fraction_of_cortical_thickness: "-thickness"
-                if fraction_of_cortical_thickness
-                or distance_is_fraction_of_cortical_thickness
+                if fraction_of_cortical_thickness or distance_is_fraction_of_cortical_thickness
                 else ""
             ),
         }
