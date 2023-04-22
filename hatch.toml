@@ -1,16 +1,15 @@
 [build.targets.wheel]
-only-include = ["pydra/tasks/freesurfer"]
+only-include = ["src/pydra/tasks/freesurfer"]
+sources = ["src"]
 
 [envs.default]
 dependencies = [
   "pytest",
-  "pytest-cov",
 ]
 [envs.default.scripts]
-cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=pydra"
-no-cov = "cov --no-cov"
+test = "pytest {args:src}"
 
-[[envs.test.matrix]]
+[[envs.all.matrix]]
 python = ["3.7", "3.8", "3.9", "3.10", "3.11"]
 
 [envs.docs]
@@ -39,11 +38,11 @@ all = [
   "spelling",
 ]
 fix = [
-  "black --quiet {args:pydra}",
-  "isort --quiet {args:pydra}",
+  "black --quiet {args:src}",
+  "isort --quiet {args:src}",
 ]
-spelling = "codespell {args:pydra}"
+spelling = "codespell {args:src}"
 style = [
-  "black --check --diff {args:pydra}",
-  "isort --check --diff {args:pydra}",
+  "black --check --diff {args:src}",
+  "isort --check --diff {args:src}",
 ]
