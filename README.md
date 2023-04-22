@@ -22,20 +22,10 @@ to facilitate their integration into more advanced processing workflows.
 
 **Table of contents**
 
-- [Installation](#installation)
 - [Available interfaces](#available-interfaces)
+- [Installation](#installation)
 - [Development](#development)
 - [Licensing](#licensing)
-
-## Installation
-
-```console
-pip install pydra-freesurfer
-```
-
-A separate installation of FreeSurfer is required to use this package.
-Please review the following [instructions][freesurfer-install]
-and [licensing details][freesurfer-license].
 
 ## Available interfaces
 
@@ -54,6 +44,17 @@ and [licensing details][freesurfer-license].
 - recon-all
 - tkregister2
 
+## Installation
+
+```console
+pip install pydra-freesurfer
+```
+
+A separate installation of FreeSurfer is required to use this package.
+Please review the following [instructions][freesurfer-install]
+and [licensing details][freesurfer-license].
+
+
 ## Development
 
 This project is managed with [Hatch][hatch]:
@@ -65,7 +66,7 @@ pipx install hatch
 To run the test suite:
 
 ```console
-hatch run test:no-cov
+hatch run test
 ```
 
 To fix linting issues:
@@ -82,21 +83,7 @@ hatch run docs:serve --open-browser
 
 ## Licensing
 
-This project is released under the terms of the [Apache License, Version 2.0][license].
-
-[pypi-project]: https://pypi.org/project/pydra-freesurfer
-
-[pypi-version]: https://img.shields.io/pypi/v/pydra-freesurfer.svg
-
-[pypi-pyversions]: https://img.shields.io/pypi/pyversions/pydra-freesurfer.svg
-
-[pypi-downloads]: https://static.pepy.tech/badge/pydra-freesurfer
-
-[status-docs]: https://github.com/aramis-lab/pydra-freesurfer/actions/workflows/docs.yaml/badge.svg
-
-[status-test]: https://github.com/aramis-lab/pydra-freesurfer/actions/workflows/test.yaml/badge.svg
-
-[pydra]: https://nipype.github.io/pydra
+This project is distributed under the terms of the [Apache License, Version 2.0][license].
 
 [freesurfer]: https://surfer.nmr.mgh.harvard.edu
 
@@ -107,3 +94,17 @@ This project is released under the terms of the [Apache License, Version 2.0][li
 [hatch]: https://hatch.pypa.io
 
 [license]: https://opensource.org/licenses/Apache-2.0
+
+[pydra]: https://nipype.github.io/pydra
+
+[pypi-downloads]: https://static.pepy.tech/badge/pydra-freesurfer
+
+[pypi-project]: https://pypi.org/project/pydra-freesurfer
+
+[pypi-pyversions]: https://img.shields.io/pypi/pyversions/pydra-freesurfer.svg
+
+[pypi-version]: https://img.shields.io/pypi/v/pydra-freesurfer.svg
+
+[status-docs]: https://github.com/aramis-lab/pydra-freesurfer/actions/workflows/docs.yaml/badge.svg
+
+[status-test]: https://github.com/aramis-lab/pydra-freesurfer/actions/workflows/test.yaml/badge.svg
