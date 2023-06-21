@@ -3,14 +3,12 @@ only-include = ["src/pydra/tasks/freesurfer"]
 sources = ["src"]
 
 [envs.default]
-dependencies = [
-  "pytest",
-]
+dependencies = ["pytest"]
 [envs.default.scripts]
 test = "pytest {args:src}"
 
 [[envs.all.matrix]]
-python = ["3.7", "3.8", "3.9", "3.10", "3.11"]
+python = ["3.8", "3.9", "3.10", "3.11"]
 
 [envs.docs]
 template = "docs"

@@ -57,3 +57,5 @@ addopts = [
   "--doctest-modules",
   "--doctest-continue-on-failure",
 ]
+pythonpath = ["src"]
+testpaths = ["src"]
