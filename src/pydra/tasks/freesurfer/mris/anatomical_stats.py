@@ -48,7 +48,8 @@ class AnatomicalStatsSpec(ShellSpec):
     surface_name: str = field(default="white", metadata={"help_string": "surface name", "argstr": "", "position": -1})
 
     label_file: PathLike = field(
-        metadata={"help_string": "restrict computation to each label in this file", "argstr": "-l"})
+        metadata={"help_string": "restrict computation to each label in this file", "argstr": "-l"}
+    )
 
     annotation_file: PathLike = field(
         metadata={"help_string": "compute statistics for each annotation in this file", "argstr": "-a"}
