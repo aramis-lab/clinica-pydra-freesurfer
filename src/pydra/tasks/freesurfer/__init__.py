@@ -24,6 +24,7 @@ use cases. Those interfaces have to be imported from their corresponding subpack
 .. automodule:: pydra.tasks.freesurfer.recon_all
 .. automodule:: pydra.tasks.freesurfer.tkregister2
 """
+from . import mri, mris
 from .gtmseg import GTMSeg
 from .mri_aparc2aseg import MRIAparc2Aseg
 from .mri_binarize import MRIBinarize
