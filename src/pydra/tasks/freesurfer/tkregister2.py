@@ -10,67 +10,49 @@ Examples
 
 Create a registration matrix between the conformed space (orig.mgz) and the native anatomical (rawavg.mgz):
 
->>> task = TkRegister2(
-...     moving_volume_file="rawavg.mgz",
-...     target_volume_file="orig.mgz",
-...     registration_file="register.native.dat",
-...     compute_registration_from_headers=True,
-... )
->>> task.cmdline
-'tkregister2 --noedit --mov rawavg.mgz --targ orig.mgz --reg register.native.dat --regheader'
-
-
+>>> task = TkRegister2(moving_volume="rawavg.mgz", target_volume="orig.mgz", register_from_headers=True)
+>>> task.cmdline    # doctest: +ELLIPSIS
+'tkregister2 --noedit --mov rawavg.mgz --targ orig.mgz --reg ...rawavg_tkregister2.dat --regheader'
 """
-
-import attrs
-
-import pydra
 
 __all__ = ["TkRegister2"]
 
+from os import PathLike
 
-@attrs.define(slots=False, kw_only=True)
-class TkRegister2Spec(pydra.specs.ShellSpec):
+from attrs import define, field
+from pydra.engine.specs import ShellSpec, SpecInfo
+from pydra.engine.task import ShellCommandTask
+
+
+@define(kw_only=True)
+class TkRegister2Spec(ShellSpec):
     """Specifications for tkregister2."""
 
-    moving_volume_file: str = attrs.field(
-        metadata={
-            "help_string": "moving volume",
-            "mandatory": True,
-            "argstr": "--mov",
-        }
-    )
+    moving_volume: PathLike = field(metadata={"help_string": "moving volume", "mandatory": True, "argstr": "--mov"})
 
-    target_volume_file: str = attrs.field(
-        metadata={
-            "help_string": "target volume",
-            "mandatory": True,
-            "argstr": "--targ",
-        }
-    )
+    target_volume: PathLike = field(metadata={"help_string": "target volume", "mandatory": True, "argstr": "--targ"})
 
-    registration_file: str = attrs.field(
+    output_registration_file: str = field(
         metadata={
-            "help_string": "registration file in FreeSurfer's format",
+            "help_string": "output registration file",
             "argstr": "--reg",
-            "output_file_template": "{registration_file}",
+            "output_file_template": "{moving_volume}_tkregister2.dat",
+            "keep_extension": False,
         }
     )
 
-    compute_registration_from_headers: bool = attrs.field(
-        metadata={
-            "help_string": "compute registration from the headers of the input volumes",
-            "argstr": "--regheader",
-        }
+    register_from_headers: bool = field(
+        metadata={"help_string": "compute registration from headers", "argstr": "--regheader"}
+    )
+
+    align_volume_centers: bool = field(
+        metadata={"help_string": "register from headers and align volume centers", "argstr": "--regheader-center"}
     )
 
 
-class TkRegister2(pydra.ShellCommandTask):
+class TkRegister2(ShellCommandTask):
     """Task for tkregister2."""
 
-    input_spec = pydra.specs.SpecInfo(
-        name="TkRegister2Input",
-        bases=(TkRegister2Spec, pydra.specs.ShellSpec),
-    )
-
     executable = "tkregister2 --noedit"
+
+    input_spec = SpecInfo(name="Input", bases=(TkRegister2Spec,))
