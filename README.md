@@ -6,7 +6,7 @@
 ![][status-docs]
 ![][status-test]
 
----
+----
 
 Pydra tasks for FreeSurfer.
 
@@ -29,20 +29,12 @@ to facilitate their integration into more advanced processing workflows.
 
 ## Available interfaces
 
-- gtmseg
-- mri_aparc2aseg
-- mri_binarize
-- mri_convert
-- mri_label2vol
-- mri_surf2surf
-- mri_vol2vol
-- mris_anatomical_stats
-- mris_ca_label
-- mris_ca_train
-- mris_expand
-- mris_preproc
-- recon-all
-- tkregister2
+| Module    | Interfaces                                                   |
+|-----------|--------------------------------------------------------------|
+| gmtseg    | GTMSeg                                                       |
+| mri       | Aparc2Aseg, Binarize, Convert, Label2Vol, Surf2Surf, Vol2Vol |
+| mris      | AnatomicalStats, CALabel, CATrain, Expand, Preproc           |
+| recon_all | ReconAll, BaseReconAll, LongReconAll                         |
 
 ## Installation
 
@@ -53,7 +45,6 @@ pip install pydra-freesurfer
 A separate installation of FreeSurfer is required to use this package.
 Please review the following [instructions][freesurfer-install]
 and [licensing details][freesurfer-license].
-
 
 ## Development
 
