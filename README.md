@@ -31,7 +31,7 @@ to facilitate their integration into more advanced processing workflows.
 
 | Module    | Interfaces                                                   |
 |-----------|--------------------------------------------------------------|
-| gmtseg    | GTMSeg                                                       |
+| gtmseg    | GTMSeg                                                       |
 | mri       | Aparc2Aseg, Binarize, Convert, Label2Vol, Surf2Surf, Vol2Vol |
 | mris      | AnatomicalStats, CALabel, CATrain, Expand, Preproc           |
 | recon_all | ReconAll, BaseReconAll, LongReconAll                         |
