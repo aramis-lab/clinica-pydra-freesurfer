@@ -89,4 +89,4 @@ class CATrain(ShellCommandTask):
 
     input_spec = SpecInfo(name="Input", bases=(CATrainSpec,))
 
-    output_spec = SpecInfo(name="Ouput", bases=(specs.SubjectsDirOutSpec,))
+    output_spec = SpecInfo(name="Output", bases=(specs.SubjectsDirOutSpec,))
