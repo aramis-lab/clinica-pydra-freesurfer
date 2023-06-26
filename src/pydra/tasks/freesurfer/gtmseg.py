@@ -7,82 +7,71 @@ Examples
 >>> task = GTMSeg(subject_id="subject", generate_segmentation=True)
 >>> task.cmdline
 'gtmseg --s subject --o gtmseg.mgz --xcerseg'
+
 >>> task = GTMSeg(
 ...     subject_id="subject",
 ...     keep_hypointensities=True,
 ...     subsegment_white_matter=True,
-...     output_volume_file="gtmseg.wmseg.hypo.mgz",
+...     output_volume="gtmseg.wmseg.hypo.mgz",
 ...     upsampling_factor=1,
-...     use_existing_segmentation=True,
+...     generate_segmentation=False,
 ... )
 >>> task.cmdline
 'gtmseg --s subject --o gtmseg.wmseg.hypo.mgz --no-xcerseg --usf 1 --keep-hypo --subsegwm'
+
 >>> task = GTMSeg(
 ...     subject_id="subject",
-...     output_volume_file="gtmseg+myseg.mgz",
-...     segmentation_file="apas+head+myseg.mgz",
+...     output_volume="gtmseg+myseg.mgz",
+...     head_segmentation="apas+head+myseg.mgz",
 ...     colortable="myseg.colortable.txt",
 ... )
 >>> task.cmdline
 'gtmseg --s subject --o gtmseg+myseg.mgz --head apas+head+myseg.mgz --ctab myseg.colortable.txt'
 """
-import attrs
-
-import pydra
-
-from . import specs
 
 __all__ = ["GTMSeg"]
 
+from os import PathLike
 
-@attrs.define(slots=False, kw_only=True)
-class GTMSegSpec(pydra.specs.ShellSpec):
-    """Specifications for FreeSurfer's gtmseg."""
+from attrs import NOTHING, define, field
+from pydra.engine.specs import ShellSpec, SpecInfo
+from pydra.engine.task import ShellCommandTask
 
-    subject_id: str = attrs.field(
-        metadata={
-            "help_string": "subject to analyze",
-            "mandatory": True,
-            "argstr": "--s",
-        }
-    )
+from . import specs
 
-    output_volume_file: str = attrs.field(
+
+@define(kw_only=True)
+class GTMSegSpec(ShellSpec):
+    """Specifications for gtmseg."""
+
+    subject_id: str = field(metadata={"help_string": "subject identifier", "mandatory": True, "argstr": "--s"})
+
+    output_volume: str = field(
         default="gtmseg.mgz",
-        metadata={
-            "help_string": "output volume file relative to the subject's mri directory",
-            "argstr": "--o",
-        },
+        metadata={"help_string": "output volume relative to the subject's mri directory", "argstr": "--o"},
     )
 
-    generate_segmentation: bool = attrs.field(
+    generate_segmentation: bool = field(
         metadata={
-            "help_string": "generate segmentation using xcerebralseg",
+            "help_string": "generate or use subject's head segmentation",
             "mandatory": True,
-            "argstr": "--xcerseg",
-            "xor": {"use_existing_segmentation", "segmentation_file"},
+            "formatter": lambda generate_segmentation: (
+                "" if generate_segmentation is NOTHING else "--xcerseg" if generate_segmentation else "--no-xcerseg"
+            ),
+            "xor": {"head_segmentation"},
         }
     )
 
-    use_existing_segmentation: bool = attrs.field(
+    head_segmentation: PathLike = field(
         metadata={
-            "help_string": "use existing segmentation",
-            "mandatory": True,
-            "argstr": "--no-xcerseg",
-            "xor": {"generate_segmentation", "segmentation_file"},
-        }
-    )
-
-    segmentation_file: str = attrs.field(
-        metadata={
-            "help_string": "use custom segmentation",
+            "help_string": "custom head segmentation",
             "mandatory": True,
             "argstr": "--head",
-            "xor": {"generate_segmentation", "use_existing_segmentation"},
+            "xor": {"generate_segmentation"},
         }
     )
 
-    no_pons_segmentation: bool = attrs.field(
+    no_pons_segmentation: bool = field(
         metadata={
             "help_string": "exclude pons from segmentation",
             "argstr": "--no-pons",
@@ -90,7 +79,7 @@ class GTMSegSpec(pydra.specs.ShellSpec):
         }
     )
 
-    no_vermis_segmentation: bool = attrs.field(
+    no_vermis_segmentation: bool = field(
         metadata={
             "help_string": "exclude vermis from segmentation",
             "argstr": "--no-vermis",
@@ -98,60 +87,35 @@ class GTMSegSpec(pydra.specs.ShellSpec):
         }
     )
 
-    colortable: str = attrs.field(
-        metadata={
-            "help_string": "use custom colortable",
-            "argstr": "--ctab",
-        }
-    )
+    colortable: str = field(metadata={"help_string": "use custom colortable", "argstr": "--ctab"})
 
-    upsampling_factor: int = attrs.field(
-        metadata={
-            "help_string": "upsampling factor (defaults to 2)",
-            "argstr": "--usf",
-        }
-    )
+    upsampling_factor: int = field(metadata={"help_string": "upsampling factor (defaults to 2)", "argstr": "--usf"})
 
-    output_upsampling_factor: int = attrs.field(
+    output_upsampling_factor: int = field(
         metadata={
             "help_string": "output upsampling factor (if different from upsampling factor)",
             "argstr": "--output-usf",
         }
     )
 
-    keep_hypointensities: bool = attrs.field(
-        metadata={
-            "help_string": "do not relabel hypointensities as white matter",
-            "argstr": "--keep-hypo",
-        }
+    keep_hypointensities: bool = field(
+        metadata={"help_string": "do not relabel hypointensities as white matter", "argstr": "--keep-hypo"}
     )
 
-    keep_corpus_callosum: bool = attrs.field(
-        metadata={
-            "help_string": "do not relabel corpus callosum as white matter",
-            "argstr": "--keep-cc",
-        }
+    keep_corpus_callosum: bool = field(
+        metadata={"help_string": "do not relabel corpus callosum as white matter", "argstr": "--keep-cc"}
     )
 
-    subsegment_white_matter: bool = attrs.field(
-        metadata={
-            "help_string": "subsegment white matter into lobes",
-            "argstr": "--subsegwm",
-        }
+    subsegment_white_matter: bool = field(
+        metadata={"help_string": "subsegment white matter into lobes", "argstr": "--subsegwm"}
     )
 
 
-class GTMSeg(pydra.ShellCommandTask):
-    """Task generator for FreeSurfer's gtmseg."""
-
-    input_spec = pydra.specs.SpecInfo(
-        name="GTMSegInput",
-        bases=(GTMSegSpec, specs.SubjectsDirSpec),
-    )
-
-    output_spec = pydra.specs.SpecInfo(
-        name="GTMSegOutput",
-        bases=(specs.SubjectsDirOutSpec,),
-    )
+class GTMSeg(ShellCommandTask):
+    """Task definition for gtmseg."""
 
     executable = "gtmseg"
+
+    input_spec = SpecInfo(name="Output", bases=(GTMSegSpec, specs.SubjectsDirSpec))
+
+    output_spec = SpecInfo(name="Input", bases=(specs.SubjectsDirOutSpec,))
