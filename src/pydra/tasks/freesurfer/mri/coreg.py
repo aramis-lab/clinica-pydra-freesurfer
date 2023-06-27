@@ -3,6 +3,13 @@ Coreg
 =====
 
 Perform linear registration between two volumes similar to SPM's spm_coreg.
+
+Examples
+--------
+
+>>> task = Coreg(source_volume="template.nii", target_volume="orig.mgz", degrees_of_freedom=12)
+>>> task.cmdline    # doctest: +ELLIPSIS
+'mri_coreg --mov template.nii --ref orig.mgz --reg .../template_coreg.lta --regdat .../template_coreg.dat --dof 12 ...'
 """
 
 __all__ = ["Coreg"]
