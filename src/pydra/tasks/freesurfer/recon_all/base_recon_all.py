@@ -1,57 +1,51 @@
-"""Base longitudinal template processing using FreeSurfer's recon-all."""
+"""
+BaseReconAll
+============
 
-import typing as ty
-
-import attrs
-
-import pydra
-
-from . import specs
+Base longitudinal template processing using FreeSurfer's recon-all.
+"""
 
 __all__ = ["BaseReconAll"]
 
+from typing import Sequence
 
-@attrs.define(slots=False, kw_only=True)
-class BaseReconAllSpec(pydra.specs.ShellSpec):
-    base_template_id: str = attrs.field(
-        metadata={
-            "help_string": "base template identifier",
-            "mandatory": True,
-            "argstr": "-base",
-        }
+from attrs import define, field
+from pydra.engine.specs import ShellOutSpec, ShellSpec, SpecInfo
+from pydra.engine.task import ShellCommandTask
+
+from . import specs
+
+
+@define(slots=False, kw_only=True)
+class BaseReconAllSpec(ShellSpec):
+    """Specifications for the base template workflow of recon-all."""
+
+    base_template_id: str = field(
+        metadata={"help_string": "base template identifier", "mandatory": True, "argstr": "-base"}
     )
 
-    base_timepoint_ids: ty.Iterable[str] = attrs.field(
-        metadata={
-            "help_string": "base timepoint identifiers",
-            "argstr": "-base-tp...",
-        }
+    base_timepoint_ids: Sequence[str] = field(
+        metadata={"help_string": "base timepoint identifiers", "argstr": "-base-tp..."}
     )
 
 
-@attrs.define(slots=False, kw_only=True)
-class BaseReconAllOutSpec(pydra.specs.ShellOutSpec):
-    @staticmethod
-    def get_subject_id(base_template_id: str) -> str:
-        return base_template_id
+@define(slots=False, kw_only=True)
+class BaseReconAllOutSpec(ShellOutSpec):
+    """Specifications for the base template workflow of recon-all."""
 
-    subject_id: str = attrs.field(
+    subject_id: str = field(
         metadata={
             "help_string": "subject identifier where outputs are written",
-            "callable": get_subject_id,
+            "callable": lambda base_template_id: base_template_id,
         }
     )
 
 
-class BaseReconAll(pydra.ShellCommandTask):
-    input_spec = pydra.specs.SpecInfo(
-        name="BaseReconAllInput",
-        bases=(BaseReconAllSpec, specs.ReconAllBaseSpec),
-    )
-
-    output_spec = pydra.specs.SpecInfo(
-        name="BaseReconAllOutput",
-        bases=(BaseReconAllOutSpec, specs.ReconAllBaseOutSpec),
-    )
+class BaseReconAll(ShellCommandTask):
+    """Task definition for the base template workflow of recon-all."""
 
     executable = "recon-all"
+
+    input_spec = SpecInfo(name="Input", bases=(BaseReconAllSpec, specs.ReconAllBaseSpec))
+
+    output_spec = SpecInfo(name="Output", bases=(BaseReconAllOutSpec, specs.ReconAllBaseOutSpec))
