@@ -2,6 +2,9 @@
 RobustTemplate
 ==============
 
+Construct an unbiased template from longitudinal volumes
+using an iterative algorithm to compute an average volume.
+
 Examples
 --------
 
