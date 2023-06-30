@@ -35,7 +35,7 @@ class RobustTemplateSpec(ShellSpec):
     """Specifications for mri_robust_template."""
 
     input_volumes: Sequence[PathLike] = field(
-        metadata={"help_string": "input volumes to be compute template from", "argstr": "--mov"}
+        metadata={"help_string": "input volumes to compute template from", "argstr": "--mov"}
     )
 
     output_volume: str = field(
