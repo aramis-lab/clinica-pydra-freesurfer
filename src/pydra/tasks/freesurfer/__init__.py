@@ -30,9 +30,8 @@ Task definitions for surface processing utilities are available under the :mod:`
 .. automodule:: pydra.tasks.freesurfer.tkregister2
 """
 
-from . import mri, mris
-from .gtmseg import GTMSeg
-from .recon_all import ReconAll
-from .tkregister2 import TkRegister2
+from pydra.tasks.freesurfer.gtmseg import GTMSeg
+from pydra.tasks.freesurfer.recon_all import ReconAll
+from pydra.tasks.freesurfer.tkregister2 import TkRegister2
 
 __all__ = ["GTMSeg", "ReconAll", "TkRegister2"]

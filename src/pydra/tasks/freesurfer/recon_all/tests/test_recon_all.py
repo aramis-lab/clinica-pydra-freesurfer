@@ -1,5 +1,3 @@
-import os
-
 from pydra.tasks.freesurfer.recon_all import recon_all
 
 

@@ -85,10 +85,10 @@ Examples
 __all__ = ["Vol2Vol"]
 
 from attrs import define, field
+
 from pydra.engine.specs import ShellSpec, SpecInfo
 from pydra.engine.task import ShellCommandTask
-
-from .. import specs
+from pydra.tasks.freesurfer import specs
 
 
 @define(kw_only=True)

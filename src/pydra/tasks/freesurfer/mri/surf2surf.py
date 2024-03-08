@@ -93,14 +93,12 @@ icosahedron and save in analyze4d format:
 
 __all__ = ["Surf2Surf"]
 
-from os import PathLike
-from typing import Sequence, Tuple
 
 from attrs import define, field
+
 from pydra.engine.specs import ShellSpec, SpecInfo
 from pydra.engine.task import ShellCommandTask
-
-from .. import specs
+from pydra.tasks.freesurfer import specs
 
 
 @define(kw_only=True)

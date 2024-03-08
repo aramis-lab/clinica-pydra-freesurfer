@@ -7,7 +7,7 @@ dependencies = ["pytest"]
 [envs.default.scripts]
 test = "pytest {args:src}"
 
-[[envs.all.matrix]]
+[[envs.default.matrix]]
 python = ["3.8", "3.9", "3.10", "3.11"]
 
 [envs.docs]
@@ -21,26 +21,3 @@ dependencies = [
 [envs.docs.scripts]
 build = "sphinx-build docs docs/_build/html -b {args:html}"
 serve = "sphinx-autobuild docs docs/_build/html {args}"
-
-[envs.lint]
-detached = true
-dependencies = [
-  "black",
-  "codespell",
-  "isort",
-  "tomli",
-]
-[envs.lint.scripts]
-all = [
-  "style",
-  "spelling",
-]
-fix = [
-  "black --quiet {args:src}",
-  "isort --quiet {args:src}",
-]
-spelling = "codespell {args:src}"
-style = [
-  "black --check --diff {args:src}",
-  "isort --check --diff {args:src}",
-]

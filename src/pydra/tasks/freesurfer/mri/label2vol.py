@@ -90,17 +90,17 @@ from os import PathLike
 from typing import Sequence, Tuple
 
 from attrs import define, field
+
 from pydra.engine.specs import ShellSpec, SpecInfo
 from pydra.engine.task import ShellCommandTask
-
-from .. import specs
+from pydra.tasks.freesurfer import specs
 
 
 @define(kw_only=True)
 class Label2VolSpec(ShellSpec):
     """Specifications for mri_label2vol."""
 
-    _xor = {"label_file", "label_files", "annotation_file", "segmentation_file"}
+    _xor = frozenset(["label_file", "label_files", "annotation_file", "segmentation_file"])
 
     label_file: PathLike = field(
         metadata={"help_string": "label file", "mandatory": True, "argstr": "--label", "xor": _xor}

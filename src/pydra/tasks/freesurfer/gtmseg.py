@@ -34,10 +34,10 @@ __all__ = ["GTMSeg"]
 from os import PathLike
 
 from attrs import NOTHING, define, field
+
 from pydra.engine.specs import ShellSpec, SpecInfo
 from pydra.engine.task import ShellCommandTask
-
-from . import specs
+from pydra.tasks.freesurfer import specs
 
 
 @define(kw_only=True)

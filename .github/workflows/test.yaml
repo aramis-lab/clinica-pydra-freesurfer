@@ -27,7 +27,7 @@ jobs:
       - name: Install Hatch
         run: pipx install hatch
       - name: Lint codebase
-        run: hatch run lint:all
+        run: hatch fmt
 
   test:
     strategy:

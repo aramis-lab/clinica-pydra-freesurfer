@@ -26,8 +26,8 @@ Examples
 'recon-all -long tp1 longbase -all'
 """
 
-from .base_recon_all import BaseReconAll
-from .long_recon_all import LongReconAll
-from .recon_all import ReconAll
+from pydra.tasks.freesurfer.recon_all.base_recon_all import BaseReconAll
+from pydra.tasks.freesurfer.recon_all.long_recon_all import LongReconAll
+from pydra.tasks.freesurfer.recon_all.recon_all import ReconAll
 
 __all__ = ["ReconAll", "BaseReconAll", "LongReconAll"]

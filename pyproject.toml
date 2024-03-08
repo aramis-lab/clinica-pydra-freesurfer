@@ -41,15 +41,8 @@ Documentation = "https://aramis-lab.github.io/pydra-freesurfer"
 Issues = "https://github.com/aramis-lab/pydra-freesurfer/issues"
 Repository = "https://github.com/aramis-lab/pydra-freesurfer"
 
-[tool.black]
-target-version = ["py37"]
-line-length = 120
-
 [tool.codespell]
 quiet-level = 3
-
-[tool.isort]
-profile = "black"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -59,3 +52,9 @@ addopts = [
 ]
 pythonpath = ["src"]
 testpaths = ["src"]
+
+[tool.ruff.lint]
+ignore = ["FA"]
+
+[tool.ruff.lint.extend-per-file-ignores]
+"docs/conf.py" = ["INP001", "A001"]

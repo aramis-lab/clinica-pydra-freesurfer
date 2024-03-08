@@ -4,9 +4,9 @@ from os import PathLike
 from typing import List
 
 from attrs import define, field
-from pydra.engine.specs import ShellSpec
 
-from ..specs import SubjectsDirOutSpec
+from pydra.engine.specs import ShellSpec
+from pydra.tasks.freesurfer.specs import SubjectsDirOutSpec
 
 # FIXME: Change to ty.Tuple[float, float, float] once Pydra supports it, if ever.
 SeedPoint = List[float]

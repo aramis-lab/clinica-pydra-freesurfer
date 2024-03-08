@@ -10,10 +10,10 @@ __all__ = ["BaseReconAll"]
 from typing import Sequence
 
 from attrs import define, field
+
 from pydra.engine.specs import ShellOutSpec, ShellSpec, SpecInfo
 from pydra.engine.task import ShellCommandTask
-
-from . import specs
+from pydra.tasks.freesurfer.recon_all import specs
 
 
 @define(slots=False, kw_only=True)

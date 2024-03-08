@@ -1,5 +1,6 @@
+from __future__ import annotations
+
 import os
-import typing as ty
 
 import attrs
 
@@ -21,7 +22,7 @@ class SubjectsDirSpec(pydra.specs.ShellSpec):
 @attrs.define(slots=False, kw_only=True)
 class SubjectsDirOutSpec(pydra.specs.ShellOutSpec):
     @staticmethod
-    def get_subjects_dir(subjects_dir: ty.Optional[str]) -> str:
+    def get_subjects_dir(subjects_dir: str | None) -> str:
         return os.fspath(subjects_dir or os.getenv("SUBJECTS_DIR"))
 
     subjects_dir: str = attrs.field(
