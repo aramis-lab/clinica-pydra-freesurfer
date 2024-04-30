@@ -5,7 +5,7 @@ About pydra-freesurfer
 
 `FreeSurfer`_ is an open source package for the analysis and visualization of structural, functional, and diffusion neuroimaging data from cross-sectional and longitudinal studies.
 
-pydra-freesurfer provides Pydra tasks for running and composing FreeSurfer commands.
+clinica-pydra-freesurfer provides Pydra tasks for running and composing FreeSurfer commands.
 
 .. toctree::
    :maxdepth: 2
