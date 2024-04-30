@@ -122,7 +122,7 @@ class PreprocSpec(ShellSpec):
             "help_string": "source subjects used as input",
             "argstr": "--s ...",
             "requires": {"measure"},
-            "xor": {"fsdg_file"},
+            "xor": {"fsgd_file"},
         }
     )
 
